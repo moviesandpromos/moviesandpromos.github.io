@@ -6,7 +6,7 @@
 		"name": "NonYoutube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-		"category": "Music",
+		"category": "Animation",
 		"language": "English",
 		"type": "Long"
 	},
@@ -17,7 +17,7 @@
 		"name": "Non Youtube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-		"category": "Music",
+		"category": "Animation",
 		"language": "English",
 		"type": "Long "
 	},
@@ -28,7 +28,7 @@
 		"name": "Non Youtube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-		"category": "Music",
+		"category": "Education",
 		"language": "English",
 		"type": "Long "
 	},
@@ -39,7 +39,7 @@
 		"name": "Non Youtube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-		"category": "Music",
+		"category": "Education",
 		"language": "English",
 		"type": "Long "
 	},
@@ -50,7 +50,7 @@
 		"name": "Non Youtube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-		"category": "Music",
+		"category": "Animation",
 		"language": "English",
 		"type": "Long "
 	},
@@ -61,7 +61,7 @@
 		"name": "Non Youtube",
 		"channel": "https://www.youtube.com/channel/UCtnSX50ivnPgp5VmaREYXYw",
 		"video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-		"category": "Music",
+		"category": "Animation",
 		"language": "English",
 		"type": "Long "
 	},
