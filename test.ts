@@ -1,5 +1,11 @@
 [
-    "AEAUH": {
-      "name": "Abu Dhabi",
+    {
+      name: "Abu Dhabi",
+       c:"DFDSF" 
+          },
+    
+    {
+      name: "kf",
+      c:"dsfkjj"  
           }
 ]
