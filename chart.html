@@ -5,9 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Image and Content Loader</title>
   <style>
+    /* General styles for a clean layout */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #image-container img {
+      width: 100%;
+      max-width: 600px; /* Restrict max size for larger screens */
+      height: auto; /* Maintain aspect ratio */
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
     #content-container {
       margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 1.1em;
+      padding: 0 15px;
+      text-align: center;
+      color: #333;
+    }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 600px) {
+      #content-container {
+        font-size: 1em;
+        padding: 0 10px;
+      }
+      #image-container img {
+        margin-top: 5px;
+      }
     }
   </style>
 </head>
@@ -22,11 +54,11 @@
   <script>
     // Array of images and corresponding content
     const imageData = [
-      { src: "bollinger-chart.png", content: "This is the content for Image 1." },
-      { src: "macd-chart.png", content: "This is the content for Image 2." },
-      { src: "rsi-chart.png", content: "Here is some information about Image 3." },
-      { src: "williams-r-chart.png", content: "Image 4 brings you this special content!" },
-      { src: "adline-chart.png", content: "Finally, some insights about Image 5." }
+      { src: "adline-chart.png", content: "Finally, some insights about Image 1." }	
+{ src: "bollinger-chart.png", content: "This is the content for Image 2." },
+      { src: "macd-chart.png", content: "This is the content for Image 3." },
+      { src: "rsi-chart.png", content: "Here is some information about Image 4." },
+      { src: "williams-r-chart.png", content: "Image 5 brings you this special content!" },
     ];
 
     // Function to get the 'image' parameter from the URL
