@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Image and Content Loader</title>
+  <style>
+    #content-container {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div id="image-container">
+    <!-- The image will be loaded here -->
+  </div>
+  <div id="content-container">
+    <!-- The content will change here -->
+  </div>
+
+  <script>
+    // Array of images and corresponding content
+    const imageData = [
+      { src: "bollinger-chart.png", content: "This is the content for Image 1." },
+      { src: "macd-chart.png", content: "This is the content for Image 2." },
+      { src: "rsi-chart.png", content: "Here is some information about Image 3." },
+      { src: "williams-r-chart.png", content: "Image 4 brings you this special content!" },
+      { src: "adline-chart.png", content: "Finally, some insights about Image 5." }
+    ];
+
+    // Function to get the 'image' parameter from the URL
+    function getImageParameter() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('image');
+    }
+
+    // Load the image and content based on the URL parameter
+    function loadImageAndContent() {
+      const imageIndex = getImageParameter();
+
+      // Check if the parameter is valid and within the array range
+      if (imageIndex && imageIndex >= 1 && imageIndex <= imageData.length) {
+        const img = document.createElement("img");
+        img.src = imageData[imageIndex - 1].src; // Adjust for zero-based index
+        img.alt = `Image ${imageIndex}`;
+        
+        // Clear existing content and insert the new image
+        const imageContainer = document.getElementById("image-container");
+        imageContainer.innerHTML = "";
+        imageContainer.appendChild(img);
+
+        // Display the corresponding content
+        document.getElementById("content-container").innerText = imageData[imageIndex - 1].content;
+      } else {
+        // Fallback for invalid or missing parameters
+        document.getElementById("image-container").innerHTML = "Image not found.";
+        document.getElementById("content-container").innerText = "No content available.";
+      }
+    }
+
+    // Load the image and content when the page loads
+    loadImageAndContent();
+  </script>
+</body>
+</html>
