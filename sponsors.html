@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Logo Website</title>
+    <style>
+        /* Reset some basic styles */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Header styling */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Main Content styling */
+        .logo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .logo-item {
+            text-align: center;
+        }
+
+        .logo-item img {
+            width: 100%;
+            max-width: 120px; /* Adjust this size to suit your images */
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-item p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        footer a {
+            color: #333;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Partner Logos</h1>
+    </header>
+
+    <div class="logo-container">
+        <!-- Logo 1 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo1.png" alt="Logo 1">
+            </a>
+            <p>Company 1</p>
+        </div>
+        
+        <!-- Logo 2 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo2.png" alt="Logo 2">
+            </a>
+            <p>Company 2</p>
+        </div>
+
+        <!-- Logo 3 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo3.png" alt="Logo 3">
+            </a>
+            <p>Company 3</p>
+        </div>
+
+        <!-- Logo 4 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo4.png" alt="Logo 4">
+            </a>
+            <p>Company 4</p>
+        </div>
+
+        <!-- Logo 5 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo5.png" alt="Logo 5">
+            </a>
+            <p>Company 5</p>
+        </div>
+
+        <!-- Logo 6 -->
+        <div class="logo-item">
+            <a href="https://example.com" target="_blank">
+                <img src="logo6.png" alt="Logo 6">
+            </a>
+            <p>Company 6</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Company | <a href="privacy.html">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
