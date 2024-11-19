@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Stockwise to learn more about our trading education platform and app. We're here to help!">
+    <meta name="keywords" content="Contact Stockwise, support, trading education platform">
+    <title>Contact Us - Stockwise</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2a9d8f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            color: white;
+            margin: 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            margin: 0 auto;
+            width: 50%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #2a9d8f;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Stockwise</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <section>
+        <h2>We'd love to hear from you!</h2>
+        <form action="submit_form.php" method="post">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Stockwise. All rights reserved.</p>
+    </footer>
+</body>
+</html>
