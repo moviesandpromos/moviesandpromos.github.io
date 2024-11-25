@@ -17,6 +17,13 @@
       color: white;
       padding: 10px 20px;
       text-align: center;
+      position: relative;
+    }
+    header img {
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      height: 50px;
     }
     nav {
       display: flex;
@@ -35,17 +42,35 @@
     .container {
       padding: 20px;
     }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
     .feature {
-      margin-bottom: 20px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .feature h3 {
       color: #0077b6;
+      margin-top: 0;
     }
-    .download {
+    .download-section {
       text-align: center;
-      margin: 20px 0;
+      margin: 40px 0;
     }
-    .download a {
+    .download-section img {
+      display: block;
+      margin: 0 auto 20px auto;
+      height: 100px;
+    }
+    .download-section p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .download-section a {
       display: inline-block;
       background-color: #0077b6;
       color: white;
@@ -53,7 +78,7 @@
       text-decoration: none;
       border-radius: 5px;
     }
-    .download a:hover {
+    .download-section a:hover {
       background-color: #005f99;
     }
     footer {
@@ -70,11 +95,15 @@
         flex-direction: column;
         align-items: center;
       }
+      .features {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <header>
+    <img src="images/logo_stocksnmore.png" alt="Stocks 'n More Logo">
     <h1>Welcome to Stocks 'n More</h1>
     <p>Your gateway to mastering the stock market!</p>
   </header>
@@ -89,40 +118,44 @@
     <section id="home">
       <h2>About StockWise App</h2>
       <p>The StockWise app is your one-stop solution for learning and mastering the stock market. Explore its features:</p>
-      <div class="feature">
-        <h3>Fundamentals</h3>
-        <p>Understand the financial health of companies with insights into balance sheets, income statements, and key ratios.</p>
-      </div>
-      <div class="feature">
-        <h3>Technicals</h3>
-        <p>Learn technical analysis with tools like charts, patterns, and indicators for better trading decisions.</p>
-      </div>
-      <div class="feature">
-        <h3>Mutual Funds</h3>
-        <p>Explore various mutual fund schemes and strategies to maximize returns with calculated risks.</p>
-      </div>
-      <div class="feature">
-        <h3>Derivatives</h3>
-        <p>Master options and futures trading to hedge risks or leverage your trades effectively.</p>
-      </div>
-      <div class="feature">
-        <h3>Commodities</h3>
-        <p>Gain insights into trading precious metals, energy resources, and agricultural products.</p>
-      </div>
-      <div class="feature">
-        <h3>Forex</h3>
-        <p>Understand currency trading and strategies to navigate the forex market.</p>
-      </div>
-      <div class="feature">
-        <h3>REIT</h3>
-        <p>Learn about Real Estate Investment Trusts and how to invest in real estate without owning property.</p>
-      </div>
-      <div class="feature">
-        <h3>Cryptos</h3>
-        <p>Dive into the world of cryptocurrencies and understand blockchain technology and market trends.</p>
+      <div class="features">
+        <div class="feature">
+          <h3>Fundamentals</h3>
+          <p>Understand the financial health of companies with insights into balance sheets, income statements, and key ratios.</p>
+        </div>
+        <div class="feature">
+          <h3>Technicals</h3>
+          <p>Learn technical analysis with tools like charts, patterns, and indicators for better trading decisions.</p>
+        </div>
+        <div class="feature">
+          <h3>Mutual Funds</h3>
+          <p>Explore various mutual fund schemes and strategies to maximize returns with calculated risks.</p>
+        </div>
+        <div class="feature">
+          <h3>Derivatives</h3>
+          <p>Master options and futures trading to hedge risks or leverage your trades effectively.</p>
+        </div>
+        <div class="feature">
+          <h3>Commodities</h3>
+          <p>Gain insights into trading precious metals, energy resources, and agricultural products.</p>
+        </div>
+        <div class="feature">
+          <h3>Forex</h3>
+          <p>Understand currency trading and strategies to navigate the forex market.</p>
+        </div>
+        <div class="feature">
+          <h3>REIT</h3>
+          <p>Learn about Real Estate Investment Trusts and how to invest in real estate without owning property.</p>
+        </div>
+        <div class="feature">
+          <h3>Cryptos</h3>
+          <p>Dive into the world of cryptocurrencies and understand blockchain technology and market trends.</p>
+        </div>
       </div>
     </section>
-    <div class="download">
+    <div class="download-section">
+      <img src="images/logo_stockwise.png" alt="StockWise App Logo">
+      <p>Download the StockWise app and begin your journey into stock market mastery today!</p>
       <a href="stockwise.html" download>Download the StockWise App</a>
     </div>
   </div>
