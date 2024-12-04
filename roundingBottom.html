@@ -6,14 +6,28 @@
     <title>Rounding Bottom Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 10px;
+        }
+
         canvas {
-            max-width: 80%;
-            margin: 0 auto;
+            width: 95%;
+            max-width: 900px;
         }
     </style>
 </head>
 <body>
-    <h2 style="text-align: center;">Stock Rounding Bottom Chart</h2>
+    <h2>Stock Rounding Bottom Chart</h2>
     <canvas id="roundingBottomChart"></canvas>
 
     <script>
@@ -31,11 +45,12 @@
             datasets: [
                 {
                     type: 'line',
-                    label: 'Close Price (Rs.)',
+                    label: 'Close Price ($)',
                     data: [150, 148, 147, 146, 145, 144, 143, 143, 144, 145, 146, 147, 148, 150, 152, 154, 157, 160],
                     borderColor: 'blue',
                     backgroundColor: 'rgba(0, 0, 255, 0.1)',
-                    borderWidth: 2,
+                    borderWidth: 3,
+                    tension: 0.3,
                     yAxisID: 'y1'
                 },
                 {
@@ -56,9 +71,24 @@
             data: data,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 interaction: {
                     mode: 'index',
                     intersect: false
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14 // Adjust font size for legend
+                            }
+                        }
+                    },
+                    tooltip: {
+                        bodyFont: {
+                            size: 12 // Adjust font size for tooltips
+                        }
+                    }
                 },
                 scales: {
                     y1: {
@@ -67,7 +97,15 @@
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Close Price (Rs.)'
+                            text: 'Close Price ($)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     },
                     y2: {
@@ -76,10 +114,25 @@
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Volume'
+                            text: 'Volume',
+                            font: {
+                                size: 14
+                            }
                         },
                         grid: {
                             drawOnChartArea: false // Only draw grid lines for y1
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
                         }
                     }
                 }
