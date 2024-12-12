@@ -56,33 +56,35 @@
   </div>
   <div id="content-container">
     <!-- The content will change here -->
-    <ul id="checklist">
-	<h3>Basic Checklist to Review:</h3>
-      <li>Review the 50-day and 200-day charts from the sources listed in the app.</li>
-      <li>Analyze the Support and Resistance levels:
-        <ul>
-          <li><b>Support</b>: The point where buying interest emerges, accompanied by volume.</li>
-          <li><b>Resistance</b>: The level where the stock is sold off in large quantities.</li>
-        </ul>
-      </li>
-      <li>Assess the sector's performance over the past few months. Determine whether the sector is outperforming or underperforming the index.</li>
-      <li>Evaluate the Price-to-Earnings (P/E) ratio in comparison to its peers. Peers should have similar business models and market capitalizations.</li>
-      <li>Monitor the market's volatility index (India VIX). If the index is high, consider avoiding investments for a while.</li>
-      <li>Examine the company's bottom line:
-        <ul>
-          <li>Is the Net Profit growing?</li>
-          <li>If the P/E ratio is high, review the capital expenditure plans.</li>
-        </ul>
-      </li>
-    </ul>
   </div>
 
   <script>
-    // Array of images and corresponding content
+    // Array of images, content, and checklist items
     const imageData = [
-      { src: "30day-chart1.png", content: "Bullish, Bearish or Sideways? What's your call?" },
-      { src: "30day-chart2.png", content: "Bullish, Bearish or Sideways? What's your call?" },
-      { src: "30day-chart3.png", content: "Bullish, Bearish or Sideways? What's your call?" },
+      { 
+        src: "30day-chart1.png", 
+        content: "Bullish, Bearish or Sideways? What's your call?",
+        checklist: [
+          "Review the 50-day and 200-day charts from the sources listed in the app.",
+          "Analyze the Support and Resistance levels: <ul><li><b>Support</b>: The point where buying interest emerges, accompanied by volume.</li><li><b>Resistance</b>: The level where the stock is sold off in large quantities.</li></ul>",
+        ]
+      },
+      { 
+        src: "30day-chart2.png", 
+        content: "Bullish, Bearish or Sideways? What's your call?",
+        checklist: [
+          "Assess the sector's performance over the past few months. Determine whether the sector is outperforming or underperforming the index.",
+          "Evaluate the Price-to-Earnings (P/E) ratio in comparison to its peers. Peers should have similar business models and market capitalizations."
+        ]
+      },
+      { 
+        src: "30day-chart3.png", 
+        content: "Bullish, Bearish or Sideways? What's your call?",
+        checklist: [
+          "Monitor the market's volatility index (India VIX). If the index is high, consider avoiding investments for a while.",
+          "Examine the company's bottom line: <ul><li>Is the Net Profit growing?</li><li>If the P/E ratio is high, review the capital expenditure plans.</li></ul>"
+        ]
+      }
     ];
 
     // Function to get the 'image' parameter from the URL
@@ -97,8 +99,9 @@
 
       // Check if the parameter is valid and within the array range
       if (imageIndex && imageIndex >= 1 && imageIndex <= imageData.length) {
+        const index = imageIndex - 1; // Adjust for zero-based index
         const img = document.createElement("img");
-        img.src = imageData[imageIndex - 1].src; // Adjust for zero-based index
+        img.src = imageData[index].src;
         img.alt = `Image ${imageIndex}`;
 
         // Clear existing content and insert the new image
@@ -106,10 +109,14 @@
         imageContainer.innerHTML = "";
         imageContainer.appendChild(img);
 
+        // Generate checklist items
+        const checklistItems = imageData[index].checklist.map(item => `<li>${item}</li>`).join("");
+
         // Display the corresponding content
         document.getElementById("content-container").innerHTML = `
-          <p>${imageData[imageIndex - 1].content}</p>
-          ${document.getElementById("checklist").outerHTML}
+          <p>${imageData[index].content}</p>
+          <h3>Basic Checklist to Review:</h3>
+          <ul id="checklist">${checklistItems}</ul>
         `;
       } else {
         // Fallback for invalid or missing parameters
