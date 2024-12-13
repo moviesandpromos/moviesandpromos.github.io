@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="description" content="Learn stock trading with Stocks 'n More. Explore insights on technical analysis, mutual funds, and cryptocurrencies. Download the StockWise app now!">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta property="og:title" content="Stocks 'n More - Learn Stock Trading | Download StockWise App">
   <meta property="og:description" content="Discover stock trading strategies and market insights with Stocks 'n More. Download the StockWise app for free!">
   <meta property="og:image" content="https://stocksnmore.com/logo_stockwise.webp">
   <meta property="og:url" content="https://stocksnmore.com">
   <meta property="og:type" content="website">
-
   <title>Stocks 'n More - Learn Stock Trading | Download StockWise App</title>
   <style>
     body {
@@ -19,23 +17,21 @@
       padding: 0;
       background-color: #f4f4f9;
       color: #333;
-      padding-bottom: 100px; /* Added space to prevent overlap with footer */
+      padding-bottom: 100px;
     }
     header {
-      background-color: #2c3e50; /* Darker background for contrast */
+      background-color: #007acc;
       color: white;
       padding: 20px 20px;
       text-align: center;
       position: relative;
+      border-bottom: 5px solid #ee9b00;
     }
     header img {
       position: absolute;
       left: 20px;
       top: 10px;
       height: 120px;
-      border: 2px solid #ffffff; /* White border for better contrast */
-      border-radius: 5px;
-      padding: 5px;
     }
     nav {
       display: flex;
@@ -47,9 +43,12 @@
       color: #007acc;
       text-decoration: none;
       font-weight: bold;
+      padding: 10px;
     }
     nav a:hover {
       text-decoration: underline;
+      background-color: #ee9b00;
+      color: white;
     }
     .container {
       padding: 20px;
@@ -61,9 +60,13 @@
     }
     .feature {
       background-color: white;
-      padding: 10px;
+      padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+    .feature:hover {
+      transform: scale(1.05);
     }
     .feature h3 {
       color: #ee9b00;
@@ -89,6 +92,7 @@
       padding: 10px 20px;
       text-decoration: none;
       border-radius: 5px;
+      font-size: 18px;
     }
     .download-section a:hover {
       background-color: #bb3e03;
@@ -102,11 +106,9 @@
       bottom: 0;
       width: 100%;
     }
-
-    /* Sticky download button styles */
     .sticky-download {
       position: fixed;
-      bottom: 120px; /* Space from the footer */
+      bottom: 120px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #ca6702;
@@ -115,11 +117,11 @@
       text-decoration: none;
       border-radius: 5px;
       z-index: 10;
+      font-size: 18px;
     }
     .sticky-download:hover {
       background-color: #bb3e03;
     }
-
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -133,61 +135,61 @@
 </head>
 <body>
   <header>
-    <h1>Welcome to StocksnMore 📈</h1>
-    <p>Your gateway to mastering the stock market! 🚀</p>
-    <img src="logo_stockwise.webp" alt="Stocks 'n More Logo">
+    <img src="https://stocksnmore.com/logo_stockwise.webp" alt="StockWise Logo">
+    <h1>Welcome to StocksnMore 🚀</h1>
+    <p>Your gateway to mastering the stock market! 📈</p>
   </header>
   <nav>
     <a href="index.html">Home 🏠</a>
-    <a href="about.html" aria-label="Home">About Us 📚</a>
+    <a href="about.html" aria-label="About Us">About Us 👨‍💼</a>
     <a href="contact.html" aria-label="Contact Us">Contact Us 📞</a>
     <a href="privacypolicy.html" aria-label="Privacy Policy">Privacy Policy 🔒</a>
     <a href="disclaimer.html" aria-label="Disclaimer">Disclaimer ⚖️</a>
   </nav>
   <div class="container">
     <section id="home">
-      <h2>About StockWise: Your Stock Trading Companion 💼</h2>
-      <p>The StockWise app is your one-stop solution for learning and mastering the stock market. Explore its features:</p>
+      <h2>About StockWise: Your Stock Trading Companion 📊</h2>
+      <p>The StockWise app is your one-stop solution for learning and mastering the stock market. Explore its features below:</p>
       <div class="features">
         <div class="feature">
-          <h3>Understanding Stock Market Fundamentals: Key Financial Metrics 📊</h3>
+          <h3>📊 Understanding Stock Market Fundamentals</h3>
           <p>Understand the financial health of companies with insights into balance sheets, income statements, and key ratios.</p>
-          <h5><a href="fundamentals.html">Read Blog on Fundamentals</a></h5>
+          <h5><a href="fundamentals.html">Read Blog on Fundamentals 📖</a></h5>
         </div>
         <div class="feature">
-          <h3>Mastering Technical Analysis: Charts, Patterns, and Indicators 📉</h3>
+          <h3>📈 Mastering Technical Analysis</h3>
           <p>Learn technical analysis with tools like charts, patterns, and indicators for better trading decisions.</p>
-          <h5><a href="indicators.html">Read Blog on Technical Analysis</a></h5>
+          <h5><a href="indicators.html">Read Blog on Technical Analysis 📚</a></h5>
         </div>
         <div class="feature">
-          <h3>Equities: Understanding the Core of the Stock Market 📈</h3>
-          <p>Understand stock trading, market trends, evaluate potential investments, and learn how to manage equity portfolio effectively.</p>
-          <h5><a href="equities.html">Read Blog on Equities</a></h5>
+          <h3>💹 Equities: The Core of Stock Market</h3>
+          <p>Understand stock trading, market trends, evaluate potential investments, and learn how to manage equity portfolios.</p>
+          <h5><a href="equities.html">Read Blog on Equities 💼</a></h5>
         </div>
         <div class="feature">
-          <h3>Maximizing Returns with Mutual Fund Investments 💰</h3>
+          <h3>💸 Maximizing Returns with Mutual Fund Investments</h3>
           <p>Explore various mutual fund schemes and strategies to maximize returns with calculated risks.</p>
-          <h5><a href="MutualFunds.html">Read Blog on Mutual Funds</a></h5>
+          <h5><a href="MutualFunds.html">Read Blog on Mutual Funds 💡</a></h5>
         </div>
         <div class="feature">
-          <h3>Leveraging Derivatives: Options and Futures Strategies 📉</h3>
+          <h3>📉 Leveraging Derivatives: Options and Futures</h3>
           <p>Master options and futures trading to hedge risks or leverage your trades effectively.</p>
-          <h5><a href="derivatives.html">Read Blog on Derivatives</a></h5>
+          <h5><a href="derivatives.html">Read Blog on Derivatives ⚙️</a></h5>
         </div>
         <div class="feature">
-          <h3>Diverse Markets: Commodities, Forex, Crypto & REITs 🌍</h3>
-          <p>Explore the dynamic world of commodities, forex, cryptocurrencies, and REITs in this section, where users can learn about market movements, investment strategies, and how these diverse assets play a key role in a balanced portfolio.</p>
-          <h5><a href="others.html">Read Blog on Diverse Markets</a></h5>
+          <h3>🌐 Diverse Markets: Commodities, Forex, Crypto & REITs</h3>
+          <p>Explore the dynamic world of commodities, forex, cryptocurrencies, and REITs in this section. Learn about market movements, investment strategies, and how these diverse assets play a key role in a balanced portfolio.</p>
+          <h5><a href="others.html">Read Blog on Diverse Markets 🔍</a></h5>
         </div>
       </div>
     </section>
   </div>
 
   <!-- Sticky Download Button -->
-  <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" class="sticky-download" download>Download StockWise for Android 📲</a>
+  <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" class="sticky-download" download>📱 Download StockWise for Android</a>
 
   <footer>
-    <p>&copy; 2024 Stocks 'n More. All rights reserved. 📅</p>
+    <p>&copy; 2024 Stocks 'n More. All rights reserved. 🌟</p>
   </footer>
 </body>
 </html>
