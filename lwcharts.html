@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Indicator Chart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 15px; /* Consistent padding for all screen sizes */
+      background: #f5f5f5;
+      box-sizing: border-box; /* Include padding in element's total width and height */
+    }
+    #app {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap; /* Allows items to wrap to the next line */
+      gap: 15px; /* Spacing between control groups */
+      margin-bottom: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .control-group {
+      flex: 1; /* Allows control groups to grow and shrink */
+      min-width: 180px; /* Adjusted min-width for better mobile stacking */
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 0.9rem; /* Adjusted font size for mobile readability */
+      color: #333;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem; /* Adjusted font size for mobile readability */
+      background: white;
+      box-sizing: border-box; /* Ensures padding doesn't push elements outside */
+    }
+    #chartContainer {
+      width: 100%;
+      height: 60vh;
+      min-height: 300px; /* Reduced min-height for smaller mobile screens */
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    #legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 0.85rem; /* Adjusted font size for mobile readability */
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      font-size: inherit; /* Inherit from parent legend for consistency */
+    }
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      margin-right: 8px;
+      border-radius: 3px;
+    }
+    #errorDisplay {
+      color: #d32f2f;
+      padding: 15px;
+      margin-top: 15px;
+      background: #ffebee;
+      border-radius: 6px;
+      display: none;
+    }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px; /* Slightly less padding on very small screens */
+      }
+      .controls {
+        flex-direction: column; /* Stack controls vertically on small screens */
+        gap: 10px; /* Reduced gap when stacked */
+      }
+      .control-group {
+        min-width: unset; /* Remove min-width when stacking */
+      }
+      #chartContainer {
+        height: 50vh; /* Adjust height for mobile */
+        min-height: 250px; /* Further reduced min-height for very small screens */
+      }
+      #legend {
+        font-size: 0.8rem; /* Smaller font for legend on very small screens */
+        gap: 10px; /* Reduced gap in legend */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Stock Indicator Chart</h2>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="symbol">Symbol:</label>
+        <select id="symbol"></select>
+      </div>
+      <div class="control-group">
+        <label for="indicator">Indicator:</label>
+        <select id="indicator">
+          <option value="adline">ADLine</option>
+          <option value="obv">OBV</option>
+          <option value="rsi">RSI</option>
+          <option value="macd">MACD</option>
+          <option value="macd_signal">MACD Signal</option>
+          <option value="close_price">Close Price</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="chartContainer"></div>
+    
+    <div id="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #2962FF;"></div>
+        <span id="price-legend">Close Price: -</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #26a69a;"></div>
+        <span id="indicator-legend">Indicator: -</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: rgba(100, 100, 100, 0.3);"></div>
+        <span>Volume</span>
+      </div>
+    </div>
+    
+    <div id="errorDisplay"></div>
+  </div>
+
+  <script>
+    // Chart elements
+    let chart = null;
+    let priceSeries = null;
+    let indicatorSeries = null;
+    let volumeSeries = null;
+    let crosshairSub = null;
+    
+    // Colors for chart series
+    const colors = {
+      price: '#2962FF',
+      indicator: '#26a69a',
+      volume: 'rgba(100, 100, 100, 0.3)'
+    };
+    
+    // Sample data to be used if JSON fails to load
+    // This sample data now includes the "DD-Mon-YYYY" format for trade_date
+    const sampleData = {
+      "AAPL": [
+        {"trade_date": "01-Jan-2023", "close_price": "150.25", "adline": 1200, "obv": 50000, "rsi": "45.5", "macd": "1.2", "macd_signal": "1.1", "total_traded_quantity": 1000000},
+        {"trade_date": "02-Jan-2023", "close_price": "152.75", "adline": 1250, "obv": 52000, "rsi": "50.2", "macd": "1.3", "macd_signal": "1.15", "total_traded_quantity": 1200000},
+        {"trade_date": "03-Jan-2023", "close_price": "151.00", "adline": 1230, "obv": 51000, "rsi": "48.0", "macd": "1.25", "macd_signal": "1.12", "total_traded_quantity": 900000}
+      ],
+      "MSFT": [
+        {"trade_date": "01-Jan-2023", "close_price": "250.50", "adline": 1800, "obv": 75000, "rsi": "55.8", "macd": "2.1", "macd_signal": "2.0", "total_traded_quantity": 800000},
+        {"trade_date": "02-Jan-2023", "close_price": "253.25", "adline": 1850, "obv": 78000, "rsi": "58.3", "macd": "2.2", "macd_signal": "2.05", "total_traded_quantity": 900000},
+        {"trade_date": "03-Jan-2023", "close_price": "252.00", "adline": 1830, "obv": 77000, "rsi": "57.0", "macd": "2.15", "macd_signal": "2.02", "total_traded_quantity": 700000}
+      ],
+      "INFIBEAM": [
+        {"trade_date": "21-May-2025", "rsi": "62.3734", "macd": "0.3954", "macd_signal": "0.1290", "obv": 97554757, "volume": 8230372, "close_price": "19.41"},
+        {"trade_date": "20-May-2025", "rsi": "59.8665", "macd": "0.3291", "macd_signal": "0.0625", "obv": 89324385, "volume": 8670211, "close_price": "19.04"},
+        {"trade_date": "19-May-2025", "rsi": "58.0000", "macd": "0.2500", "macd_signal": "0.0500", "obv": 85000000, "volume": 7500000, "close_price": "18.50"}
+      ]
+    };
+    
+    // Initialize chart
+    function initChart() {
+      try {
+        // Clear existing chart if it exists
+        if (chart) {
+          if (crosshairSub) {
+            crosshairSub.unsubscribe();
+            crosshairSub = null;
+          }
+          chart.remove();
+        }
+        
+        // Create new chart instance in the chartContainer div
+        chart = LightweightCharts.createChart(document.getElementById('chartContainer'), {
+          layout: {
+            backgroundColor: '#FFFFFF', // Chart background color
+            textColor: '#191919',       // Text color for labels
+            fontSize: 12,
+          },
+          grid: {
+            vertLines: { color: 'rgba(70, 70, 70, 0.1)' }, // Vertical grid lines
+            horzLines: { color: 'rgba(70, 70, 70, 0.1)' }, // Horizontal grid lines
+          },
+          crosshair: {
+            mode: LightweightCharts.CrosshairMode.Normal, // Normal crosshair mode
+            vertLine: {
+              labelBackgroundColor: colors.price, // Background color for vertical line label
+            },
+            horzLine: {
+              labelBackgroundColor: colors.price, // Background color for horizontal line label
+            },
+          },
+          rightPriceScale: {
+            visible: true,        // Right price scale visible for indicators
+            borderVisible: false, // Hide right price scale border
+            autoScale: true,      // Auto scale the price axis
+            scaleMargins: {
+              top: 0.1,           // Top margin for price scale
+              bottom: 0.2,        // Bottom margin for price scale
+            },
+          },
+          leftPriceScale: {
+            visible: true,        // Left price scale visible for Close Price
+            borderVisible: false, // Hide left price scale border
+            autoScale: true,      // Auto scale the price axis
+            scaleMargins: {
+              top: 0.1,
+              bottom: 0.2,
+            },
+          },
+          timeScale: {
+            borderVisible: false,    // Hide time scale border
+            timeVisible: true,       // Show time on the scale
+            secondsVisible: false,   // Hide seconds
+          },
+          handleScroll: {
+            mouseWheel: true, // Enable mouse wheel scrolling
+            pinch: true,      // Enable pinch scrolling on touch devices
+          },
+          handleScale: {
+            mouseWheel: true, // Enable mouse wheel scaling
+            pinch: true,      // Enable pinch scaling on touch devices
+          },
+        });
+        
+        // Add price series (line chart for close price) and attach to left price scale
+        priceSeries = chart.addLineSeries({
+          color: colors.price,
+          lineWidth: 3, // Increased line width for smoother appearance
+          priceScaleId: 'left', // Attach to the LEFT price scale
+          //title: 'Close Price',
+        });
+        
+        // Add indicator series (line chart for selected indicator) and attach to right price scale
+        indicatorSeries = chart.addLineSeries({
+          color: colors.indicator,
+          lineWidth: 3, // Increased line width for smoother appearance
+          priceScaleId: 'right', // Attach to the RIGHT price scale
+          //title: 'Indicator',
+        });
+        
+        // Add volume series (histogram chart)
+        volumeSeries = chart.addHistogramSeries({
+          color: colors.volume,
+          priceFormat: { type: 'volume' }, // Format price as volume
+          priceScaleId: 'volume',          // Attach to a custom 'volume' price scale
+        });
+        
+        // Configure the custom volume price scale
+        chart.priceScale('volume').applyOptions({
+          scaleMargins: {
+            top: 0.8,  // Push volume to the bottom of the chart
+            bottom: 0,
+          },
+        });
+        
+        // Subscribe to crosshair movement to update legend values
+        crosshairSub = chart.subscribeCrosshairMove(param => {
+          // Ensure param.time, series objects, and seriesData are valid before proceeding
+          if (!param.time || !priceSeries || !indicatorSeries || !param.seriesData) {
+              return;
+          }
+          
+          const priceData = param.seriesData.get(priceSeries);
+          const indicatorData = param.seriesData.get(indicatorSeries);
+          
+          // Update price legend, checking if priceData exists and has a finite value
+          document.getElementById('price-legend').textContent = 
+            `Close Price: ${priceData && typeof priceData.value === 'number' && isFinite(priceData.value) ? priceData.value.toFixed(2) : '--'}`;
+            
+          // Update indicator legend, checking if indicatorData exists and has a finite value
+          const indicatorName = document.getElementById('indicator').value;
+          document.getElementById('indicator-legend').textContent = 
+            `${indicatorName.toUpperCase()}: ${indicatorData && typeof indicatorData.value === 'number' && isFinite(indicatorData.value) ? indicatorData.value.toFixed(2) : '--'}`;
+        });
+        
+        return true; // Chart initialized successfully
+      } catch (error) {
+        showError("Failed to initialize chart: " + error.message);
+        return false; // Chart initialization failed
+      }
+    }
+    
+    // Function to format date string to timestamp, handling "DD-Mon-YYYY" format
+    function formatDate(dateStr) {
+      const monthMap = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+      };
+      const parts = dateStr.split('-');
+      
+      if (parts.length !== 3) {
+        console.warn("Invalid date string format: Expected 'DD-Mon-YYYY', got", dateStr);
+        return null; // Returning null here is critical
+      }
+
+      const day = parseInt(parts[0], 10);
+      const month = monthMap[parts[1]];
+      const year = parseInt(parts[2], 10);
+
+      // Validate parsed values
+      if (isNaN(day) || month === undefined || isNaN(year)) {
+        console.warn("Failed to parse date parts for:", dateStr, { day, month, year });
+        return null; // Returning null here is critical
+      }
+      
+      // Create a Date object in UTC to avoid timezone issues
+      const date = new Date(Date.UTC(year, month, day));
+      const timestamp = date.getTime() / 1000; // Get timestamp in seconds
+
+      if (isNaN(timestamp) || !isFinite(timestamp)) { // Added isFinite check
+          console.warn("Generated timestamp is NaN or not finite for:", dateStr, { year, month, day, timestamp });
+          return null;
+      }
+      return timestamp;
+    }
+    
+    // Load data from JSON or use sample data
+    async function loadData() {
+      try {
+        let data;
+        try {
+          // Attempt to fetch data from a local JSON file
+          const response = await fetch('indicator_chart_data.json');
+          if (!response.ok) {
+            // If fetch fails, log the error and fall back to sample data
+            console.warn("Failed to fetch 'indicator_chart_data.json': HTTP error " + response.status);
+            data = sampleData;
+          } else {
+            data = await response.json();
+          }
+        } catch (fetchError) {
+          // Catch network errors or other issues during fetch
+          console.warn("Using sample data due to fetch error:", fetchError.message);
+          data = sampleData;
+        }
+        
+        // Populate symbol dropdown with available symbols from the loaded data
+        const symbolSelect = document.getElementById('symbol');
+        symbolSelect.innerHTML = ''; // Clear existing options
+        Object.keys(data).forEach(symbol => {
+          const option = document.createElement('option');
+          option.value = symbol;
+          option.textContent = symbol;
+          symbolSelect.appendChild(option);
+        });
+        
+        return data; // Return the loaded (or sample) data
+      } catch (error) {
+        showError("Failed to load data: " + error.message);
+        return null; // Return null if data loading fails
+      }
+    }
+    
+    // Update chart with current selections (symbol and indicator)
+    function updateChart() {
+      try {
+        const symbol = document.getElementById('symbol').value;
+        const indicator = document.getElementById('indicator').value;
+        
+        // Check if data is loaded and symbol exists
+        if (!window.stockData || !window.stockData[symbol]) {
+          showError("No data available for selected symbol: " + symbol);
+          return; // Exit if no data
+        }
+        
+        // Ensure chart and series are initialized before proceeding
+        if (!chart || !priceSeries || !indicatorSeries || !volumeSeries) {
+            console.error("Chart or series not initialized. Attempting re-initialization.");
+            if (!initChart()) { // Try to re-initialize if not ready
+                showError("Chart and series could not be initialized. Please refresh.");
+                return; // Exit if re-initialization fails
+            }
+        }
+
+        const records = window.stockData[symbol].slice().reverse();
+        
+        // Helper function to safely parse and validate values
+        const parseAndValidateValue = (val) => {
+            let parsedVal = parseFloat(val);
+            // If parsedVal is NaN or not finite, return undefined to create a gap in the chart
+            // Lightweight-charts handles undefined as a gap, but explicitly throws on null.
+            return isFinite(parsedVal) ? parsedVal : undefined; 
+        };
+
+        // Prepare data for price series
+        const priceData = records.map(r => {
+          const time = formatDate(r.trade_date);
+          const value = parseAndValidateValue(r.close_price);
+          // Only return a valid data point if both time and value are valid numbers
+          if (typeof time === 'number' && isFinite(time) && typeof value === 'number' && isFinite(value)) {
+              return { time, value };
+          }
+          return null; // Return null for invalid data points to be filtered out
+        }).filter(item => item !== null); // Filter out any null entries
+
+        // Prepare data for indicator series
+        const indicatorData = records.map(r => {
+          const time = formatDate(r.trade_date);
+          const value = parseAndValidateValue(r[indicator]);
+          if (typeof time === 'number' && isFinite(time) && typeof value === 'number' && isFinite(value)) {
+              return { time, value };
+          }
+          return null;
+        }).filter(item => item !== null);
+
+        // Prepare data for volume series
+        const volumeData = records.map(r => {
+          const time = formatDate(r.trade_date);
+          // Use rawVolume directly, parseAndValidateValue will handle undefined/null/0
+          const rawVolume = r.total_traded_quantity || r.volume; 
+          const value = parseAndValidateValue(rawVolume);
+          if (typeof time === 'number' && isFinite(time) && typeof value === 'number' && isFinite(value)) {
+              return { time, value };
+          }
+          return null;
+        }).filter(item => item !== null);
+        
+        // Set data for each series
+        priceSeries.setData(priceData);
+        indicatorSeries.setData(indicatorData);
+        volumeSeries.setData(volumeData);
+        
+        // Update indicator legend title
+        document.getElementById('indicator-legend').textContent = 
+          `${indicator.toUpperCase()}: -`;
+        
+        // Adjust right price scale for indicator based on selection
+        if (indicator === 'rsi') {
+          // For RSI, set right price scale to percentage mode
+          chart.priceScale('right').applyOptions({
+            mode: 2,       // Percentage mode (0-100)
+            visible: true, // Ensure it's visible
+          });
+        } else {
+          // For other indicators, set right price scale to normal auto-scale
+          chart.priceScale('right').applyOptions({
+            mode: 0,       // Normal auto-scale
+            visible: true, // Ensure it's visible
+          });
+        }
+        
+        // Ensure both left and right price scales are visible
+        chart.priceScale('left').applyOptions({ visible: true });
+        chart.priceScale('right').applyOptions({ visible: true });
+        
+        // Auto-fit content to ensure all data is visible
+        chart.timeScale().fitContent();
+        
+      } catch (error) {
+        showError("Failed to update chart: " + error.message);
+      }
+    }
+    
+    // Function to display error messages
+    function showError(message) {
+      const errorElement = document.getElementById('errorDisplay');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block'; // Show the error div
+      console.error(message); // Log error to console
+    }
+    
+    // Initialize application when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Load stock data and store it globally for access by updateChart
+      window.stockData = await loadData();
+      
+      // Initialize the chart and update it with data if loading was successful
+      if (initChart() && window.stockData) {
+        updateChart();
+      }
+      
+      // Set up event listeners for symbol and indicator dropdown changes
+      document.getElementById('symbol').addEventListener('change', updateChart);
+      document.getElementById('indicator').addEventListener('change', updateChart);
+      
+      // Handle window resize to ensure chart resizes responsively
+      window.addEventListener('resize', () => {
+        if (chart) {
+          chart.resize(
+            document.getElementById('chartContainer').clientWidth, // New width
+            document.getElementById('chartContainer').clientHeight // New height
+          );
+        }
+      });
+    });
+  </script> 
+</body>
+</html>
