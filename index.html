@@ -1,197 +1,919 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Learn stock trading with Stocks 'n More. Explore insights on technical analysis, mutual funds, and cryptocurrencies. Download the StockWise app now!">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockWise - Learn Stock Market Investing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
 
-  <meta property="og:title" content="Stocks 'n More - Learn Stock Trading | Download StockWise App">
-  <meta property="og:description" content="Discover stock trading strategies and market insights with Stocks 'n More. Download the StockWise app for free!">
-  <meta property="og:image" content="https://stocksnmore.com/logo_stockwise.webp">
-  <meta property="og:url" content="https://stocksnmore.com">
-  <meta property="og:type" content="website">
-  <link rel="alternate" hreflang="en" href="http://stocksnmore.com" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  <title>Stocks 'n More - Learn Stock Trading | Download StockWise App</title>
-  <style>
-    body {
-      font-family: Calibri, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
-      padding-bottom: 100px; /* Added space to prevent overlap with footer */
-    }
-    header {
-      background-color: #2c3e50; /* Darker background for contrast */
-      color: white;
-      padding: 20px 20px;
-      text-align: center;
-      position: relative;
-    }
-    header img {
-      position: absolute;
-      left: 20px;
-      top: 10px;
-      height: 120px;
-      border: 2px solid #ffffff; /* White border for better contrast */
-      border-radius: 5px;
-      padding: 5px;
-    }
-    nav {
-      display: flex;
-      justify-content: space-around;
-      background-color: #94d2bd;
-      padding: 10px;
-    }
-    nav a {
-      color: #007acc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .container {
-      padding: 20px;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-    }
-    .feature {
-      background-color: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .feature h3 {
-      color: #ee9b00;
-      margin-top: 0;
-    }
-    .download-section {
-      text-align: center;
-      margin: 40px 0;
-    }
-    .download-section img {
-      display: block;
-      margin: 0 auto 20px auto;
-      height: 100px;
-    }
-    .download-section p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-    .download-section a {
-      display: inline-block;
-      background-color: #ca6702;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    .download-section a:hover {
-      background-color: #bb3e03;
-    }
-    footer {
-      background-color: #007acc;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
 
-    /* Sticky download button styles */
-    .sticky-download {
-      position: fixed;
-      bottom: 120px; /* Space from the footer */
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ca6702;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      z-index: 10;
-    }
-    .sticky-download:hover {
-      background-color: #bb3e03;
-    }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
-      .features {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #0da271;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Download Section */
+        .download-section {
+            background-color: #f1f5f9;
+            padding: 60px 0;
+        }
+
+        .download-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .download-text {
+            flex: 1;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .download-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .download-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .app-store-btn, .play-store-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 20px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .app-store-btn:hover, .play-store-btn:hover {
+            background-color: #334155;
+            transform: translateY(-2px);
+        }
+
+        .app-store-btn i, .play-store-btn i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            background-color: rgba(37, 99, 235, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        /* Topics Section */
+        .topics {
+            background-color: #f1f5f9;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .topic-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .topic-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Contests Section */
+        .contests-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .contests-text {
+            flex: 1;
+        }
+
+        .contests-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .contests-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* AI Insights Section */
+        .ai-insights {
+            background-color: #f1f5f9;
+        }
+
+        .insights-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .insights-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .insights-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .insights-text {
+            flex: 1;
+        }
+
+        /* Investor Hub Section */
+        .hub-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hub-text {
+            flex: 1;
+        }
+
+        .hub-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hub-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-content,
+            .download-content,
+            .contests-content,
+            .insights-content,
+            .hub-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text,
+            .download-text,
+            .contests-text,
+            .insights-text,
+            .hub-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .hero-buttons,
+            .download-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-buttons,
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn,
+            .app-store-btn,
+            .play-store-btn {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to StocksnMore 📈</h1>
-    <p>Your gateway to mastering the stock market! 🚀</p>
-    <img src="logo_stockwise.webp" alt="Stocks 'n More Logo">
-  </header>
-  <nav>
-    <a href="index.html">Home 🏠</a>
-    <a href="about.html" aria-label="Home">About Us 📚</a>
-    <a href="contact.html" aria-label="Contact Us">Contact Us 📞</a>
-    <a href="privacypolicy.html" aria-label="Privacy Policy">Privacy Policy 🔒</a>
-    <a href="disclaimer.html" aria-label="Disclaimer">Disclaimer ⚖️</a>
-  </nav>
-  <div class="container">
-    <section id="home">
-      <h2>About StockWise: Your Stock Trading Companion 💼</h2>
-      <p>The StockWise app is your one-stop solution for learning and mastering the stock market. Explore its features:</p>
-      <div class="features">
-        <div class="feature">
-          <h3>Understanding Stock Market Fundamentals: Key Financial Metrics 📊</h3>
-          <p>Understand the financial health of companies with insights into balance sheets, income statements, and key ratios.</p>
-          <h5><a href="fundamentals.html">Read Blog on Fundamentals</a></h5>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    StockWise
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#topics">Topics</a></li>
+                    <li><a href="#contests">Contests</a></li>
+                    <li><a href="#ai-insights">AI Insights</a></li>
+                    <li><a href="#investor-hub">Investor Hub</a></li>
+                    <li><a href="#download" class="btn">Download App</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
         </div>
-        <div class="feature">
-          <h3>Mastering Technical Analysis: Charts, Patterns, and Indicators 📉</h3>
-          <p>Learn technical analysis with tools like charts, patterns, and indicators for better trading decisions.</p>
-          <h5><a href="indicators.html">Read Blog on Technical Analysis</a></h5>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Master the Stock Market with StockWise</h1>
+                    <p>The ultimate educational platform for students and beginners to learn stock market investing through interactive lessons, AI-powered insights, and fun competitions.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="StockWise App Dashboard">
+                </div>
+            </div>
         </div>
-        <div class="feature">
-          <h3>Equities: Understanding the Core of the Stock Market 📈</h3>
-          <p>Understand stock trading, market trends, evaluate potential investments, and learn how to manage equity portfolio effectively.</p>
-          <h5><a href="equities.html">Read Blog on Equities</a></h5>
-        </div>
-        <div class="feature">
-          <h3>Maximizing Returns with Mutual Fund Investments 💰</h3>
-          <p>Explore various mutual fund schemes and strategies to maximize returns with calculated risks.</p>
-          <h5><a href="MutualFunds.html">Read Blog on Mutual Funds</a></h5>
-        </div>
-        <div class="feature">
-          <h3>Leveraging Derivatives: Options and Futures Strategies 📉</h3>
-          <p>Master options and futures trading to hedge risks or leverage your trades effectively.</p>
-          <h5><a href="derivatives.html">Read Blog on Derivatives</a></h5>
-        </div>
-        <div class="feature">
-          <h3>Diverse Markets: Commodities, Forex, Crypto & REITs 🌍</h3>
-          <p>Explore the dynamic world of commodities, forex, cryptocurrencies, and REITs in this section, where users can learn about market movements, investment strategies, and how these diverse assets play a key role in a balanced portfolio.</p>
-          <h5><a href="others.html">Read Blog on Diverse Markets</a></h5>
-        </div>
-      </div>
     </section>
-  </div>
 
-  <!-- Sticky Download Button -->
-  <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" class="sticky-download" download>Download StockWise for Android 📲</a>
+    <!-- Download Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2>Download StockWise App</h2>
+                    <p>Get the full StockWise experience on your mobile device. Available for both iOS and Android platforms.</p>
+                    <p>Download the app now and sign up for free to start your investment learning journey!</p>
+                    <div class="download-buttons">
+<a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" class="play-store-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div>
+                                <small>Get it on</small>
+                                <div>Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="download-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="StockWise Mobile App">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>Select Language: 
-        <a href="index.html">English</a> | 
-        <a href="indexHindi.html">Hindi</a> | 
-        <a href="indexMarathi.html">Marathi</a>
-    </p>
-</footer></body>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Choose StockWise?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Comprehensive Education</h3>
+                    <p>Learn everything from basic concepts to advanced trading strategies with our structured curriculum.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Learning</h3>
+                    <p>Get personalized recommendations and insights powered by advanced artificial intelligence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Competitive Contests</h3>
+                    <p>Test your knowledge in weekly and monthly contests with real-time leaderboards and prizes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Access detailed reports, trend analysis, and technical indicators for informed decision making.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Hub</h3>
+                    <p>Build your investor profile, share insights, and grow your follower base in our community.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Experience</h3>
+                    <p>Learn on the go with our mobile app available for both iOS and Android devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics" class="topics">
+        <div class="container">
+            <h2>Explore Investment Topics</h2>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Equities</h3>
+                    <p>Learn about stocks, valuation methods, and equity investing strategies.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Derivatives</h3>
+                    <p>Understand options, futures, and other derivative instruments.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3>Commodities</h3>
+                    <p>Explore gold, oil, agricultural products and other commodity markets.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3>Mutual Funds</h3>
+                    <p>Learn how to evaluate and invest in mutual funds for diversification.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3>Cryptocurrencies</h3>
+                    <p>Understand blockchain technology and crypto investment strategies.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Forex</h3>
+                    <p>Master currency trading and international market dynamics.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>REITs</h3>
+                    <p>Learn about Real Estate Investment Trusts and property investments.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Portfolio Management</h3>
+                    <p>Build and manage diversified investment portfolios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contests Section -->
+    <section id="contests" class="contests">
+        <div class="container">
+            <div class="contests-content">
+                <div class="contests-text">
+                    <h2>Fun-Based Learning Through Contests</h2>
+                    <p>Put your knowledge to the test with our engaging weekly and monthly contests. Compete against other learners or challenge our AI trading bots to improve your skills in a risk-free environment.</p>
+                    <ul>
+                        <li>Weekly prediction challenges with real market data</li>
+                        <li>Monthly portfolio-building competitions</li>
+                        <li>Leaderboards with prizes for top performers</li>
+                        <li>AI opponents with adjustable difficulty levels</li>
+                        <li>Real-time feedback and performance analytics</li>
+                    </ul>
+                    <a href="#download" class="btn">Download and Join a Contest</a>
+                </div>
+                <div class="contests-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="StockWise Contests">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Insights Section -->
+    <section id="ai-insights" class="ai-insights">
+        <div class="container">
+            <div class="insights-content">
+                <div class="insights-image">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="AI Insights">
+                </div>
+                <div class="insights-text">
+                    <h2>AI-Powered Market Insights</h2>
+                    <p>Our advanced AI algorithms analyze market trends across multiple timeframes to provide you with data-driven investment insights and predictions.</p>
+                    <ul>
+                        <li>Trend analysis across short, medium, and long-term horizons</li>
+                        <li>Personalized stock recommendations based on your risk profile</li>
+                        <li>Sentiment analysis of news and social media</li>
+                        <li>Pattern recognition for technical analysis</li>
+                        <li>Risk assessment and portfolio optimization suggestions</li>
+                    </ul>
+                    <a href="#download" class="btn">Download to Access AI Features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investor Hub Section -->
+    <section id="investor-hub" class="investor-hub">
+        <div class="container">
+            <div class="hub-content">
+                <div class="hub-text">
+                    <h2>Create Your Investor Hub</h2>
+                    <p>Build your personal investing profile, track your learning progress, share insights with the community, and attract followers to establish your reputation as a knowledgeable investor.</p>
+                    <ul>
+                        <li>Personal dashboard with portfolio tracking</li>
+                        <li>Share analysis and investment ideas</li>
+                        <li>Connect with other investors and mentors</li>
+                        <li>Track your learning progress and achievements</li>
+                        <li>Build reputation through community engagement</li>
+                    </ul>
+                    <a href="#download" class="btn">Download App & Create Your Hub</a>
+                </div>
+                <div class="hub-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Investor Hub">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Start Your Investment Journey Today</h2>
+            <p>Join thousands of students and beginners who are learning to navigate the stock market with confidence using StockWise.</p>
+            <a href="#download" class="btn btn-secondary">Download the App & Sign Up for Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StockWise</h3>
+                    <p>The ultimate educational platform for stock market investing.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Educational Content</a></li>
+                        <li><a href="#">AI Insights</a></li>
+                        <li><a href="#">Trading Contests</a></li>
+                        <li><a href="#">Investor Hub</a></li>
+                        <li><a href="#">Market Analysis</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Glossary</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Download</h3>
+                    <ul class="footer-links">
+                        <li><a href="#download">iOS App</a></li>
+                        <li><a href="#download">Android App</a></li>
+                        <li><a href="#">Web Version</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 StockWise. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
 </html>
