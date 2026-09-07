@@ -1,641 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-K8FPCPZT97"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockWise · Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  gtag('config', 'G-K8FPCPZT97');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - StockWise</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Base Styles */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #10b981;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --border-radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s ease;
-        }
+    body {
+      background: #f5f9ff;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      padding: 2rem 1rem;
+      color: #0b1f33;
+      line-height: 1.6;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.06);
+      padding: 2.5rem 1.8rem;
+      transition: all 0.2s ease;
+    }
 
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+    @media (min-width: 640px) {
+      body {
+        padding: 3rem 2rem;
+      }
+      .page {
+        padding: 3.5rem 3.5rem;
+      }
+    }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    /* header */
+    .header {
+      border-bottom: 2px solid #eaf1f9;
+      padding-bottom: 1.6rem;
+      margin-bottom: 2.2rem;
+    }
 
-        section {
-            padding: 80px 0;
-        }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+    }
 
-        h1, h2, h3, h4 {
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-        }
+    .brand-icon {
+      background: #0a2540;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      letter-spacing: -0.5px;
+    }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.7rem;
+      letter-spacing: -0.5px;
+      color: #0a2540;
+    }
 
-        h3 {
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
+    .brand-name span {
+      font-weight: 400;
+      color: #3f5a78;
+    }
 
-        p {
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-        }
+    .version-badge {
+      background: #e6edf5;
+      color: #1c3c5e;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
 
-        ul, ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
+    .last-updated {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f0f6fd;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 0.4rem;
+    }
 
-        li {
-            margin-bottom: 0.5rem;
-            color: var(--gray);
-        }
+    /* typography */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0a1e30;
+      margin-bottom: 0.25rem;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+      color: #0a2540;
+      letter-spacing: -0.3px;
+      border-left: 4px solid #2f7bc5;
+      padding-left: 0.9rem;
+    }
 
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
+      color: #1b3857;
+    }
 
-        .btn-secondary {
-            background-color: var(--secondary);
-        }
+    p {
+      margin-bottom: 0.9rem;
+      color: #1e3349;
+    }
 
-        .btn-secondary:hover {
-            background-color: #0da271;
-        }
+    .legal-text {
+      font-size: 1rem;
+    }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
+    .highlight-box {
+      background: #f0f7fe;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+      border-left: 6px solid #2f7bc5;
+    }
 
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
 
-        .text-center {
-            text-align: center;
-        }
+    ul, .list-bullet {
+      list-style: none;
+      margin: 0.6rem 0 1.2rem 0;
+      padding-left: 0.25rem;
+    }
 
-        .mb-4 {
-            margin-bottom: 2rem;
-        }
+    ul li, .list-bullet li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      margin-bottom: 0.1rem;
+    }
 
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    ul li::before, .list-bullet li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1.2rem;
+      margin: 0.5rem 0 1rem 0;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    @media (max-width: 500px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+      }
+    }
 
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
+    .grid-2col li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      list-style: none;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+    .grid-2col li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
 
-        .nav-links li {
-            margin-left: 30px;
-        }
+    .disclaimer-note {
+      background: #fafbfc;
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+      margin-top: 2.5rem;
+      border: 1px solid #dfe9f2;
+      font-size: 0.95rem;
+      color: #1d3b58;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: var(--transition);
-        }
+    .disclaimer-note strong {
+      color: #0a2540;
+    }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
+    .contact-block {
+      background: #f7faff;
+      border-radius: 20px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.6rem 0 0.5rem 0;
+      display: inline-block;
+      border: 1px solid #dde8f2;
+    }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+    .contact-block a {
+      color: #1d5a9b;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #b3cee6;
+    }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            padding: 100px 0;
-        }
+    .contact-block a:hover {
+      border-bottom: 1px solid #1d5a9b;
+    }
 
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    hr {
+      border: none;
+      border-top: 1px solid #e2ecf5;
+      margin: 2.2rem 0 1.2rem 0;
+    }
 
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
+    .footer-note {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f2f7fd;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
 
-        .hero-text h1 {
-            margin-bottom: 1.5rem;
-        }
+    .small-print {
+      font-size: 0.92rem;
+      color: #2c4b6a;
+    }
 
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
+    .indent-list {
+      padding-left: 1.2rem;
+      margin: 0.3rem 0 0.6rem 0;
+    }
 
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .inline-code {
+      background: #eef4fa;
+      padding: 0.1rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #134072;
+    }
 
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, #d7e2ed, transparent);
+      margin: 2rem 0 0.5rem 0;
+    }
 
-        .hero-image img {
-            max-width: 100%;
-            border-radius: var(--border-radius);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Policy Content */
-        .policy-content {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 50px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .policy-section {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .policy-section:last-child {
-            border-bottom: none;
-        }
-
-        .warning-box {
-            background-color: #fef3cd;
-            border-left: 4px solid #f59e0b;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        .info-box {
-            background-color: #dbeafe;
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-            
-            .policy-content {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                padding: 80px 0;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 250px;
-                margin-bottom: 10px;
-            }
-            
-            .policy-content {
-                padding: 20px;
-            }
-        }
-    </style>
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem 1.2rem;
+      }
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .brand-name {
+        font-size: 1.4rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+      }
+      .highlight-box {
+        padding: 1.2rem 1.2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-chart-line"></i>
-                    StockWise
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#features">Features</a></li>
-                    <li><a href="index.html#topics">Topics</a></li>
-                    <li><a href="index.html#contests">Contests</a></li>
-                    <li><a href="index.html#ai-insights">AI Insights</a></li>
-                    <li><a href="index.html#investor-hub">Investor Hub</a></li>
-                    <li><a href="index.html#download" class="btn">Download App</a></li>
-                </ul>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
-    </header>
+<div class="page">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Terms of Use & Privacy Policy</h1>
-                    <p>Understanding how StockWise works, what data we collect, and how we use it to enhance your learning experience.</p>
-                    <div class="hero-buttons">
-                        <a href="#terms" class="btn">Read Terms of Use</a>
-                        <a href="#privacy" class="btn btn-outline">Privacy Policy</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Privacy Policy">
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <span class="brand-icon">SW</span>
+        <span class="brand-name">Stock<span>Wise</span></span>
+      </div>
+      <span class="version-badge">Privacy Policy</span>
+    </div>
+    <div class="last-updated">📅 Last Updated: September 7, 2026</div>
+  </div>
 
-    <!-- Policy Content -->
-    <section class="policy">
-        <div class="container">
-            <div class="policy-content">
-                <div class="policy-section" id="terms">
-                    <h2>Terms of Use</h2>
-                    
-                    <div class="warning-box">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h3>
-                        <p>StockWise is an educational platform designed to help users better understand stock market trends, technical indicators, and momentum based on historical data and user-driven analysis.</p>
-                    </div>
-                    
-                    <p>StockWise does not provide any investment advice, stock recommendations, portfolio management, or brokerage services. The app does not offer personalized advice to any user and is not a substitute for professional financial advice from a SEBI-registered investment advisor.</p>
-                    
-                    <p>All content and AI-powered insights shown in this app — including trends, stock momentum, contest rankings, or AI models — are for informational and educational purposes only.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>We are not a SEBI-registered investment advisor.</strong> You should always consult a SEBI-registered investment advisor before making any investment decisions.</p>
-                    </div>
-                    
-                    <p>By using StockWise, you acknowledge and agree to these Terms of Use.</p>
-                </div>
-                
-                <div class="policy-section" id="privacy">
-                    <h2>Privacy Policy (AI System)</h2>
-                    
-                    <h3>Data Collection</h3>
-                    <p>When you use StockWise, we may collect anonymous app usage data — including stock picks made during contests and aggregated interaction patterns — to help train and improve our AI models.</p>
-                    
-                    <h3>Authentication</h3>
-                    <p>We use Google Authentication for secure login. We do not store passwords on our servers. We only collect and store your name and email address associated with your Google account.</p>
-                    
-                    <p>You can update your displayed name at any time through the MySpace section of the app. Your email address is used solely for account identification and communication purposes.</p>
-                    
-                    <h3>Data Usage</h3>
-                    <p>This data is used in an aggregated and anonymized manner, solely to improve educational content and platform features. We do not collect personal financial transactions or link this data to any trading account.</p>
-                    
-                    <p>We do not sell or share this data with third parties. It is used only within the StockWise platform to enhance educational offerings.</p>
-                    
-                    <p>By participating in contests or using AI features, you consent to this anonymous use of app interactions.</p>
-                </div>
-                
-                <div class="policy-section">
-                    <h2>How Our AI Learns</h2>
-                    <p>Our AI system is trained on two types of data:</p>
-                    <ul>
-                        <li>Historical stock market trends</li>
-                        <li>User interactions within the app — such as contest picks, stock rankings, and trend ratings</li>
-                    </ul>
-                    <p>This helps our AI identify market patterns and build smarter educational tools for our users.</p>
-                    
-                    <div class="warning-box">
-                        <p><strong>⚠️ Important:</strong> The AI does not predict future stock prices or guarantee returns. It simply highlights patterns in the market and among user behavior — to help users learn and make more informed decisions.</p>
-                    </div>
-                    
-                    <p>By using StockWise, you are helping our AI models grow smarter. Thank you for your contribution!</p>
-                </div>
-                
-                <div class="policy-section">
-                    <h2>AI Participation Consent</h2>
-                    <p>By participating in contests or using AI-powered features, you agree that your stock picks may be anonymously used to improve our AI educational models.</p>
-                    
-                    <p>No personal financial data or linked trading accounts are used. All AI data is anonymized and used purely to enhance learning features on StockWise.</p>
-                </div>
-                
-                <div class="policy-section">
-                    <h2>Community Guidelines</h2>
-                    <ul>
-                        <li>Do not impersonate financial experts or claim to be SEBI-registered unless verified.</li>
-                        <li>No direct messaging of unsolicited tips or schemes.</li>
-                        <li>Marketing or selling financial products/services is prohibited.</li>
-                        <li>User-generated content (portfolios, watchlists, branding pages) must not promise returns.</li>
-                    </ul>
-                    <p>Violation of these rules can result in suspension or permanent ban of your account.</p>
-                </div>
-                
-                <div class="policy-section">
-                    <h2>For Learn Mode Users</h2>
-                    <p>The educational content in Learn Mode covers general stock market concepts and is not customized to individual financial goals or risk profiles. It is designed for conceptual clarity, not trading recommendations.</p>
-                </div>
-                
-                <div class="policy-section">
-                    <h2>Subscription Disclaimer</h2>
-                    <p>Any fee we charge gives access to advanced technical tools, learning modules, and leaderboard-based gamification. It does not guarantee stock returns, nor does it entitle you to personalized financial recommendations. No refunds are issued based on stock performance or algorithmic signals.</p>
-                </div>
-                
-                <div class="policy-section">
-                    <p class="text-center"><strong>StockWise™ © 2025 FairGrow Holdings. All rights reserved.</strong></p>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <a href="index.html" class="btn">Back to Home</a>
-                <a href="index.html#download" class="btn btn-secondary">Download the App</a>
-            </div>
-        </div>
-    </section>
+  <!-- intro -->
+  <p style="font-size: 1.05rem; font-weight: 500; color: #0a1e30;">Fairgrow Holdings (“Fairgrow Holdings”, “StockWise”, “we”, “us”, or “our”) respects your privacy.</p>
+  <p>This Privacy Policy explains what information we may collect when you use StockWise, how we use it, when we may share it, and the choices available to you.</p>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>StockWise</h3>
-                    <p>The ultimate educational platform for stock market investing.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Features</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html#features">Educational Content</a></li>
-                        <li><a href="index.html#ai-insights">AI Insights</a></li>
-                        <li><a href="index.html#contests">Trading Contests</a></li>
-                        <li><a href="index.html#investor-hub">Investor Hub</a></li>
-                        <li><a href="index.html#features">Market Analysis</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">Glossary</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Download</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html#download">iOS App</a></li>
-                        <li><a href="index.html#download">Android App</a></li>
-                        <li><a href="#">Web Version</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 StockWise. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <!-- 1. Scope -->
+  <h2>1. Scope</h2>
+  <p>This Privacy Policy applies to information collected through:</p>
+  <ul>
+    <li>The StockWise mobile application</li>
+    <li>StockWise websites</li>
+    <li>StockWise account services</li>
+    <li>Customer support interactions</li>
+    <li>Other services that expressly refer to this Privacy Policy</li>
+  </ul>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+  <!-- 2. Information We May Collect -->
+  <h2>2. Information We May Collect</h2>
+  <p>Depending on how you use StockWise, we may collect the following categories of information.</p>
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+  <h3>Account Information</h3>
+  <p>If you create an account, we may collect information such as:</p>
+  <ul>
+    <li>Name</li>
+    <li>Email address</li>
+    <li>Mobile number, where required</li>
+    <li>Login credentials or authentication information</li>
+    <li>Subscription or account status</li>
+  </ul>
+
+  <h3>Usage Information</h3>
+  <p>We may collect information about how you use StockWise, such as:</p>
+  <ul>
+    <li>Features accessed</li>
+    <li>Stocks or instruments selected</li>
+    <li>Analysis types selected</li>
+    <li>Application interactions</li>
+    <li>Error reports</li>
+    <li>Device and application information</li>
+  </ul>
+
+  <h3>Technical Information</h3>
+  <p>We may automatically receive technical information such as:</p>
+  <ul>
+    <li>Device type</li>
+    <li>Operating system</li>
+    <li>Application version</li>
+    <li>IP address</li>
+    <li>Network information</li>
+    <li>Diagnostic information</li>
+    <li>Crash and performance information</li>
+  </ul>
+
+  <h3>Transaction Information</h3>
+  <p>If you purchase a subscription or other paid service, payment processing may be handled by a third-party payment provider.</p>
+  <p>We may receive information necessary to confirm and manage your transaction, such as transaction status, subscription details and payment reference information.</p>
+  <p>We do not intend to store complete payment-card details unless explicitly stated otherwise.</p>
+
+  <!-- 3. AI Services -->
+  <h2>3. Information You Provide to AI Services</h2>
+  <p>StockWise may generate market data and prompts that you can copy, download or submit to a third-party AI service.</p>
+  <p>StockWise does not control the information you subsequently submit to third-party AI providers.</p>
+  <p>For example, if you copy StockWise-generated data into ChatGPT, Claude or another AI platform, that information is then processed according to that provider's own terms and privacy policy.</p>
+  <p><strong>You should avoid submitting sensitive personal information to third-party AI services.</strong></p>
+
+  <!-- 4. How We Use -->
+  <h2>4. How We Use Information</h2>
+  <p>We may use information to:</p>
+  <ul class="grid-2col">
+    <li>Provide and operate StockWise</li>
+    <li>Create and manage user accounts</li>
+    <li>Provide requested services</li>
+    <li>Generate and deliver market data</li>
+    <li>Improve application functionality</li>
+    <li>Personalise certain features</li>
+    <li>Process subscriptions and payments</li>
+    <li>Respond to support requests</li>
+    <li>Detect fraud, abuse and security threats</li>
+    <li>Diagnose technical problems</li>
+    <li>Maintain service security</li>
+    <li>Comply with legal and regulatory requirements</li>
+    <li>Communicate important service-related information</li>
+  </ul>
+
+  <!-- 5. Market Analysis -->
+  <h2>5. Market Analysis Data</h2>
+  <p>StockWise may record information about your interaction with the application, such as stocks selected or analysis features used, for purposes including providing the service, improving functionality and understanding aggregate usage patterns.</p>
+  <p>Such information should not be interpreted as StockWise monitoring your brokerage account or trading activity unless a separate integration expressly provides that functionality.</p>
+
+  <!-- 6. Cookies -->
+  <h2>6. Cookies and Similar Technologies</h2>
+  <p>Our website or services may use cookies, local storage, analytics tools and similar technologies to:</p>
+  <ul>
+    <li>Keep users signed in</li>
+    <li>Remember preferences</li>
+    <li>Understand service usage</li>
+    <li>Improve performance</li>
+    <li>Maintain security</li>
+    <li>Measure the effectiveness of our services</li>
+  </ul>
+  <p>You may be able to control cookies through your browser or device settings. Some functionality may not work correctly if certain technologies are disabled.</p>
+
+  <!-- 7. Sharing -->
+  <h2>7. Sharing of Information</h2>
+  <p>We may share information with service providers where necessary to operate StockWise.</p>
+  <p>These may include providers for:</p>
+  <ul class="grid-2col">
+    <li>Cloud hosting</li>
+    <li>Database services</li>
+    <li>Authentication</li>
+    <li>Analytics</li>
+    <li>Customer support</li>
+    <li>Payment processing</li>
+    <li>Email and communications</li>
+    <li>Security</li>
+    <li>Application infrastructure</li>
+  </ul>
+  <p>We may also disclose information:</p>
+  <ul>
+    <li>When required by law</li>
+    <li>To comply with legal processes</li>
+    <li>To protect the rights or safety of users or others</li>
+    <li>To investigate fraud or abuse</li>
+    <li>In connection with a merger, acquisition, restructuring or sale of business assets</li>
+  </ul>
+  <p><strong>We do not sell your personal information merely for the purpose of allowing third parties to market products to you.</strong></p>
+
+  <!-- 8. Third-Party -->
+  <h2>8. Third-Party Services</h2>
+  <p>StockWise may integrate with or link to third-party services.</p>
+  <p>Third-party services operate under their own privacy policies and terms.</p>
+  <p>Examples may include:</p>
+  <ul>
+    <li>AI services</li>
+    <li>Payment providers</li>
+    <li>Market-data providers</li>
+    <li>Analytics providers</li>
+    <li>Authentication providers</li>
+    <li>App stores</li>
+  </ul>
+  <p>StockWise is not responsible for the privacy practices of independent third parties.</p>
+
+  <!-- 9. Security -->
+  <h2>9. Data Security</h2>
+  <p>We take reasonable technical and organisational measures to protect information against unauthorised access, loss, misuse, alteration or disclosure.</p>
+  <p>However, no internet-based service can guarantee absolute security.</p>
+  <p>You are also responsible for protecting your account credentials and device.</p>
+
+  <!-- 10. Retention -->
+  <h2>10. Data Retention</h2>
+  <p>We retain personal information only for as long as reasonably necessary for the purposes described in this Privacy Policy, including providing services, maintaining records, resolving disputes, enforcing agreements and complying with legal obligations.</p>
+  <p>Retention periods may vary depending on the type of information and applicable legal requirements.</p>
+
+  <!-- 11. Rights -->
+  <h2>11. Your Privacy Rights</h2>
+  <p>Subject to applicable law, you may have rights relating to your personal information, including rights to:</p>
+  <ul>
+    <li>Request access to personal information</li>
+    <li>Request correction of inaccurate information</li>
+    <li>Request deletion where legally applicable</li>
+    <li>Withdraw consent where processing is based on consent</li>
+    <li>Request information about how your data is processed</li>
+    <li>Raise a privacy-related complaint</li>
+  </ul>
+  <p>Requests may be subject to verification and applicable legal requirements.</p>
+
+  <!-- 12. Children -->
+  <h2>12. Children's Privacy</h2>
+  <p>StockWise is not intended to encourage children to provide personal information without appropriate parental or legal authorisation.</p>
+  <p>If we become aware that personal information has been collected from a child in circumstances where applicable law requires parental consent, we will take appropriate steps as required by law.</p>
+
+  <!-- 13. International -->
+  <h2>13. International Data Processing</h2>
+  <p>Some service providers used by StockWise may process information outside India.</p>
+  <p>Where personal information is transferred or processed internationally, we will take steps required by applicable law.</p>
+
+  <!-- 14. Breaches -->
+  <h2>14. Data Breaches</h2>
+  <p>Where required by applicable law, we will take appropriate steps in response to a personal-data breach, including notifications to relevant authorities or affected individuals where legally required.</p>
+
+  <!-- 15. Changes -->
+  <h2>15. Changes to This Privacy Policy</h2>
+  <p>We may update this Privacy Policy from time to time to reflect changes in our services, technology, legal requirements or privacy practices.</p>
+  <p>The updated version will be made available through StockWise.</p>
+
+  <!-- 16. Contact -->
+  <h2>16. Contact and Privacy Complaints</h2>
+  <p>If you have questions, requests or complaints regarding privacy or your personal information, please contact:</p>
+  <div class="contact-block">
+    <strong>Fairgrow Holdings</strong><br>
+    📧 <a href="mailto:support@stocksnmore.com">support@stocksnmore.com</a><br>
+    🌐 <a href="https://www.stocksnmore.com" target="_blank">https://www.stocksnmore.com</a>
+  </div>
+  <p style="margin-top: 0.4rem;">We will handle privacy requests in accordance with applicable law.</p>
+
+  <hr>
+
+  <!-- Important Note -->
+  <div class="disclaimer-note">
+    <strong>🔐 Important Note</strong><br>
+    StockWise may provide links or functionality that allows users to transfer information to third-party AI services. Once information is submitted to such a service, its handling is governed by that provider's privacy policy and terms.
+    <br><br>
+    Users should review those policies before submitting information.
+  </div>
+
+  <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.8rem;">
+    <span class="footer-note">📊 StockWise · privacy first</span>
+    <span style="font-size: 0.8rem; color: #4b6f8f;">© Fairgrow Holdings</span>
+  </div>
+
+</div>
+<!-- end page -->
 </body>
 </html>
