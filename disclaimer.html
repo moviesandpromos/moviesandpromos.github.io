@@ -1,566 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disclaimer - StockWise</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Base Styles */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #10b981;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --border-radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockWise · Terms of Use</title>
+  <!-- Font & minimal reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    body {
+      background: #f4f7fc;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      padding: 2rem 1rem;
+      color: #0b1a2e;
+      line-height: 1.6;
+    }
 
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.08);
+      padding: 2.5rem 2rem;
+      transition: all 0.2s ease;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    @media (min-width: 640px) {
+      body {
+        padding: 3rem 2rem;
+      }
+      .page {
+        padding: 3.5rem 3.5rem;
+      }
+    }
 
-        section {
-            padding: 80px 0;
-        }
+    /* header */
+    .header {
+      border-bottom: 2px solid #eef3f8;
+      padding-bottom: 1.8rem;
+      margin-bottom: 2.5rem;
+    }
 
-        h1, h2, h3, h4 {
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+    }
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
+    .brand-icon {
+      background: #0a2540;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      letter-spacing: -0.5px;
+    }
 
-        h3 {
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.7rem;
+      letter-spacing: -0.5px;
+      color: #0a2540;
+    }
 
-        p {
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-        }
+    .brand-name span {
+      font-weight: 400;
+      color: #3f5a78;
+    }
 
-        ul, ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
+    .version-badge {
+      background: #e6edf5;
+      color: #1c3c5e;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
 
-        li {
-            margin-bottom: 0.5rem;
-            color: var(--gray);
-        }
+    .last-updated {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f0f5fb;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 0.4rem;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
+    /* typography */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0a1e30;
+      margin-bottom: 0.25rem;
+    }
 
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+      color: #0a2540;
+      letter-spacing: -0.3px;
+      border-left: 4px solid #2f7bc5;
+      padding-left: 0.9rem;
+    }
 
-        .btn-secondary {
-            background-color: var(--secondary);
-        }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: #1b3857;
+    }
 
-        .btn-secondary:hover {
-            background-color: #0da271;
-        }
+    p {
+      margin-bottom: 0.9rem;
+      color: #1e3349;
+    }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
+    .legal-text {
+      font-size: 1rem;
+    }
 
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
+    .highlight-box {
+      background: #f0f7fe;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+      border-left: 6px solid #2f7bc5;
+    }
 
-        .text-center {
-            text-align: center;
-        }
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
 
-        .mb-4 {
-            margin-bottom: 2rem;
-        }
+    ul, .list-bullet {
+      list-style: none;
+      margin: 0.6rem 0 1.2rem 0;
+      padding-left: 0.25rem;
+    }
 
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    ul li, .list-bullet li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      margin-bottom: 0.1rem;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
+    ul li::before, .list-bullet li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1.2rem;
+      margin: 0.5rem 0 1rem 0;
+    }
 
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
+    @media (max-width: 500px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+      }
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+    .grid-2col li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      list-style: none;
+    }
 
-        .nav-links li {
-            margin-left: 30px;
-        }
+    .grid-2col li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: var(--transition);
-        }
+    .disclaimer-note {
+      background: #fafbfc;
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+      margin-top: 2.5rem;
+      border: 1px solid #dfe9f2;
+      font-size: 0.95rem;
+      color: #1d3b58;
+    }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
+    .disclaimer-note strong {
+      color: #0a2540;
+    }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+    .contact-block {
+      background: #f7faff;
+      border-radius: 20px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.6rem 0 0.5rem 0;
+      display: inline-block;
+      border: 1px solid #dde8f2;
+    }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            padding: 100px 0;
-        }
+    .contact-block a {
+      color: #1d5a9b;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #b3cee6;
+    }
 
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .contact-block a:hover {
+      border-bottom: 1px solid #1d5a9b;
+    }
 
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
+    hr {
+      border: none;
+      border-top: 1px solid #e2ecf5;
+      margin: 2.2rem 0 1.2rem 0;
+    }
 
-        .hero-text h1 {
-            margin-bottom: 1.5rem;
-        }
+    .footer-note {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f2f7fd;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
 
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
+    .small-print {
+      font-size: 0.92rem;
+      color: #2c4b6a;
+    }
 
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .indent-list {
+      padding-left: 1.2rem;
+      margin: 0.3rem 0 0.6rem 0;
+    }
 
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
+    .inline-code {
+      background: #eef4fa;
+      padding: 0.1rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #134072;
+    }
 
-        .hero-image img {
-            max-width: 100%;
-            border-radius: var(--border-radius);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-        }
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, #d7e2ed, transparent);
+      margin: 2rem 0 0.5rem 0;
+    }
 
-        /* Policy Content */
-        .policy-content {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 50px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .policy-section {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .policy-section:last-child {
-            border-bottom: none;
-        }
-
-        .warning-box {
-            background-color: #fef3cd;
-            border-left: 4px solid #f59e0b;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        .info-box {
-            background-color: #dbeafe;
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-            
-            .policy-content {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                padding: 80px 0;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 250px;
-                margin-bottom: 10px;
-            }
-            
-            .policy-content {
-                padding: 20px;
-            }
-        }
-    </style>
+    /* responsive */
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem 1.2rem;
+      }
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .brand-name {
+        font-size: 1.4rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+      }
+      .highlight-box {
+        padding: 1.2rem 1.2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-chart-line"></i>
-                    StockWise
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#features">Features</a></li>
-                    <li><a href="index.html#topics">Topics</a></li>
-                    <li><a href="index.html#contests">Contests</a></li>
-                    <li><a href="index.html#ai-insights">AI Insights</a></li>
-                    <li><a href="index.html#investor-hub">Investor Hub</a></li>
-                    <li><a href="index.html#download" class="btn">Download App</a></li>
-                </ul>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
-    </header>
+<div class="page">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Disclaimer</h1>
-                    <p>Important information about the educational nature of StockWise and our non-affiliation with SEBI.</p>
-                    <div class="hero-buttons">
-                        <a href="#disclaimer" class="btn">Read Disclaimer</a>
-                        <a href="index.html" class="btn btn-outline">Back to Home</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Disclaimer">
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <span class="brand-icon">SW</span>
+        <span class="brand-name">Stock<span>Wise</span></span>
+      </div>
+      <span class="version-badge">Terms of Use</span>
+    </div>
+    <div class="last-updated">📅 Last Updated: September 8, 2026</div>
+  </div>
 
-    <!-- Disclaimer Content -->
-    <section class="policy">
-        <div class="container">
-            <div class="policy-content">
-                <div class="policy-section" id="disclaimer">
-                    <h2>Disclaimer</h2>
-                    
-                    <div class="warning-box">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
-                        <p>We are not registered with the Securities and Exchange Board of India (SEBI). This app is intended solely for educational purposes and should not be considered as financial or investment advice.</p>
-                    </div>
-                    
-                    <h3>Key Points</h3>
-                    <ul>
-                        <li><strong>Educational Content Only:</strong> The content provided within this app, including articles, videos, courses, and other resources, is intended to educate users on stock market concepts and strategies. It is not meant to guide or influence actual trading or investment decisions.</li>
-                        <li><strong>No Recommendations or Tips:</strong> This app does not provide any buy, sell, or hold recommendations for stocks, securities, or any other financial instruments. We do not endorse any particular investment or trading strategy.</li>
-                        <li><strong>No Liability for Financial Losses:</strong> Users are solely responsible for any financial decisions they make based on their understanding gained from this app. We assume no liability for any financial losses or damages incurred as a result of relying on any information or concepts provided within the app.</li>
-                        <li><strong>No Real-Time Data:</strong> This app may not display live or real-time financial data. Any data or information provided is for educational and illustrative purposes only.</li>
-                    </ul>
-                    
-                    <div class="info-box">
-                        <p>By using this app, you acknowledge and agree to the above terms. If you require professional financial advice, we strongly recommend consulting a certified financial advisor or SEBI-registered entity.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <a href="index.html" class="btn">Back to Home</a>
-                <a href="privacy.html" class="btn btn-outline">Privacy Policy</a>
-                <a href="index.html#download" class="btn btn-secondary">Download the App</a>
-            </div>
-        </div>
-    </section>
+  <!-- welcome -->
+  <p style="font-size: 1.05rem; font-weight: 500; color: #0a1e30;">Welcome to StockWise, an educational stock-market analysis platform operated by Fairgrow Holdings (“StockWise”, “we”, “us”, or “our”).</p>
+  <p>By accessing or using StockWise, you agree to these Terms of Use. If you do not agree with these terms, please do not use the service.</p>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>StockWise</h3>
-                    <p>The ultimate educational platform for stock market investing.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Features</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html#features">Educational Content</a></li>
-                        <li><a href="index.html#ai-insights">AI Insights</a></li>
-                        <li><a href="index.html#contests">Trading Contests</a></li>
-                        <li><a href="index.html#investor-hub">Investor Hub</a></li>
-                        <li><a href="index.html#features">Market Analysis</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">Glossary</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="disclaimer.html">Disclaimer</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Download</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html#download">iOS App</a></li>
-                        <li><a href="index.html#download">Android App</a></li>
-                        <li><a href="#">Web Version</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; StockWise™ © 2025 FairGrow Holdings. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <!-- 1. About -->
+  <h2>1. About StockWise</h2>
+  <p>StockWise is designed to help users learn about financial markets and analyse stocks using structured market data, analytical frameworks and artificial intelligence (“AI”) tools.</p>
+  <p>StockWise may provide information relating to:</p>
+  <ul class="grid-2col">
+    <li>Equity markets</li>
+    <li>Technical Analysis</li>
+    <li>Fundamental Analysis</li>
+    <li>Futures &amp; Options</li>
+    <li>Mutual Funds and other market instruments</li>
+    <li>Market indicators and statistics</li>
+    <li>Historical and current market data</li>
+    <li>AI-assisted analysis and educational content</li>
+  </ul>
+  <p><strong>StockWise is primarily intended to be an educational and analytical tool.</strong></p>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+  <!-- 2. Not Investment Advice -->
+  <h2>2. Not Investment Advice</h2>
+  <p>Information, analysis, reports, signals, probabilities, scenarios, price levels, trade setups, or other content provided through StockWise are for educational and informational purposes only.</p>
+  <p>Nothing provided by StockWise constitutes:</p>
+  <ul>
+    <li>Investment advice</li>
+    <li>Financial advice</li>
+    <li>Trading advice</li>
+    <li>Portfolio management</li>
+    <li>Investment research provided specifically to you</li>
+    <li>A recommendation to buy, sell or hold any security</li>
+    <li>A guarantee of investment returns</li>
+  </ul>
+  <p>You are solely responsible for your investment and trading decisions.</p>
+  <p>You should independently evaluate any investment decision and, where appropriate, consult a qualified financial professional registered with the relevant regulatory authority.</p>
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+  <!-- 3. AI-Generated -->
+  <h2>3. AI-Generated Analysis</h2>
+  <p>StockWise may prepare structured data and prompts that users can provide to third-party AI services such as ChatGPT, Claude, Gemini or other AI platforms.</p>
+  <p>AI-generated analysis may contain:</p>
+  <ul>
+    <li>Errors</li>
+    <li>Inaccurate interpretations</li>
+    <li>Outdated information</li>
+    <li>Incorrect calculations</li>
+    <li>Incomplete conclusions</li>
+    <li>Hallucinated or unsupported statements</li>
+  </ul>
+  <p>AI output should therefore never be treated as fact or certainty without independent verification.</p>
+  <p>StockWise does not guarantee the accuracy, completeness or reliability of any AI-generated analysis.</p>
+
+  <!-- 4. No Guarantee -->
+  <h2>4. No Guarantee of Results</h2>
+  <p>Financial markets are uncertain and involve substantial risk.</p>
+  <p>Past price behaviour, technical indicators, fundamental metrics, probabilities, historical patterns or AI analysis do not guarantee future performance.</p>
+  <p>A “Bullish”, “Bearish”, “Long”, “Short”, “Breakout”, “Breakdown”, “Trade”, “Watch” or similar indication does not guarantee that the anticipated market movement will occur.</p>
+  <p>StockWise makes no guarantee regarding:</p>
+  <ul>
+    <li>Investment returns</li>
+    <li>Trading profits</li>
+    <li>Accuracy of forecasts</li>
+    <li>Accuracy of probabilities</li>
+    <li>Achievement of price targets</li>
+    <li>Prevention of losses</li>
+    <li>Future market movements</li>
+  </ul>
+
+  <!-- 5. User Responsibility -->
+  <h2>5. User Responsibility</h2>
+  <p>You are responsible for evaluating information before acting upon it.</p>
+  <p>Before making an investment or trading decision, you should consider factors including:</p>
+  <ul>
+    <li>Your financial circumstances</li>
+    <li>Your investment objectives</li>
+    <li>Your risk tolerance</li>
+    <li>The liquidity of the security</li>
+    <li>Current market conditions</li>
+    <li>Relevant company information</li>
+    <li>Corporate actions</li>
+    <li>Regulatory announcements</li>
+    <li>Your own independent research</li>
+  </ul>
+  <p><strong>You should not invest or trade money that you cannot afford to lose.</strong></p>
+
+  <!-- 6. Market Data -->
+  <h2>6. Market Data</h2>
+  <p>StockWise may obtain market data from third-party data providers, exchanges, brokers, APIs and other sources.</p>
+  <p>Data may include:</p>
+  <ul class="grid-2col">
+    <li>Prices</li>
+    <li>OHLC data</li>
+    <li>Volume</li>
+    <li>Delivery information</li>
+    <li>Corporate actions</li>
+    <li>Technical indicators</li>
+    <li>Futures and Options information</li>
+    <li>Fundamental information</li>
+  </ul>
+  <p>While we seek to use reliable sources, StockWise does not guarantee that market data will always be accurate, complete, current or available.</p>
+  <p>Data may be delayed, interrupted, revised or unavailable due to circumstances outside our control.</p>
+
+  <!-- 7. Data Upload -->
+  <h2>7. Data Upload and Availability</h2>
+  <p>Market data may be processed and made available according to StockWise's published data schedule.</p>
+  <p>Indicative processing times may vary depending on the availability of source data, exchange processes, third-party providers and technical conditions.</p>
+  <p>Users should not assume that data is available immediately after market close.</p>
+
+  <!-- 8. Third-Party -->
+  <h2>8. Third-Party AI Services</h2>
+  <p>When you copy, download or otherwise transfer StockWise-generated information to a third-party AI service, that information becomes subject to the third party's own terms, privacy policy and data-handling practices.</p>
+  <p>StockWise does not control how third-party AI providers process information after you submit it to their services.</p>
+  <p>You should review the privacy policies and terms of the AI service you choose to use.</p>
+
+  <!-- 9. User Accounts -->
+  <h2>9. User Accounts</h2>
+  <p>Where account registration is required, you are responsible for:</p>
+  <ul>
+    <li>Providing accurate information</li>
+    <li>Maintaining the confidentiality of your login credentials</li>
+    <li>Preventing unauthorised access to your account</li>
+    <li>Notifying us of suspected unauthorised use</li>
+  </ul>
+  <p>You are responsible for activity performed through your account unless caused by circumstances attributable to StockWise.</p>
+
+  <!-- 10. Acceptable Use -->
+  <h2>10. Acceptable Use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Use StockWise for unlawful purposes</li>
+    <li>Attempt to gain unauthorised access to the service</li>
+    <li>Circumvent security mechanisms</li>
+    <li>Interfere with the operation of the service</li>
+    <li>Scrape or systematically extract data without permission</li>
+    <li>Reverse engineer the service except where permitted by applicable law</li>
+    <li>Redistribute StockWise data commercially without permission</li>
+    <li>Misrepresent StockWise analysis as guaranteed investment advice</li>
+    <li>Use the service to violate applicable laws or regulations</li>
+  </ul>
+
+  <!-- 11. IP -->
+  <h2>11. Intellectual Property</h2>
+  <p>The StockWise application, software, design, branding, documentation, original content, prompts, analytical frameworks and other proprietary materials are owned by or licensed to Fairgrow Holdings and are protected by applicable intellectual property laws.</p>
+  <p>You may use StockWise for its intended personal or authorised purposes.</p>
+  <p>You may not reproduce, modify, distribute, sell or commercially exploit proprietary StockWise materials without appropriate permission.</p>
+
+  <!-- 12. Service Availability -->
+  <h2>12. Service Availability</h2>
+  <p>We may modify, suspend or discontinue all or part of StockWise at any time.</p>
+  <p>We do not guarantee that the service will:</p>
+  <ul>
+    <li>Always be available</li>
+    <li>Be uninterrupted</li>
+    <li>Be error-free</li>
+    <li>Be compatible with every device</li>
+    <li>Always contain the latest market information</li>
+  </ul>
+
+  <!-- 13. Limitation -->
+  <h2>13. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by applicable law, StockWise and Fairgrow Holdings shall not be liable for losses arising from:</p>
+  <ul>
+    <li>Investment or trading decisions</li>
+    <li>Loss of capital</li>
+    <li>Missed investment opportunities</li>
+    <li>Reliance on AI-generated analysis</li>
+    <li>Inaccurate or delayed market data</li>
+    <li>Third-party AI services</li>
+    <li>Service interruptions</li>
+    <li>Technical failures</li>
+    <li>Unauthorised access caused by circumstances outside our reasonable control</li>
+  </ul>
+  <p>Nothing in these Terms excludes liability that cannot legally be excluded under applicable law.</p>
+
+  <!-- 14. Indemnification -->
+  <h2>14. Indemnification</h2>
+  <p>To the extent permitted by law, you agree to indemnify and hold harmless StockWise and Fairgrow Holdings from claims, losses or expenses arising from your unlawful use of the service, violation of these Terms, or misuse of StockWise information.</p>
+
+  <!-- 15. Changes -->
+  <h2>15. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time.</p>
+  <p>Updated Terms will be made available through the StockWise application or website. Continued use of StockWise after an update constitutes acceptance of the revised Terms, subject to applicable law.</p>
+
+  <!-- 16. Governing Law -->
+  <h2>16. Governing Law</h2>
+  <p>These Terms shall be governed by the laws of India, subject to applicable laws and regulations.</p>
+  <p>Any disputes shall be subject to the jurisdiction of the competent courts in India, subject to applicable law.</p>
+
+  <!-- 17. Contact -->
+  <h2>17. Contact</h2>
+  <p>For questions regarding these Terms of Use, please contact:</p>
+  <div class="contact-block">
+    <strong>Fairgrow Holdings</strong><br>
+    📧 <a href="mailto:support@stocksnmore.com">support@stocksnmore.com</a><br>
+    🌐 <a href="https://www.stocksnmore.com" target="_blank">https://www.stocksnmore.com</a>
+  </div>
+
+  <hr>
+
+  <!-- Important notice -->
+  <div class="disclaimer-note">
+    <strong>⚠️ Important:</strong> StockWise is an educational and analytical platform. Market analysis involves uncertainty, and users should make their own informed decisions rather than relying solely on StockWise or AI-generated analysis.
+  </div>
+
+  <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.8rem;">
+    <span class="footer-note">📊 StockWise · analytical &amp; educational</span>
+    <span style="font-size: 0.8rem; color: #4b6f8f;">© Fairgrow Holdings</span>
+  </div>
+
+</div>
+<!-- end page -->
 </body>
 </html>
