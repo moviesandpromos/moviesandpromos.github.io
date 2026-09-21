@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockWise · Refund &amp; Cancellation Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f9ff;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      padding: 2rem 1rem;
+      color: #0b1f33;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.06);
+      padding: 2.5rem 1.8rem;
+      transition: all 0.2s ease;
+    }
+
+    @media (min-width: 640px) {
+      body {
+        padding: 3rem 2rem;
+      }
+      .page {
+        padding: 3.5rem 3.5rem;
+      }
+    }
+
+    /* header */
+    .header {
+      border-bottom: 2px solid #eaf1f9;
+      padding-bottom: 1.6rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-icon {
+      background: #0a2540;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.7rem;
+      letter-spacing: -0.5px;
+      color: #0a2540;
+    }
+
+    .brand-name span {
+      font-weight: 400;
+      color: #3f5a78;
+    }
+
+    .version-badge {
+      background: #e6edf5;
+      color: #1c3c5e;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .last-updated {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f0f6fd;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 0.4rem;
+    }
+
+    /* typography */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0a1e30;
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+      color: #0a2540;
+      letter-spacing: -0.3px;
+      border-left: 4px solid #2f7bc5;
+      padding-left: 0.9rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
+      color: #1b3857;
+    }
+
+    p {
+      margin-bottom: 0.9rem;
+      color: #1e3349;
+    }
+
+    .legal-text {
+      font-size: 1rem;
+    }
+
+    .highlight-box {
+      background: #f0f7fe;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+      border-left: 6px solid #2f7bc5;
+    }
+
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul, .list-bullet {
+      list-style: none;
+      margin: 0.6rem 0 1.2rem 0;
+      padding-left: 0.25rem;
+    }
+
+    ul li, .list-bullet li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      margin-bottom: 0.1rem;
+    }
+
+    ul li::before, .list-bullet li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1.2rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    @media (max-width: 500px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+      }
+    }
+
+    .grid-2col li {
+      padding: 0.2rem 0 0.2rem 1.8rem;
+      position: relative;
+      list-style: none;
+    }
+
+    .grid-2col li::before {
+      content: "▹";
+      color: #2f7bc5;
+      font-weight: 600;
+      position: absolute;
+      left: 0;
+    }
+
+    .disclaimer-note {
+      background: #fafbfc;
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+      margin-top: 2.5rem;
+      border: 1px solid #dfe9f2;
+      font-size: 0.95rem;
+      color: #1d3b58;
+    }
+
+    .disclaimer-note strong {
+      color: #0a2540;
+    }
+
+    .contact-block {
+      background: #f7faff;
+      border-radius: 20px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.6rem 0 0.5rem 0;
+      display: inline-block;
+      border: 1px solid #dde8f2;
+    }
+
+    .contact-block a {
+      color: #1d5a9b;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #b3cee6;
+    }
+
+    .contact-block a:hover {
+      border-bottom: 1px solid #1d5a9b;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e2ecf5;
+      margin: 2.2rem 0 1.2rem 0;
+    }
+
+    .footer-note {
+      font-size: 0.9rem;
+      color: #3f5a78;
+      background: #f2f7fd;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .small-print {
+      font-size: 0.92rem;
+      color: #2c4b6a;
+    }
+
+    .indent-list {
+      padding-left: 1.2rem;
+      margin: 0.3rem 0 0.6rem 0;
+    }
+
+    .inline-code {
+      background: #eef4fa;
+      padding: 0.1rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #134072;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, #d7e2ed, transparent);
+      margin: 2rem 0 0.5rem 0;
+    }
+
+    .badge-light {
+      background: #eaf1f9;
+      color: #1d3b58;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      display: inline-block;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem 1.2rem;
+      }
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .brand-name {
+        font-size: 1.4rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+      }
+      .highlight-box {
+        padding: 1.2rem 1.2rem;
+      }
+      .contact-block {
+        display: block;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <span class="brand-icon">SW</span>
+        <span class="brand-name">Stock<span>Wise</span></span>
+      </div>
+      <span class="version-badge">Refund Policy</span>
+    </div>
+    <div class="last-updated">📅 Effective Date: September 2026</div>
+  </div>
+
+  <!-- intro -->
+  <p style="font-size: 1.05rem; font-weight: 500; color: #0a1e30;">StockWise provides digital software and stock-market data services through paid subscriptions.</p>
+
+  <!-- Refunds -->
+  <h2>Refunds</h2>
+  <p>Subscription payments are generally <strong>non-refundable</strong> once the subscription has been activated and the user has gained access to the paid features or data.</p>
+  
+  <p>A refund may be considered in the following circumstances:</p>
+  <ul>
+    <li>The customer was charged but the subscription was not activated due to a technical issue.</li>
+    <li>The customer was charged more than once for the same subscription.</li>
+    <li>The customer was charged an incorrect amount due to an error on our part.</li>
+    <li>StockWise is unable to provide the purchased service due to a technical issue attributable to StockWise and the issue cannot reasonably be resolved.</li>
+  </ul>
+
+  <div class="highlight-box">
+    <p style="font-weight: 600; margin-bottom: 0.3rem;">📋 How to request a refund</p>
+    <p>Refund requests must be submitted <strong>within 7 days</strong> of the payment, along with the payment/order reference and details of the issue.</p>
+  </div>
+
+  <p>Refunds approved by StockWise will normally be processed to the original payment method within <strong>5–7 business days</strong>. The actual time taken for the credit to appear may depend on the customer's bank or payment provider.</p>
+
+  <!-- Cancellation -->
+  <h2>Cancellation</h2>
+  <p>Users may cancel their subscription at any time. Cancellation will prevent renewal of the subscription, but does not automatically entitle the user to a refund for the current subscription period.</p>
+
+  <div class="highlight-box" style="border-left-color: #f0a030; background: #fef8f0;">
+    <p style="font-weight: 600; margin-bottom: 0.3rem;">⚠️ Important</p>
+    <p>Cancellation stops future renewals. It does <strong>not</strong> trigger an automatic refund for the current billing cycle.</p>
+  </div>
+
+  <!-- Trial Period -->
+  <h2>Trial Period</h2>
+  <p>If a free trial is offered, users may use the service during the applicable trial period. No refund is applicable for a subscription purchased after or during the trial period unless the payment qualifies under the refund conditions above.</p>
+
+  <!-- Contact -->
+  <h2>Contact</h2>
+  <p>For refund or cancellation-related queries, customers may contact StockWise support through the contact details provided on the StockWise website or application.</p>
+  
+  <div class="contact-block">
+    <strong>Fairgrow Holdings</strong><br>
+    📧 <a href="mailto:support@stocksnmore.com">support@stocksnmore.com</a><br>
+    🌐 <a href="https://www.stocksnmore.com" target="_blank">https://www.stocksnmore.com</a>
+  </div>
+
+  <hr>
+
+  <!-- Footer summary -->
+  <div class="disclaimer-note">
+    <strong>📌 Summary:</strong> Refunds are available within 7 days for technical failures, duplicate charges, incorrect amounts, or unresolved service issues attributable to StockWise. Cancellation stops renewal but does not refund the current period.
+  </div>
+
+  <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.8rem;">
+    <span class="footer-note">📊 StockWise · refund &amp; cancellation</span>
+    <span style="font-size: 0.8rem; color: #4b6f8f;">© Fairgrow Holdings</span>
+  </div>
+
+</div>
+<!-- end page -->
+</body>
+</html>
