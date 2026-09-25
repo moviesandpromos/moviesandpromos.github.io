@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockWise AI Analysis — NSE Data to AI</title>
+<meta name="description" content="See what happens when an AI receives structured historical NSE market data instead of just a stock symbol.">
+<style>
+:root{
+  --bg:#f7f8fa; --surface:#fff; --ink:#111827; --muted:#667085;
+  --line:#e5e7eb; --soft:#f2f4f7; --accent:#111827; --green:#087443;
+  --red:#b42318; --amber:#b54708; --blue:#175cd3;
+  --radius:18px; --shadow:0 8px 30px rgba(16,24,40,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+}
+a{color:inherit;text-decoration:none}
+.container{width:min(1160px,calc(100% - 36px));margin:auto}
+.nav{
+  height:72px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;letter-spacing:-.03em;font-size:21px}
+.logo span{font-weight:500;color:var(--muted)}
+.nav-links{display:flex;gap:24px;color:#475467;font-size:14px}
+.nav-links a:hover{color:var(--ink)}
+.hero{padding:92px 0 74px;background:#fff;border-bottom:1px solid var(--line)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:#475467;margin-bottom:18px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#12b76a}
+h1{font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.055em;max-width:900px;margin:0 0 24px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin:0 0 32px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;
+  border-radius:10px;border:1px solid var(--line);font-weight:700;font-size:14px;
+}
+.btn-primary{background:var(--ink);color:white;border-color:var(--ink)}
+.btn-secondary{background:white}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.pill{background:var(--soft);border:1px solid var(--line);padding:7px 11px;border-radius:999px;font-size:13px;color:#475467}
+section{padding:78px 0}
+.section-head{max-width:760px;margin-bottom:34px}
+.kicker{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+h2{font-size:clamp(30px,4vw,44px);letter-spacing:-.04em;line-height:1.1;margin:8px 0 14px}
+.section-head p{color:var(--muted);font-size:17px;margin:0}
+.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;min-height:150px}
+.step-num{font-size:12px;color:var(--muted);font-weight:800}
+.step h3{margin:24px 0 6px;font-size:18px}.step p{margin:0;color:var(--muted);font-size:14px}
+.demo{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat strong{display:block;font-size:24px;letter-spacing:-.03em}.stat span{font-size:13px;color:var(--muted)}
+.stock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.stock-card{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stock-top{padding:22px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.symbol{font-size:20px;font-weight:800;letter-spacing:-.02em}.company{font-size:13px;color:var(--muted);margin-top:2px}
+.badges{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.badge{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.badge.green{color:var(--green);background:#ecfdf3}.badge.red{color:var(--red);background:#fef3f2}.badge.amber{color:var(--amber);background:#fffaeb}
+.stock-body{padding:0 22px 22px}.reason{color:#475467;font-size:14px;min-height:65px}
+.snapshot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}
+.snapshot div{background:var(--soft);padding:10px;border-radius:10px}.snapshot b{display:block;font-size:14px}.snapshot span{font-size:11px;color:var(--muted)}
+.details{border-top:1px solid var(--line);padding-top:14px}
+.detail-content{display:none;padding-top:16px}.detail-content.open{display:block}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.detail-item{padding:12px;background:var(--soft);border-radius:10px;font-size:13px}
+.detail-item b{display:block;margin-bottom:3px}
+.toggle{width:100%;background:none;border:0;padding:0;text-align:left;font:inherit;font-weight:700;cursor:pointer;color:var(--ink)}
+.toggle:after{content:"＋";float:right;font-size:20px}.toggle.open:after{content:"−"}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:0;overflow:auto}
+.tab{border:0;background:none;padding:13px 16px;font-weight:800;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+.panel{display:none;background:#0b1020;color:#e6e9ef;border-radius:0 0 14px 14px;overflow:hidden}
+.panel.active{display:block}
+pre{margin:0;padding:22px;overflow:auto;font-size:12px;line-height:1.7;max-height:520px}
+.table-wrap{overflow:auto;max-height:520px}
+table{border-collapse:collapse;width:100%;font-size:12px;min-width:950px;background:#0b1020;color:#e6e9ef}
+th,td{padding:9px 12px;border-bottom:1px solid #273043;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:#151c2e}
+.note{
+  margin-top:16px;padding:16px 18px;background:#f8fafc;border:1px solid var(--line);
+  border-radius:12px;color:#475467;font-size:13px
+}
+.callout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}
+.callout-card{background:white;border:1px solid var(--line);border-radius:18px;padding:28px}
+.callout-card h3{font-size:22px;margin:0 0 10px}.callout-card p{color:var(--muted)}
+.score-example{border-left:4px solid var(--ink);padding-left:18px;margin-top:24px}
+.cta{background:var(--ink);color:white;padding:70px 0}
+.cta h2{max-width:700px}.cta p{color:#cbd5e1;max-width:650px;font-size:17px}
+.cta .btn-primary{background:white;color:var(--ink);border-color:white}
+.footer{padding:28px 0;color:var(--muted);font-size:13px;background:#fff}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.disclaimer{font-size:12px;color:#98a2b3;max-width:850px;margin-top:10px}
+@media(max-width:800px){
+  .nav-links{display:none}.hero{padding:65px 0}.workflow,.stats{grid-template-columns:1fr 1fr}
+  .stock-grid,.callout{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .container{width:min(100% - 24px,1160px)}section{padding:58px 0}
+  .workflow,.stats{grid-template-columns:1fr}.snapshot{grid-template-columns:1fr 1fr 1fr}
+  h1{font-size:44px}.hero p{font-size:17px}.stock-top{display:block}.badges{justify-content:flex-start;margin-top:12px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">StockWise <span>AI Data</span></a>
+    <div class="nav-links">
+      <a href="#demo">Live Demo</a>
+      <a href="#data">Dataset</a>
+      <a href="#how">How It Works</a>
+      <a href="#generate">Generate Data</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span> StockWise AI Analysis Lab</div>
+    <h1>AI Stock Analysis, Built From Real NSE Data.</h1>
+    <p>
+      See what happens when an AI receives structured historical market data
+      instead of just a stock symbol.
+    </p>
+    <div class="buttons">
+      <a class="btn btn-primary" href="#demo">Explore the Analysis</a>
+      <a class="btn btn-secondary" href="#data">See the Dataset</a>
+    </div>
+    <div class="meta-row">
+      <span class="pill">5 NSE Stocks</span>
+      <span class="pill">Swing Horizon: 5–30 Days</span>
+      <span class="pill">63 Trading Sessions</span>
+      <span class="pill">AI of Your Choice</span>
+    </div>
+  </div>
+</header>
+
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">The workflow</div>
+      <h2>Market data becomes an AI-ready research input.</h2>
+      <p>
+        StockWise prepares structured historical NSE data. You decide which AI
+        you want to use to interpret it.
+      </p>
+    </div>
+    <div class="workflow">
+      <div class="step"><div class="step-num">01</div><h3>Market Data</h3><p>Historical NSE price, volume, delivery and indicator data.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>StockWise</h3><p>Organises the data into a structured, AI-ready dataset.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Prompt</h3><p>A defined analysis framework tells the AI how to interpret the data.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Your AI</h3><p>Use ChatGPT, Claude, Gemini or another AI of your choice.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="demo">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Live demonstration</div>
+      <h2>Five stocks. One dataset. No forced trades.</h2>
+      <p>
+        This example uses a 5–30 trading-day swing framework. Each stock is
+        analysed independently. Where the evidence is weak or the risk/reward
+        is unattractive, the analysis can say “Watch” or “No Trade”.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong>5</strong><span>Stocks analysed</span></div>
+      <div class="stat"><strong>63</strong><span>Trading sessions</span></div>
+      <div class="stat"><strong>5–30d</strong><span>Analysis horizon</span></div>
+      <div class="stat"><strong>90d</strong><span>Calendar lookback</span></div>
+    </div>
+
+    <div class="stock-grid">
+
+      <article class="stock-card">
+        <div class="stock-top">
+          <div><div class="symbol">AARTIDRUGS</div><div class="company">Aarti Drugs Ltd.</div></div>
+          <div class="badges"><span class="badge green">Bullish</span><span class="badge amber">Watch</span></div>
+        </div>
+        <div class="stock-body">
+          <p class="reason">Above the major moving averages and VWAP, with resistance being tested. The technical picture is constructive, but the immediate risk/reward is not especially attractive at the current price.</p>
+          <div class="snapshot">
+            <div><b>₹437.25</b><span>Current</span></div>
+            <div><b>₹443.26</b><span>Resistance</span></div>
+            <div><b>₹426.50</b><span>Support</span></div>
+          </div>
+          <div class="details">
+            <button class="toggle" onclick="toggleCard(this)">View full analysis</button>
+            <div class="detail-content">
+              <div class="detail-grid">
+                <div class="detail-item"><b>Bias</b>Long, conditional</div>
+                <div class="detail-item"><b>Setup</b>Breakout / continuation</div>
+                <div class="detail-item"><b>Trigger</b>Above ₹443.25–444 with volume confirmation</div>
+                <div class="detail-item"><b>Volume</b>Latest 3.9L vs 20D average 1.6L</div>
+                <div class="detail-item"><b>Target 1</b>Approx. ₹460</div>
+                <div class="detail-item"><b>Target 2</b>Approx. ₹475</div>
+                <div class="detail-item"><b>Stop context</b>Around ₹426, subject to confirmation</div>
+                <div class="detail-item"><b>Confidence</b>Medium</div>
+              </div>
+              <div class="note">Important: bullish outlook does not automatically mean a trade. The setup should be confirmed and the risk/reward should remain acceptable.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stock-card">
+        <div class="stock-top">
+          <div><div class="symbol">AUROPHARMA</div><div class="company">Aurobindo Pharma Ltd.</div></div>
+          <div class="badges"><span class="badge green">Bullish</span><span class="badge amber">Watch</span></div>
+        </div>
+        <div class="stock-body">
+          <p class="reason">Price is above the major moving averages and has reached a fresh 52-week high. The trend is strong, but the lack of substantial volume expansion argues against blindly chasing the move.</p>
+          <div class="snapshot">
+            <div><b>₹1,716</b><span>Current</span></div>
+            <div><b>₹1,740</b><span>52W High</span></div>
+            <div><b>₹1,685</b><span>Support</span></div>
+          </div>
+          <div class="details">
+            <button class="toggle" onclick="toggleCard(this)">View full analysis</button>
+            <div class="detail-content">
+              <div class="detail-grid">
+                <div class="detail-item"><b>Bias</b>Long, conditional</div>
+                <div class="detail-item"><b>Setup</b>Breakout</div>
+                <div class="detail-item"><b>Trigger</b>Sustained move above ₹1,740 with volume</div>
+                <div class="detail-item"><b>Volume</b>Latest 8.2L vs 20D average 8.2L</div>
+                <div class="detail-item"><b>Pullback area</b>₹1,685–1,700</div>
+                <div class="detail-item"><b>Expected range</b>Approx. ₹1,650–1,820</div>
+                <div class="detail-item"><b>Risk</b>Breakout failure / loss of support</div>
+                <div class="detail-item"><b>Confidence</b>Medium</div>
+              </div>
+              <div class="note">A strong trend and a good entry are not necessarily the same thing. The analysis deliberately avoids treating a new high as an automatic buy signal.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stock-card">
+        <div class="stock-top">
+          <div><div class="symbol">RAYMOND</div><div class="company">Raymond Ltd.</div></div>
+          <div class="badges"><span class="badge green">Bullish</span><span class="badge red">No Trade</span></div>
+        </div>
+        <div class="stock-body">
+          <p class="reason">The price has made an explosive move and is far above its major moving averages. The latest delivery percentage is low, while the supplied dataset does not provide usable structural support levels for a fresh entry.</p>
+          <div class="snapshot">
+            <div><b>₹1,203.85</b><span>Current</span></div>
+            <div><b>₹1,221</b><span>52W High</span></div>
+            <div><b>₹92.45</b><span>ATR-14</span></div>
+          </div>
+          <div class="details">
+            <button class="toggle" onclick="toggleCard(this)">View full analysis</button>
+            <div class="detail-content">
+              <div class="detail-grid">
+                <div class="detail-item"><b>Bias</b>No fresh long entry</div>
+                <div class="detail-item"><b>Setup</b>Momentum continuation, but extended</div>
+                <div class="detail-item"><b>Recent move</b>Approx. ₹600 to ₹1,204 since early August</div>
+                <div class="detail-item"><b>Volume</b>Latest 74.7L vs 20D average 64.2L</div>
+                <div class="detail-item"><b>Delivery</b>11.64%</div>
+                <div class="detail-item"><b>Risk</b>Sharp mean reversion after extension</div>
+                <div class="detail-item"><b>Structural levels</b>Not supplied; none invented</div>
+                <div class="detail-item"><b>Confidence</b>Medium / Low</div>
+              </div>
+              <div class="note">This is a useful example of analytical restraint: a stock can have a strong recent trend while still producing “No Trade” at the current entry point.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stock-card">
+        <div class="stock-top">
+          <div><div class="symbol">SUBEXLTD</div><div class="company">Subex Ltd.</div></div>
+          <div class="badges"><span class="badge green">Bullish</span><span class="badge amber">Watch</span></div>
+        </div>
+        <div class="stock-body">
+          <p class="reason">The broader trend is positive, but the stock is volatile. The recent peak was followed by a sharp retreat, making confirmation more important than simply buying into the move.</p>
+          <div class="snapshot">
+            <div><b>₹20.71</b><span>Current</span></div>
+            <div><b>₹22.80</b><span>Recent High</span></div>
+            <div><b>₹1.62</b><span>ATR-14</span></div>
+          </div>
+          <div class="details">
+            <button class="toggle" onclick="toggleCard(this)">View full analysis</button>
+            <div class="detail-content">
+              <div class="detail-grid">
+                <div class="detail-item"><b>Bias</b>Long, conditional</div>
+                <div class="detail-item"><b>Setup</b>Continuation / range breakout</div>
+                <div class="detail-item"><b>Trigger</b>Reclaim ₹22.20–22.80 and hold</div>
+                <div class="detail-item"><b>Volume</b>Latest 2.0Cr vs 20D average 1.5Cr</div>
+                <div class="detail-item"><b>Delivery</b>Not applicable for BE series</div>
+                <div class="detail-item"><b>Potential target</b>Approx. ₹24.50 then ₹26</div>
+                <div class="detail-item"><b>Risk</b>Failure near recent high / high volatility</div>
+                <div class="detail-item"><b>Confidence</b>Medium / Low</div>
+              </div>
+              <div class="note">The BE series does not provide delivery data in this dataset, so the analysis does not invent or substitute a delivery figure.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stock-card">
+        <div class="stock-top">
+          <div><div class="symbol">ZYDUSWELL</div><div class="company">Zydus Wellness Ltd.</div></div>
+          <div class="badges"><span class="badge red">Weakening</span><span class="badge red">No Trade</span></div>
+        </div>
+        <div class="stock-body">
+          <p class="reason">Price is below the 20, 30 and 50-day moving averages and below VWAP. A key support has been breached, but the latest volume is far below the 20-day average, so there is insufficient confirmation for a fresh directional trade.</p>
+          <div class="snapshot">
+            <div><b>₹520.15</b><span>Current</span></div>
+            <div><b>₹512.51</b><span>Strong Support</span></div>
+            <div><b>₹539.19</b><span>DMA20</span></div>
+          </div>
+          <div class="details">
+            <button class="toggle" onclick="toggleCard(this)">View full analysis</button>
+            <div class="detail-content">
+              <div class="detail-grid">
+                <div class="detail-item"><b>Bias</b>No trade currently</div>
+                <div class="detail-item"><b>Setup</b>None</div>
+                <div class="detail-item"><b>Bullish trigger</b>Reclaim ₹526–527, then ₹539–545</div>
+                <div class="detail-item"><b>Bearish trigger</b>Break below ₹512.50 with volume</div>
+                <div class="detail-item"><b>Latest volume</b>66.2K</div>
+                <div class="detail-item"><b>20D volume</b>6.0L</div>
+                <div class="detail-item"><b>VWAP</b>₹544.85</div>
+                <div class="detail-item"><b>Confidence</b>Medium</div>
+              </div>
+              <div class="note">The very low latest volume means the recent weakness is not treated as a fully confirmed breakdown.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Inside the analysis</div>
+      <h2>What did the AI actually receive?</h2>
+      <p>
+        The important part is not only the final answer. You can inspect the
+        dataset and the instructions supplied to the AI.
+      </p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('dataPanel',this)">DATA</button>
+      <button class="tab" onclick="showTab('promptPanel',this)">PROMPT</button>
+      <button class="tab" onclick="showTab('analysisPanel',this)">ANALYSIS</button>
+    </div>
+
+    <div id="dataPanel" class="panel active">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Symbol</th><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th><th>Delivery %</th><th>DMA20</th><th>DMA50</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AARTIDRUGS</td><td>2026-09-24</td><td>436.35</td><td>450.20</td><td>434.60</td><td>437.25</td><td>390000</td><td>39.13</td><td>426.48</td><td>420.66</td></tr>
+            <tr><td>AUROPHARMA</td><td>2026-09-24</td><td>1719.70</td><td>1740.00</td><td>1710.00</td><td>1716.00</td><td>820000</td><td>45.25</td><td>1679.91</td><td>1629.77</td></tr>
+            <tr><td>RAYMOND</td><td>2026-09-24</td><td>1114.65</td><td>1221.00</td><td>1100.00</td><td>1203.85</td><td>7470000</td><td>11.64</td><td>871.79</td><td>718.15</td></tr>
+            <tr><td>SUBEXLTD</td><td>2026-09-24</td><td>21.90</td><td>22.22</td><td>20.31</td><td>20.71</td><td>20000000</td><td>N/A</td><td>19.11</td><td>16.11</td></tr>
+            <tr><td>ZYDUSWELL</td><td>2026-09-24</td><td>529.00</td><td>529.45</td><td>518.60</td><td>520.15</td><td>66200</td><td>40.80</td><td>539.19</td><td>539.86</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">The table above is a compact demonstration view. In production, this tab can load the complete CSV generated by StockWise, including all historical sessions and indicators.</div>
+    </div>
+
+    <div id="promptPanel" class="panel">
+<pre>STOCKWISE AI — ANALYSIS RULES
+
+Trade Type: SWING
+Horizon: 5–30 trading days
+Lookback: 90 calendar days (~60 sessions)
+
+Analyze each stock independently. Do not compare stocks unless explicitly requested.
+
+Prioritize:
+1. Recent Price Action
+2. Volume + Delivery
+3. Trend
+4. Momentum
+5. Volatility
+
+Do not blindly follow any supplied Score or Score Rating.
+
+If evidence is insufficient, state:
+"No Clear Trade Setup."
+
+For each stock provide:
+- Overall Outlook
+- Trade Bias
+- Swing Setup
+- Setup Type
+- Current Phase
+- Trigger Condition
+- Support / Resistance
+- Entry
+- Target 1
+- Target 2 where appropriate
+- Stop Loss
+- Risk/Reward
+- Breakout probability
+- Breakdown probability
+- Range-bound probability
+- Expected Swing Range
+- Volume & Delivery interpretation
+- Risk / Invalidation
+- Setup Confidence
+- Trade Decision
+
+Probabilities are dataset-based scenario estimates and are not statistically calibrated forecasts.
+
+Never invent missing market data, support levels or delivery information.</pre>
+    </div>
+
+    <div id="analysisPanel" class="panel">
+<pre>AARTIDRUGS
+Outlook: Bullish
+Bias: Long, conditional
+Decision: Watch
+Reason: Trend is constructive, but immediate risk/reward is not especially attractive.
+
+AUROPHARMA
+Outlook: Bullish
+Bias: Long, conditional
+Decision: Watch
+Reason: Strong trend and fresh 52-week high, but confirmation is required rather than chasing.
+
+RAYMOND
+Outlook: Bullish, highly extended
+Bias: No fresh long entry
+Decision: No Trade
+Reason: Explosive move, low delivery and insufficient supplied structural support levels.
+
+SUBEXLTD
+Outlook: Bullish but volatile
+Bias: Long, conditional
+Decision: Watch
+Reason: Trend remains positive but recent volatility makes confirmation important.
+
+ZYDUSWELL
+Outlook: Weakening
+Bias: No trade currently
+Decision: No Trade
+Reason: Below major moving averages and VWAP, with insufficient volume confirmation.</pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">A useful distinction</div>
+      <h2>The AI does not simply follow a score.</h2>
+      <p>
+        StockWise can provide scores and indicators, but the analysis framework
+        tells the AI to interpret the complete dataset rather than blindly
+        converting one number into a trade.
+      </p>
+    </div>
+    <div class="callout">
+      <div class="callout-card">
+        <h3>RAYMOND is the example.</h3>
+        <p>
+          Its supplied score was only 10, while the price had risen dramatically
+          and was trading far above its major moving averages. The analysis
+          therefore considered price structure, extension, volume, delivery and
+          available support information separately.
+        </p>
+        <div class="score-example">
+          <strong>Score: 10</strong><br>
+          <span style="color:#667085">Current price: ₹1,203.85</span><br>
+          <span style="color:#667085">DMA20: ₹871.79</span>
+        </div>
+      </div>
+      <div class="callout-card">
+        <h3>Analytical restraint matters.</h3>
+        <p>
+          A useful AI workflow should be capable of saying that a stock is
+          trending strongly but that the current entry is unattractive.
+        </p>
+        <p>
+          That is why the example contains bullish stocks, watch situations and
+          no-trade situations rather than five forced recommendations.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="generate" class="cta">
+  <div class="container">
+    <div class="kicker" style="color:#98a2b3">Run it on your own data</div>
+    <h2>Generate your own AI-ready NSE dataset.</h2>
+    <p>
+      StockWise prepares structured historical market data that you can take
+      to ChatGPT, Claude, Gemini or another AI of your choice.
+    </p>
+    <div class="buttons">
+      <a class="btn btn-primary" href="#">Generate My Data</a>
+      <a class="btn" href="#data" style="color:white;border-color:#475467;background:transparent">Inspect This Example</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div><strong>StockWise</strong> · Fairgrow Holdings</div>
+    <div>AI-ready historical NSE data</div>
+  </div>
+  <div class="container disclaimer">
+    Demonstration only. Historical market data and AI-generated analysis are
+    provided for research and educational purposes and are not investment
+    advice, a recommendation, or a guarantee of future results.
+  </div>
+</footer>
+
+<script>
+function toggleCard(button){
+  const content = button.nextElementSibling;
+  const isOpen = content.classList.toggle('open');
+  button.classList.toggle('open', isOpen);
+  button.textContent = isOpen ? 'Hide full analysis' : 'View full analysis';
+}
+function showTab(panelId, button){
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  button.classList.add('active');
+}
+</script>
+</body>
+</html>
