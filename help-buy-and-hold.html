@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buy &amp; Hold Comparison — StockWise Help</title>
+    <meta name="description"
+          content="Why comparing your backtest strategy against simply holding the stock matters — and how to read the difference.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-buy-and-hold.html">
+
+    <style>
+        /* Same styles as the other help pages */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #172033; background: #ffffff; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+        .narrow { width: min(820px, 92%); margin: 0 auto; }
+        header { border-bottom: 1px solid #e9edf3; background: #ffffff; position: sticky; top: 0; z-index: 100; }
+        .nav { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: #536071; }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small { background: #2563eb; color: white !important; padding: 9px 17px; border-radius: 7px; font-weight: 600; }
+        .breadcrumb { padding: 22px 0 0; font-size: 13px; color: #8794a8; }
+        .breadcrumb a { color: #2563eb; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+        .article-head { padding: 24px 0 40px; border-bottom: 1px solid #e9edf3; margin-bottom: 40px; }
+        .article-head h1 { font-size: clamp(30px, 4.5vw, 44px); line-height: 1.15; letter-spacing: -1.6px; color: #111827; margin-bottom: 16px; }
+        .article-head p { font-size: 18px; color: #5b6676; max-width: 780px; }
+        h2 { font-size: 26px; line-height: 1.2; letter-spacing: -0.8px; color: #111827; margin: 45px 0 18px; }
+        p { font-size: 16px; color: #3d4757; margin-bottom: 16px; }
+        .callout { background: #f8fafc; border: 1px solid #e5e9ef; border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; }
+        .callout p:last-child { margin-bottom: 0; }
+        ul { margin: 0 0 18px 22px; }
+        li { font-size: 16px; color: #3d4757; margin-bottom: 6px; }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 15px; }
+        th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid #e5e9ef; }
+        th { font-weight: 700; color: #182235; background: #f8fafc; font-size: 13px; text-transform: uppercase; letter-spacing: 0.4px; }
+        .case-row td:first-child { font-weight: 600; color: #182235; }
+        .next-links { border-top: 1px solid #e9edf3; margin-top: 55px; padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .next-card { background: white; border: 1px solid #e5e9ef; border-radius: 10px; padding: 18px 20px; transition: 0.2s ease; }
+        .next-card:hover { border-color: #2563eb; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08); }
+        .next-label { font-size: 11px; color: #8794a8; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; margin-bottom: 6px; }
+        .next-title { font-size: 16px; font-weight: 700; color: #182235; }
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; margin-top: 80px; }
+        .footer-top { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 35px; }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; color: #aeb8c7; }
+        .footer-links { display: grid; grid-template-columns: repeat(2, auto); gap: 10px 35px; font-size: 14px; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid #293344; padding-top: 20px; font-size: 13px; display: flex; justify-content: space-between; gap: 20px; }
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .article-head h1 { font-size: 30px; }
+            h2 { font-size: 22px; }
+            .next-links { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data & Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="narrow">
+        <div class="breadcrumb">
+            <a href="help.html">Help Center</a>
+            <span>›</span>
+            Buy &amp; Hold Comparison
+        </div>
+
+        <div class="article-head">
+            <h1>Buy &amp; Hold Comparison</h1>
+            <p>Buy-and-hold is the simplest investing approach: you buy the selected stocks on day one and sell them at the end. Comparing your strategy against buy-and-hold tells you whether the strategy actually added value.</p>
+        </div>
+
+        <h2>How it works</h2>
+        <ul>
+            <li>All selected stocks are purchased on the first trading day of the test period.</li>
+            <li>Capital is split equally across them.</li>
+            <li>No stop-loss or profit-target is used.</li>
+            <li>Dividends are credited to cash as they occur.</li>
+            <li>Positions are sold at the closing price on the last day of the test.</li>
+        </ul>
+
+        <h2>Why it matters</h2>
+        <ul>
+            <li>A strategy that returns 12% may sound good — until you see that simply holding the stock returned 25%.</li>
+            <li>A strategy that returns 12% while buy-and-hold fell 5% is genuinely valuable.</li>
+            <li>Buy-and-hold typically has a higher maximum drawdown than a well-managed strategy.</li>
+        </ul>
+
+        <h2>How to read the comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Case</th>
+                    <th>What it means</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="case-row">
+                    <td>Strategy beats Buy &amp; Hold</td>
+                    <td>The strategy's timing decisions added value.</td>
+                </tr>
+                <tr class="case-row">
+                    <td>Strategy underperforms Buy &amp; Hold</td>
+                    <td>The strategy was too active or exited too early. It may still be useful if its drawdown was much smaller.</td>
+                </tr>
+                <tr class="case-row">
+                    <td>Strategy ≈ Buy &amp; Hold</td>
+                    <td>The strategy did not add meaningful value. A simpler approach may be better.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>What is compared</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Strategy</th>
+                    <th>Buy &amp; Hold</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Return</td>
+                    <td>Backtest result</td>
+                    <td>Return over same dates</td>
+                </tr>
+                <tr>
+                    <td>Maximum Drawdown</td>
+                    <td>Strategy's worst fall</td>
+                    <td>Buy-and-hold worst fall</td>
+                </tr>
+                <tr>
+                    <td>Transaction Costs</td>
+                    <td>Costs paid</td>
+                    <td>Entry + exit only</td>
+                </tr>
+                <tr>
+                    <td>Time Invested</td>
+                    <td>Time in market</td>
+                    <td>Fully invested</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p><i>The comparison uses the same dates, dividends, and cost assumptions so the result is fair. It is historical, not predictive.</i></p>
+        </div>
+
+        <div class="next-links">
+            <a href="help-entry-exit-conditions.html" class="next-card">
+                <div class="next-label">Back to start</div>
+                <div class="next-title">Entry &amp; Exit Conditions</div>
+            </a>
+            <a href="help.html" class="next-card">
+                <div class="next-label">Back to</div>
+                <div class="next-title">Help Center</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
