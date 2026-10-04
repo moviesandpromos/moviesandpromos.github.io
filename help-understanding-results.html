@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Understanding Your Backtest Results — StockWise Help</title>
+    <meta name="description"
+          content="Plain-English guide to backtest metrics: Total Return, CAGR, Profit Factor, Maximum Drawdown, Sharpe Ratio, and more. With rupee examples.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-understanding-results.html">
+
+    <style>
+        /* Identical base styles to the other help pages */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #172033; background: #ffffff; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+        .narrow { width: min(820px, 92%); margin: 0 auto; }
+        header { border-bottom: 1px solid #e9edf3; background: #ffffff; position: sticky; top: 0; z-index: 100; }
+        .nav { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: #536071; }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small { background: #2563eb; color: white !important; padding: 9px 17px; border-radius: 7px; font-weight: 600; }
+        .breadcrumb { padding: 22px 0 0; font-size: 13px; color: #8794a8; }
+        .breadcrumb a { color: #2563eb; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+        .article-head { padding: 24px 0 40px; border-bottom: 1px solid #e9edf3; margin-bottom: 40px; }
+        .article-head h1 { font-size: clamp(30px, 4.5vw, 44px); line-height: 1.15; letter-spacing: -1.6px; color: #111827; margin-bottom: 16px; }
+        .article-head p { font-size: 18px; color: #5b6676; max-width: 780px; }
+        h2 { font-size: 26px; line-height: 1.2; letter-spacing: -0.8px; color: #111827; margin: 45px 0 18px; }
+        p { font-size: 16px; color: #3d4757; margin-bottom: 16px; }
+        .condition { background: white; border: 1px solid #e5e9ef; border-radius: 12px; padding: 22px 26px; margin-bottom: 16px; }
+        .condition h3 { font-size: 18px; font-weight: 700; color: #182235; margin-bottom: 8px; }
+        .condition p { font-size: 15px; color: #3d4757; margin-bottom: 8px; }
+        .condition p:last-child { margin-bottom: 0; }
+        .example { background: #f1f5f9; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #1a1d21; margin-top: 8px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+        .tip { background: #fff8e6; border-left: 3px solid #f5a524; border-radius: 8px; padding: 12px 14px; margin-top: 12px; }
+        .tip-label { font-size: 11px; font-weight: 800; color: #7a5400; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+        .tip-text { font-size: 14px; color: #5a4a20; line-height: 1.6; margin: 0; }
+        .next-links { border-top: 1px solid #e9edf3; margin-top: 55px; padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .next-card { background: white; border: 1px solid #e5e9ef; border-radius: 10px; padding: 18px 20px; transition: 0.2s ease; }
+        .next-card:hover { border-color: #2563eb; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08); }
+        .next-label { font-size: 11px; color: #8794a8; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; margin-bottom: 6px; }
+        .next-title { font-size: 16px; font-weight: 700; color: #182235; }
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; margin-top: 80px; }
+        .footer-top { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 35px; }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; color: #aeb8c7; }
+        .footer-links { display: grid; grid-template-columns: repeat(2, auto); gap: 10px 35px; font-size: 14px; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid #293344; padding-top: 20px; font-size: 13px; display: flex; justify-content: space-between; gap: 20px; }
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .article-head h1 { font-size: 30px; }
+            h2 { font-size: 22px; }
+            .next-links { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data & Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="narrow">
+        <div class="breadcrumb">
+            <a href="help.html">Help Center</a>
+            <span>›</span>
+            Understanding Your Results
+        </div>
+
+        <div class="article-head">
+            <h1>Understanding Your Results</h1>
+            <p>A backtest tells you how a strategy <b>would</b> have performed on past data. It does not predict the future. Focus on understanding how the money was made — not just whether it was made.</p>
+        </div>
+
+        <h2>Core Metrics</h2>
+
+        <div class="condition">
+            <h3>Total Return (%)</h3>
+            <p>Percent growth of your capital over the test.</p>
+            <div class="example">₹1,00,000 → ₹1,18,000 = +18%</div>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Compare with buy-and-hold to see if the strategy added value.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Final Capital (₹)</h3>
+            <p>Value at the end of the test, including open positions.</p>
+            <div class="example">₹1,18,420</div>
+        </div>
+
+        <div class="condition">
+            <h3>CAGR (%)</h3>
+            <p>Annualised return — the yearly equivalent.</p>
+            <div class="example">18% over 2 years ≈ 8.6% CAGR</div>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Very short tests (under 30 days) can produce misleading CAGR.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Total Trades</h3>
+            <p>Number of completed buy-sell round trips.</p>
+            <div class="example">24 trades</div>
+        </div>
+
+        <div class="condition">
+            <h3>Win Rate (%)</h3>
+            <p>Percentage of trades that were profitable.</p>
+            <div class="example">62.5% means 15 of 24 trades made money</div>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">A high win rate alone does not mean profit — check Profit Factor too.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Profit Factor</h3>
+            <p>Gross profits divided by gross losses.</p>
+            <div class="example">1.84 means ₹1.84 earned for every ₹1 lost</div>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Above 1.5 is generally healthy. Above 2 is very good.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Maximum Drawdown (%)</h3>
+            <p>Largest fall from a peak before recovery.</p>
+            <div class="example">12% means your portfolio temporarily fell from ₹1,10,000 to ₹96,800</div>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Lower is easier to tolerate emotionally.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Net Profit After Costs (₹)</h3>
+            <p>Profit after transaction costs, slippage, and dividends.</p>
+            <div class="example">₹18,420</div>
+        </div>
+
+        <h2>Advanced Metrics</h2>
+
+        <div class="condition">
+            <h3>Sharpe Ratio</h3>
+            <p>Return per unit of risk.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Above 1 is good, above 2 is excellent.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Average Win / Average Loss</h3>
+            <p>Average size of winning vs losing trades.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Wins should be meaningfully larger than losses.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Average Holding Period</h3>
+            <p>Average days each position was held.</p>
+        </div>
+
+        <div class="condition">
+            <h3>Market Exposure (%)</h3>
+            <p>How much of the time your money was actually invested.</p>
+        </div>
+
+        <div class="condition">
+            <h3>Maximum Consecutive Losses</h3>
+            <p>Longest losing streak.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Prepare emotionally for this — even good strategies have losing streaks.</p>
+            </div>
+        </div>
+
+        <h2>Charts</h2>
+
+        <div class="condition">
+            <h3>Equity Curve</h3>
+            <p>How your portfolio value changed over time.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Smooth rises are healthy. Sharp drops show risk events.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Drawdown Chart</h3>
+            <p>How far below the previous peak you were at each point.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Deep valleys mean large temporary losses.</p>
+            </div>
+        </div>
+
+        <div class="condition">
+            <h3>Monthly Returns</h3>
+            <p>Performance broken down by month.</p>
+            <div class="tip">
+                <div class="tip-label">Tip</div>
+                <p class="tip-text">Consistency across months is usually a good sign.</p>
+            </div>
+        </div>
+
+        <div class="tip" style="margin-top: 40px;">
+            <div class="tip-label">Important</div>
+            <p class="tip-text">Past performance does not guarantee future results. Backtests are hypothetical and simplify real-world trading.</p>
+        </div>
+
+        <div class="next-links">
+            <a href="help-buy-and-hold.html" class="next-card">
+                <div class="next-label">Next guide →</div>
+                <div class="next-title">Buy &amp; Hold Comparison</div>
+            </a>
+            <a href="help.html" class="next-card">
+                <div class="next-label">Back to</div>
+                <div class="next-title">Help Center</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
