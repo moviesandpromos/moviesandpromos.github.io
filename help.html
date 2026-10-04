@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StockWise Help Center — Beginner Guides to Backtesting</title>
+    <meta name="description"
+          content="Plain-English guides to backtesting on StockWise: entry and exit conditions, risk parameters, understanding your results, and buy-and-hold comparison.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help.html">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+
+        /* ── Header (identical to index) ── */
+        header {
+            border-bottom: 1px solid #e9edf3;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links {
+            display: flex; align-items: center; gap: 26px;
+            font-size: 14px; color: #536071;
+        }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small {
+            background: #2563eb; color: white !important;
+            padding: 9px 17px; border-radius: 7px; font-weight: 600;
+        }
+
+        /* ── Help hero ── */
+        .help-hero {
+            padding: 70px 0 55px;
+            background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9edf3;
+        }
+        .help-hero .eyebrow {
+            display: inline-block;
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+        .help-hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            color: #111827;
+            max-width: 720px;
+        }
+        .help-hero p {
+            font-size: 18px;
+            color: #5b6676;
+            max-width: 720px;
+        }
+
+        /* ── Topic grid ── */
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-top: 40px;
+        }
+        .topic-card {
+            display: block;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 28px;
+            transition: 0.2s ease;
+        }
+        .topic-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+        }
+        .topic-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 14px;
+        }
+        .topic-card h3 {
+            font-size: 19px;
+            color: #182235;
+            margin-bottom: 10px;
+        }
+        .topic-card p {
+            font-size: 15px;
+            color: #687386;
+            margin-bottom: 14px;
+        }
+        .topic-arrow {
+            font-size: 14px;
+            color: #2563eb;
+            font-weight: 650;
+        }
+
+        /* ── Section ── */
+        .section { padding: 70px 0; }
+        .section-light { background: #f8fafc; }
+        .section-heading { max-width: 720px; margin-bottom: 40px; }
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+        .section-heading p { color: #657184; font-size: 16px; }
+
+        /* ── Info cards ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        .info-card {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 26px;
+        }
+        .info-card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            color: #182235;
+        }
+        .info-card p { font-size: 14px; color: #687386; }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 70px 20px;
+            background: #f5f8ff;
+        }
+        .cta h2 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .cta p { color: #657184; margin-bottom: 24px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 22px; border-radius: 8px;
+            font-size: 15px; font-weight: 650;
+            transition: 0.2s ease;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+        /* ── Footer (identical to index) ── */
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; }
+        .footer-top {
+            display: flex; justify-content: space-between;
+            gap: 40px; margin-bottom: 35px;
+        }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px 35px;
+            font-size: 14px;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid #293344;
+            padding-top: 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .help-hero { padding: 55px 0 40px; }
+            .topic-grid, .info-grid { grid-template-columns: 1fr; }
+            .section { padding: 55px 0; }
+            .section-heading h2 { font-size: 27px; }
+            .cta h2 { font-size: 27px; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data & Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="help-hero">
+    <div class="container">
+        <div class="eyebrow">Help Center</div>
+        <h1>Plain-English guides to every part of StockWise.</h1>
+        <p>No finance background needed. Each guide explains what a concept means, why it matters, and how to use it — with simple examples in rupees.</p>
+    </div>
+</section>
+
+<!-- TOPICS -->
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Choose a topic</h2>
+            <p>Four guides cover everything you need to run a backtest and understand the results.</p>
+        </div>
+
+        <div class="topic-grid">
+
+            <a href="help-entry-exit-conditions.html" class="topic-card">
+                <span class="topic-icon">📊</span>
+                <h3>Entry &amp; Exit Conditions</h3>
+                <p>Understand the 11 technical conditions you can use to build a strategy — RSI, MACD, Bollinger Bands, VWAP, ADX, and more.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+            <a href="help-risk-parameters.html" class="topic-card">
+                <span class="topic-icon">🛡️</span>
+                <h3>Risk Parameters</h3>
+                <p>Stop loss, profit target, position sizing, transaction costs, and slippage — the rules that protect your capital.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+            <a href="help-understanding-results.html" class="topic-card">
+                <span class="topic-icon">📈</span>
+                <h3>Understanding Your Results</h3>
+                <p>What do Total Return, CAGR, Profit Factor, Maximum Drawdown, and Sharpe Ratio actually mean? With simple rupee examples.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+            <a href="help-buy-and-hold.html" class="topic-card">
+                <span class="topic-icon">⚖️</span>
+                <h3>Buy &amp; Hold Comparison</h3>
+                <p>Why comparing your strategy against simply holding the stock matters — and how to read the difference.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- WHY THIS MATTERS -->
+
+<section class="section section-light">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Why these guides exist</h2>
+            <p>Backtesting is a powerful way to understand a strategy — but the terminology can be intimidating. These guides translate it into everyday language.</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Read before you run</h3>
+                <p>Each guide explains the input fields you will see in the app, so you know what to expect before you configure a backtest.</p>
+            </div>
+            <div class="info-card">
+                <h3>Understand the output</h3>
+                <p>Every metric on the results screen is explained with a concrete rupee example so you can interpret it in context.</p>
+            </div>
+            <div class="info-card">
+                <h3>Honest about limits</h3>
+                <p>We highlight what backtests cannot tell you — including the risks of over-fitting and the difference between historical and future performance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to try it?</h2>
+        <p>Download StockWise and run your first backtest with confidence.</p>
+        <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+           class="btn btn-primary" target="_blank">Download StockWise</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
