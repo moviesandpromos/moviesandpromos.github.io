@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entry &amp; Exit Conditions — StockWise Help</title>
+    <meta name="description"
+          content="A beginner's guide to the 11 entry and exit conditions in StockWise: RSI, DMA Trend, MACD, Bollinger Bands, Strategy Signal, Breakout, OBV, VWAP, ADX, Stochastic, and Candle Pattern.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-entry-exit-conditions.html">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+        .narrow { width: min(820px, 92%); margin: 0 auto; }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #e9edf3;
+            background: #ffffff;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links {
+            display: flex; align-items: center; gap: 26px;
+            font-size: 14px; color: #536071;
+        }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small {
+            background: #2563eb; color: white !important;
+            padding: 9px 17px; border-radius: 7px; font-weight: 600;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 22px 0 0;
+            font-size: 13px;
+            color: #8794a8;
+        }
+        .breadcrumb a { color: #2563eb; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+
+        /* Article header */
+        .article-head {
+            padding: 24px 0 40px;
+            border-bottom: 1px solid #e9edf3;
+            margin-bottom: 40px;
+        }
+        .article-head h1 {
+            font-size: clamp(30px, 4.5vw, 44px);
+            line-height: 1.15;
+            letter-spacing: -1.6px;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+        .article-head p {
+            font-size: 18px;
+            color: #5b6676;
+            max-width: 780px;
+        }
+
+        /* Section headings */
+        h2 {
+            font-size: 26px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            color: #111827;
+            margin: 45px 0 18px;
+        }
+
+        p { font-size: 16px; color: #3d4757; margin-bottom: 16px; }
+
+        /* Callout cards */
+        .callout {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 18px;
+        }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* Condition card */
+        .condition {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 24px 26px;
+            margin-bottom: 18px;
+        }
+        .condition h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #182235;
+            margin-bottom: 4px;
+        }
+        .condition-sub {
+            font-size: 14px;
+            color: #8794a8;
+            margin-bottom: 18px;
+        }
+        .field-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #8794a8;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 14px;
+            margin-bottom: 4px;
+        }
+        .field-value {
+            font-size: 15px;
+            color: #3d4757;
+            margin-bottom: 0;
+        }
+
+        .pill {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 4px 11px;
+            margin: 0 4px 4px 0;
+        }
+
+        /* Beginner tip callout */
+        .tip {
+            background: #fff8e6;
+            border-left: 3px solid #f5a524;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 18px;
+        }
+        .tip-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #7a5400;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+        }
+        .tip-text {
+            font-size: 14px;
+            color: #5a4a20;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Next links */
+        .next-links {
+            border-top: 1px solid #e9edf3;
+            margin-top: 55px;
+            padding-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .next-card {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 18px 20px;
+            transition: 0.2s ease;
+        }
+        .next-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+        }
+        .next-label {
+            font-size: 11px;
+            color: #8794a8;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .next-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #182235;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #aeb8c7;
+            padding: 45px 0 25px;
+            margin-top: 80px;
+        }
+        .footer-top { display: flex; justify-content: space-between; gap: 40px; margin-bottom: 35px; }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; color: #aeb8c7; }
+        .footer-links {
+            display: grid; grid-template-columns: repeat(2, auto);
+            gap: 10px 35px; font-size: 14px;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid #293344; padding-top: 20px; font-size: 13px;
+            display: flex; justify-content: space-between; gap: 20px;
+        }
+
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .article-head h1 { font-size: 30px; }
+            h2 { font-size: 22px; }
+            .next-links { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data & Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="narrow">
+        <div class="breadcrumb">
+            <a href="help.html">Help Center</a>
+            <span>›</span>
+            Entry &amp; Exit Conditions
+        </div>
+
+        <div class="article-head">
+            <h1>Entry &amp; Exit Conditions</h1>
+            <p>Every strategy has rules for when to buy and when to sell. Each condition below comes from the stock's technical indicators. You choose which conditions must be true to enter a trade, and which must be true to exit. Do not treat any single value as an automatic buy or sell signal.</p>
+        </div>
+
+        <h2>How conditions combine</h2>
+        <div class="callout">
+            <p>Each condition you enable is joined with the previous one using <b>AND</b> or <b>OR</b>.</p>
+            <p><b>AND</b> means both must be true. <b>OR</b> means either one is enough. You can mix AND and OR — StockWise evaluates them left-to-right.</p>
+        </div>
+
+        <h2>Event vs State</h2>
+        <div class="callout">
+            <p>Some conditions are <b>events</b> — they fire on the day something happens (for example, RSI crosses above 30).</p>
+            <p>Others are <b>states</b> — they describe the current situation (for example, daily trend is UP). States remain true until they change.</p>
+        </div>
+
+        <h2>Neutral is not a sell signal</h2>
+        <div class="callout">
+            <p>Values like <span class="pill">UNCHANGED</span> <span class="pill">WITHIN_RANGE</span> <span class="pill">NEUTRAL</span> <span class="pill">STABLE_OBV</span> <span class="pill">NA</span> mean there is no new signal. They do not automatically close a position.</p>
+        </div>
+
+        <h2>The 11 Conditions</h2>
+
+        <!-- 1. RSI -->
+        <div class="condition">
+            <h3>RSI</h3>
+            <div class="condition-sub">Relative Strength Index</div>
+            <div class="field-label">Values</div>
+            <p class="field-value">A number between 0 and 100. Default entry: 30. Default exit: 70.</p>
+            <div class="field-label">Type</div>
+            <p class="field-value">Event</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">Measures how fast prices have moved recently. Below 30 is often considered oversold; above 70 overbought.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Typical entry: RSI crosses above 30. Typical exit: RSI crosses above 70.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">A stock can stay below 30 during a strong downtrend. Combine with trend filters to avoid catching a falling knife.</p>
+            </div>
+        </div>
+
+        <!-- 2. DMA Trend -->
+        <div class="condition">
+            <h3>DMA Trend</h3>
+            <div class="condition-sub">Moving Average Trend (Daily / Weekly / Monthly)</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">UP</span><span class="pill">DOWN</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">State / Filter</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">Shows the direction of the trend on daily, weekly, or monthly charts.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Typical entry filter: Daily UP and Weekly UP. Typical exit: Daily DOWN.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">Trends take time to change. Weekly and monthly signals are slower but more reliable than daily.</p>
+            </div>
+        </div>
+
+        <!-- 3. MACD -->
+        <div class="condition">
+            <h3>MACD</h3>
+            <div class="condition-sub">Moving Average Convergence Divergence</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">positive_cross</span><span class="pill">negative_cross</span><span class="pill">unchanged</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">Event</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">positive_cross means the MACD line crossed above its signal line (bullish momentum). negative_cross is the opposite.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Typical entry: positive_cross. Typical exit: negative_cross.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">unchanged simply means no crossover today. It is not a sell signal.</p>
+            </div>
+        </div>
+
+        <!-- 4. Bollinger Band -->
+        <div class="condition">
+            <h3>Bollinger Band</h3>
+            <div class="condition-sub">Bollinger Bands</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">near_upper</span><span class="pill">near_lower</span><span class="pill">within_range</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">State</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">Describes where the price sits relative to a volatility band around a moving average.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Mean reversion: enter near_lower, exit near_upper. Trend following: enter near_upper (with other confirmations).</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">within_range means the price is not near either band. It is not an exit signal.</p>
+            </div>
+        </div>
+
+        <!-- 5. Strategy Signal -->
+        <div class="condition">
+            <h3>Strategy Signal</h3>
+            <div class="condition-sub">StockWise Strategy Classification</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">NEUTRAL_SETUP</span><span class="pill">TECHNICAL_REVERSION</span><span class="pill">TREND_MOMENTUM_CONFIRMATION</span><span class="pill">EARLY_MOMENTUM</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">State / Filter</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">A higher-level snapshot of what kind of setup the stock is in.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Use as an entry filter, e.g. Strategy Signal = TECHNICAL_REVERSION.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">NEUTRAL_SETUP means no strong setup. It should not trigger a trade.</p>
+            </div>
+        </div>
+
+        <!-- 6. Breakout Signal -->
+        <div class="condition">
+            <h3>Breakout Signal</h3>
+            <div class="condition-sub">Breakout Detection</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">YES</span><span class="pill">NO</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">Event</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">YES means a breakout was detected that day.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Entry trigger. Add a confirmation filter (trend UP, OBV rising) since breakouts are volatile.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">NO on the next day does not mean the breakout failed. It means no NEW breakout occurred.</p>
+            </div>
+        </div>
+
+        <!-- 7. OBV -->
+        <div class="condition">
+            <h3>OBV</h3>
+            <div class="condition-sub">On-Balance Volume Signal</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">RISING_OBV</span><span class="pill">FALLING_OBV</span><span class="pill">STABLE_OBV</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">Filter / Confirmation</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">Rising OBV suggests buying pressure. Falling OBV suggests selling pressure.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Use RISING_OBV to confirm an entry. FALLING_OBV can be an optional exit.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">STABLE_OBV means no clear direction — not a reason to exit.</p>
+            </div>
+        </div>
+
+        <!-- 8. VWAP -->
+        <div class="condition">
+            <h3>VWAP</h3>
+            <div class="condition-sub">Volume-Weighted Average Price (End-of-Day)</div>
+            <div class="field-label">Values</div>
+            <p class="field-value"><span class="pill">BULLISH</span><span class="pill">BEARISH</span><span class="pill">NEUTRAL</span></p>
+            <div class="field-label">Type</div>
+            <p class="field-value">Filter / Confirmation</p>
+            <div class="field-label">What it means</div>
+            <p class="field-value">BULLISH means the closing price is above the VWAP. BEARISH means below.</p>
+            <div class="field-label">How to use</div>
+            <p class="field-value">Use BULLISH to confirm a long entry. BEARISH can be an optional exit.</p>
+            <div class="tip">
+                <div class="tip-label">Beginner tip</div>
+                <p class="tip-text">This is an end-of-day VWAP, not the intraday one used by day traders.</p>
+            </div>
+        </div>
+
+        <!-- 9. ADX -->
+        <div class="condition">
+            <h
