@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Strategy Guide — StockWise Help Center</title>
+    <meta name="description"
+          content="Plain-English explanations of the trading strategies StockWise uses in walk-forward and Monte Carlo analysis — with worked rupee examples for each.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-strategies.html">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+
+        /* ── Header ── */
+        header {
+            border-bottom: 1px solid #e9edf3;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links {
+            display: flex; align-items: center; gap: 26px;
+            font-size: 14px; color: #536071;
+        }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small {
+            background: #2563eb; color: white !important;
+            padding: 9px 17px; border-radius: 7px; font-weight: 600;
+        }
+
+        /* ── Hero ── */
+        .help-hero {
+            padding: 70px 0 55px;
+            background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9edf3;
+        }
+        .help-hero .eyebrow {
+            display: inline-block;
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+        .help-hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            color: #111827;
+            max-width: 780px;
+        }
+        .help-hero p {
+            font-size: 18px;
+            color: #5b6676;
+            max-width: 720px;
+        }
+
+        /* ── TOC ── */
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 22px 26px;
+            margin-top: 40px;
+            max-width: 720px;
+        }
+        .toc h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #8a94a2;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .toc ol {
+            list-style: none;
+            counter-reset: toc;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 26px;
+        }
+        .toc li {
+            counter-increment: toc;
+            font-size: 15px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .toc li::before {
+            content: counter(toc) ". ";
+            color: #8a94a2;
+        }
+        .toc a:hover { text-decoration: underline; }
+
+        /* ── Section ── */
+        .section { padding: 60px 0; }
+        .section-light { background: #f8fafc; }
+
+        .section-heading { max-width: 780px; margin-bottom: 34px; }
+        .section-heading .num {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2563eb;
+            background: #eaf2ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+        .section-heading h2 {
+            font-size: 30px;
+            line-height: 1.25;
+            letter-spacing: -0.8px;
+            margin-bottom: 14px;
+            color: #111827;
+        }
+        .section-heading .lead {
+            color: #5b6676;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* ── Prose ── */
+        .prose { max-width: 780px; }
+        .prose p {
+            font-size: 16px;
+            color: #3d4757;
+            margin-bottom: 16px;
+            line-height: 1.75;
+        }
+        .prose p:last-child { margin-bottom: 0; }
+        .prose strong { color: #111827; font-weight: 700; }
+        .prose em { color: #2563eb; font-style: normal; font-weight: 600; }
+
+        /* ── Callout ── */
+        .callout {
+            background: #eaf2ff;
+            border-left: 3px solid #2563eb;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 20px 0;
+            max-width: 780px;
+        }
+        .callout p { font-size: 15px; color: #1e3a5f; margin: 0; }
+        .callout strong { color: #1e3a5f; }
+
+        .callout-warn {
+            background: #fff6e0;
+            border-left-color: #c98a00;
+        }
+        .callout-warn p { color: #6b4a00; }
+        .callout-warn strong { color: #6b4a00; }
+
+        /* ── Strategy card ── */
+        .strategy {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 26px 28px;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+        .strategy-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .strategy-tag {
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+        .strategy-name {
+            font-size: 22px;
+            font-weight: 750;
+            color: #111827;
+            letter-spacing: -0.4px;
+        }
+        .strategy-tagline {
+            font-size: 15px;
+            color: #5b6676;
+            margin-bottom: 16px;
+        }
+
+        /* ── Rule list ── */
+        .rule-list {
+            list-style: none;
+            margin: 12px 0 18px;
+            padding: 0;
+        }
+        .rule-list li {
+            position: relative;
+            padding: 6px 0 6px 24px;
+            font-size: 15px;
+            color: #3d4757;
+            line-height: 1.6;
+        }
+        .rule-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: 700;
+        }
+        .rule-list li strong { color: #111827; }
+
+        /* ── Example box ── */
+        .example {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin: 18px 0 0;
+        }
+        .example .label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 12px;
+        }
+        .example p {
+            font-size: 14px;
+            color: #3d4757;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        .example p:last-child { margin-bottom: 0; }
+
+        /* ── Timeline in example ── */
+        .timeline {
+            display: flex;
+            gap: 8px;
+            margin: 14px 0;
+            flex-wrap: wrap;
+        }
+        .timeline-step {
+            flex: 1 1 140px;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+        .timeline-step .step-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: #8a94a2;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+        .timeline-step .step-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.4;
+        }
+        .timeline-step .step-note {
+            font-size: 12px;
+            color: #5b6676;
+            margin-top: 4px;
+        }
+        .timeline-step.win  { border-color: #c7ecd5; background: #f2fbf5; }
+        .timeline-step.loss { border-color: #f5c9cd; background: #fdf3f4; }
+        .timeline-step.entry { border-color: #c7dbff; background: #f5f8ff; }
+        .timeline-step.exit  { border-color: #c7dbff; background: #f5f8ff; }
+
+        /* ── Table ── */
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 14px;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .cmp-table th, .cmp-table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9ef;
+            color: #3d4757;
+        }
+        .cmp-table th {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f8fafc;
+            color: #1a1d21;
+        }
+        .cmp-table tr:last-child td { border-bottom: none; }
+        .cmp-table td.num { text-align: right; font-weight: 700; color: #1a1d21; }
+        .cmp-table .pos { color: #1fb66b; }
+        .cmp-table .neg { color: #e5484d; }
+
+        /* ── What it's good at / bad at ── */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .pros, .cons {
+            background: white;
+            border-radius: 8px;
+            padding: 14px 16px;
+            border: 1px solid #e5e9ef;
+        }
+        .pros { border-left: 3px solid #1fb66b; }
+        .cons { border-left: 3px solid #e5484d; }
+        .pros h5, .cons h5 {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 8px;
+        }
+        .pros h5 { color: #1fb66b; }
+        .cons h5 { color: #e5484d; }
+        .pros p, .cons p {
+            font-size: 13px;
+            color: #5b6676;
+            line-height: 1.55;
+        }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 70px 20px;
+            background: #f5f8ff;
+        }
+        .cta h2 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .cta p { color: #657184; margin-bottom: 24px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 22px; border-radius: 8px;
+            font-size: 15px; font-weight: 650;
+            transition: 0.2s ease;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+        /* ── Footer ── */
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; }
+        .footer-top {
+            display: flex; justify-content: space-between;
+            gap: 40px; margin-bottom: 35px;
+        }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px 35px;
+            font-size: 14px;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid #293344;
+            padding-top: 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .help-hero { padding: 55px 0 40px; }
+            .section { padding: 45px 0; }
+            .section-heading h2 { font-size: 25px; }
+            .toc ol { grid-template-columns: 1fr; }
+            .pros-cons { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data &amp; Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="help-hero">
+    <div class="container">
+        <div class="eyebrow">Help Center · Strategy Guide</div>
+        <h1>The strategies StockWise tests.</h1>
+        <p>Plain-English explanations of the specific strategies used in Walk-Forward Analysis and Monte Carlo, with worked rupee examples for each.</p>
+
+        <div class="toc">
+            <h3>What's covered</h3>
+            <ol>
+                <li><a href="#how-strategies-work">How a strategy works</a></li>
+                <li><a href="#trend-following">Trend Following</a></li>
+                <li><a href="#oversold-reversal">Oversold Reversal</a></li>
+                <li><a href="#momentum-recovery">Momentum Recovery</a></li>
+                <li><a href="#current-levels">Current Levels</a></li>
+                <li><a href="#building">Building your own</a></li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- 1. HOW STRATEGIES WORK -->
+
+<section class="section" id="how-strategies-work">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 1</span>
+            <h2>How a strategy works</h2>
+            <p class="lead">Every strategy has two halves: a rule for when to enter a trade, and a rule for when to exit it. Together they define the entire behavior.</p>
+        </div>
+
+        <div class="prose">
+            <p>An <strong>entry rule</strong> is a condition. It says "buy when the RSI drops below 30" or "buy when the 50-day average is rising and price is above it." When the condition is true on a given day, the strategy enters a position at the next day's open.</p>
+
+            <p>An <strong>exit rule</strong> is another set of conditions. It could be "sell when RSI rises above 70," or "sell when the price has risen 15%," or "sell if the price drops 8%." Whatever the specific wording, the exit rule is what closes the position and locks in the profit or loss.</p>
+
+            <p>The strategies below are standard templates. StockWise uses them because they're well-known, easy to reason about, and each captures a different market behavior.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>Important:</strong> the same strategy can be profitable on one stock and unprofitable on another. That's exactly what walk-forward analysis reveals — whether a strategy's historical profits come from a real pattern or from luck.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 2. TREND FOLLOWING -->
+
+<section class="section section-light" id="trend-following">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Strategy A</span>
+            <h2>Trend Following</h2>
+            <p class="lead">Ride an established uptrend until it shows signs of ending.</p>
+        </div>
+
+        <div class="strategy">
+          <div class="strategy-header">
+            <span class="strategy-tag">Strategy A</span>
+            <span class="strategy-name">Trend Following</span>
+          </div>
+          <p class="strategy-tagline">Buy strength, hold while the trend is intact, exit when momentum fades.</p>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Entry rules</h4>
+          <ul class="rule-list">
+            <li>Trend = <strong>UP</strong> (price above the 50-day moving average)</li>
+            <li>RSI &gt; 50 (momentum is positive)</li>
+            <li>MACD bullish (short-term average above long-term)</li>
+          </ul>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Exit rules</h4>
+          <ul class="rule-list">
+            <li>Hard stop: <strong>-5%</strong></li>
+            <li>Trend no longer UP (price drops below the moving average)</li>
+            <li>MACD turns bearish AND RSI falls below 50</li>
+          </ul>
+
+          <div class="example">
+            <span class="label">Worked example — Reliance</span>
+            <p>Imagine Reliance is trading at ₹2,400 in January 2023 and all three entry conditions are true: the 50-day average is rising, RSI is 58, and MACD has just turned bullish.</p>
+
+            <div class="timeline">
+              <div class="timeline-step entry">
+                <div class="step-label">Entry</div>
+                <div class="step-value">₹2,400</div>
+                <div class="step-note">20 Jan 2023</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Month 1</div>
+                <div class="step-value">₹2,520</div>
+                <div class="step-note">+5% — still trending</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Month 3</div>
+                <div class="step-value">₹2,688</div>
+                <div class="step-note">+12% — trend intact</div>
+              </div>
+              <div class="timeline-step loss">
+                <div class="step-label">Month 5</div>
+                <div class="step-value">₹2,544</div>
+                <div class="step-note">-5.4% from peak — trend flips DOWN</div>
+              </div>
+              <div class="timeline-step exit">
+                <div class="step-label">Exit</div>
+                <div class="step-value">₹2,544</div>
+                <div class="step-note">+6% total return</div>
+              </div>
+            </div>
+
+            <p>The strategy stayed in the trade for five months and exited when the trend flipped. It captured most of the move — not the exact top, but most of the rise.</p>
+          </div>
+
+          <div class="pros-cons">
+            <div class="pros">
+              <h5>Good at</h5>
+              <p>Capturing big sustained moves. In a strong bull market, this strategy often beats buy-and-hold because it exits before big declines.</p>
+            </div>
+            <div class="cons">
+              <h5>Struggles with</h5>
+              <p>Choppy sideways markets. Frequent false signals can cause many small losses that add up.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. OVERSOLD REVERSAL -->
+
+<section class="section" id="oversold-reversal">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Strategy B</span>
+            <h2>Oversold Reversal</h2>
+            <p class="lead">Buy when a stock has fallen too far, too fast — expecting a bounce.</p>
+        </div>
+
+        <div class="strategy">
+          <div class="strategy-header">
+            <span class="strategy-tag">Strategy B</span>
+            <span class="strategy-name">Oversold Reversal</span>
+          </div>
+          <p class="strategy-tagline">Buy weakness, exit on a fixed target or stop, hold for a short period.</p>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Entry rules</h4>
+          <ul class="rule-list">
+            <li>RSI crosses <strong>below 30</strong> (oversold territory)</li>
+            <li>MACD histogram rising off the bottom (early momentum recovery)</li>
+          </ul>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Exit rules</h4>
+          <ul class="rule-list">
+            <li>Profit target: <strong>+5%</strong></li>
+            <li>Stop loss: <strong>-3%</strong></li>
+            <li>Time stop: <strong>15 days</strong> if neither target nor stop is hit</li>
+          </ul>
+
+          <div class="example">
+            <span class="label">Worked example — HDFC Bank</span>
+            <p>HDFC Bank has fallen 8% in two weeks on no news. RSI is 27 and the MACD histogram has just started rising. All entry conditions are met.</p>
+
+            <div class="timeline">
+              <div class="timeline-step entry">
+                <div class="step-label">Entry</div>
+                <div class="step-value">₹1,500</div>
+                <div class="step-note">10 Mar 2024</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Day 4</div>
+                <div class="step-value">₹1,530</div>
+                <div class="step-note">+2% — bounce starting</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Day 9</div>
+                <div class="step-value">₹1,575</div>
+                <div class="step-note">+5% target hit — exit</div>
+              </div>
+            </div>
+
+            <p>The trade lasted nine days and closed at +5%. In a losing scenario, a stop at -3% would exit the position before a larger drawdown developed.</p>
+          </div>
+
+          <div class="pros-cons">
+            <div class="pros">
+              <h5>Good at</h5>
+              <p>Range-bound markets. When a stock oscillates between support and resistance, buying near support and selling near resistance works repeatedly.</p>
+            </div>
+            <div class="cons">
+              <h5>Struggles with</h5>
+              <p>Downtrends. In a sustained decline, "oversold" keeps getting more oversold — every dip-buy hits the stop. This is why the -3% stop matters.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. MOMENTUM RECOVERY -->
+
+<section class="section section-light" id="momentum-recovery">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Strategy C</span>
+            <h2>Momentum Recovery</h2>
+            <p class="lead">Buy after a decline, but only once momentum has clearly started to recover.</p>
+        </div>
+
+        <div class="strategy">
+          <div class="strategy-header">
+            <span class="strategy-tag">Strategy C</span>
+            <span class="strategy-name">Momentum Recovery</span>
+          </div>
+          <p class="strategy-tagline">Wait for the reversal to confirm, then enter alongside it.</p>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Entry rules</h4>
+          <ul class="rule-list">
+            <li>Trend = <strong>DOWN or FLAT</strong> (the decline already happened)</li>
+            <li>RSI <strong>crosses above 40</strong> (momentum turning up)</li>
+            <li>MACD bullish (confirmation from a second indicator)</li>
+          </ul>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Exit rules</h4>
+          <ul class="rule-list">
+            <li>Hard stop: <strong>-5%</strong></li>
+            <li>Trend no longer UP</li>
+            <li>MACD turns bearish AND RSI falls below 50</li>
+          </ul>
+
+          <div class="example">
+            <span class="label">Worked example — Infosys</span>
+            <p>Infosys has been in a downtrend for weeks. Then in early August 2023, RSI crosses above 40, MACD turns bullish, and the trend flips to UP. The reversal is confirmed.</p>
+
+            <div class="timeline">
+              <div class="timeline-step entry">
+                <div class="step-label">Entry</div>
+                <div class="step-value">₹1,450</div>
+                <div class="step-note">07 Aug 2023</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Month 2</div>
+                <div class="step-value">₹1,580</div>
+                <div class="step-note">+9% — momentum holding</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Month 4</div>
+                <div class="step-value">₹1,670</div>
+                <div class="step-note">+15% — trend intact</div>
+              </div>
+              <div class="timeline-step exit">
+                <div class="step-label">Exit</div>
+                <div class="step-value">₹1,625</div>
+                <div class="step-note">+12% — MACD bearish and RSI fell below 50</div>
+              </div>
+            </div>
+
+            <p>The difference from Strategy B is the confirmation: Strategy B acts on the reversal beginning, Strategy C waits for it to be visible in two indicators. The trade-off is a slightly later entry but fewer failed signals.</p>
+          </div>
+
+          <div class="pros-cons">
+            <div class="pros">
+              <h5>Good at</h5>
+              <p>V-shaped recoveries. When a stock bottoms and starts a new leg up, this strategy catches most of the move without being whipsawed.</p>
+            </div>
+            <div class="cons">
+              <h5>Struggles with</h5>
+              <p>False bottoms. Sometimes what looks like a reversal fails and the decline continues. The -5% stop is what limits the damage.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. CURRENT LEVELS -->
+
+<section class="section" id="current-levels">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Strategy D</span>
+          <h2>Current Levels (custom)</h2>
+          <p class="lead">Build your own entry rules by combining the 11 indicators StockWise tracks — and pick your own exit mode.</p>
+        </div>
+
+        <div class="strategy">
+          <div class="strategy-header">
+            <span class="strategy-tag">Strategy D</span>
+            <span class="strategy-name">Current Levels</span>
+          </div>
+          <p class="strategy-tagline">Full customisation: entry thresholds you set, plus one of three exit modes.</p>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Entry rules (example configuration)</h4>
+          <ul class="rule-list">
+            <li>Trend = <strong>ANY</strong> (no filter)</li>
+            <li>RSI <strong>&lt; 40</strong></li>
+            <li>MACD state = <strong>ANY</strong> (no filter)</li>
+          </ul>
+
+          <h4 style="font-size: 14px; color: #111827; margin-bottom: 8px;">Exit modes</h4>
+          <ul class="rule-list">
+            <li><strong>Bounce</strong> — fixed target, fixed stop, and a time limit</li>
+            <li><strong>Momentum</strong> — trend + MACD reversal, plus an ATR-based trailing stop</li>
+            <li><strong>Trailing</strong> — follow the price up using an ATR-based stop that moves with the peak</li>
+          </ul>
+
+          <div class="example">
+            <span class="label">Worked example — Nifty 50 with Bounce mode</span>
+            <p>You configure entry as "Trend ANY + RSI &lt; 40" and exit as "Bounce: target 5%, stop 3%, max hold 15 days."</p>
+
+            <div class="timeline">
+              <div class="timeline-step entry">
+                <div class="step-label">Entry</div>
+                <div class="step-value">18,200</div>
+                <div class="step-note">RSI = 38 → signal fires</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Day 6</div>
+                <div class="step-value">18,550</div>
+                <div class="step-note">+1.9%</div>
+              </div>
+              <div class="timeline-step win">
+                <div class="step-label">Day 11</div>
+                <div class="step-value">19,110</div>
+                <div class="step-note">+5% target hit — exit</div>
+              </div>
+            </div>
+
+            <p>With Bounce mode, the trade exits the moment any of the three exit conditions is met — target, stop, or time limit. This gives a clean, predictable holding period.</p>
+          </div>
+
+          <div class="callout">
+            <p><strong>The exit mode you choose changes the strategy's character.</strong> Bounce is best for range-bound markets. Momentum is best when you expect a sustained move. Trailing is best when you want to capture a big trend but protect gains.</p>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. BUILDING YOUR OWN -->
+
+<section class="section section-light" id="building">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 6</span>
+          <h2>Building your own strategy</h2>
+          <p class="lead">The four templates above are starting points. Any of them can be combined, simplified, or built from scratch using the same building blocks.</p>
+        </div>
+
+        <div class="prose">
+          <p>A strategy is just a list of entry conditions and a list of exit conditions. The condition types are the same regardless of the strategy — indicators like RSI, MACD, DMA trend, and Bollinger Bands.</p>
+
+          <p>The full menu of conditions StockWise supports for stocks:</p>
+        </div>
+
+        <table class="cmp-table">
+          <tr>
+            <th>Condition</th>
+            <th>Types of rule</th>
+            <th>Common use</th>
+          </tr>
+          <tr>
+            <td><strong>RSI</strong></td>
+            <td>&gt; 70, &lt; 30, crosses above/below</td>
+            <td>Momentum &amp; oversold signals</td>
+          </tr>
+          <tr>
+            <td><strong>DMA Trend</strong></td>
+            <td>UP, DOWN, SIDEWAYS</td>
+            <td>Overall direction filter</td>
+          </tr>
+          <tr>
+            <td><strong>MACD</strong></td>
+            <td>Positive cross, negative cross, unchanged</td>
+            <td>Momentum confirmation</td>
+          </tr>
+          <tr>
+            <td><strong>Bollinger Bands</strong></td>
+            <td>Near upper, near lower, within range</td>
+            <td>Mean reversion entries</td>
+          </tr>
+          <tr>
+            <td><strong>Strategy Signal</strong></td>
+            <td>Trend momentum, early momentum, reversal</td>
+            <td>Combined multi-indicator signal</td>
+          </tr>
+          <tr>
+            <td><strong>Breakout</strong></td>
+            <td>YES / NO</td>
+            <td>Price breaking a range</td>
+          </tr>
+          <tr>
+            <td><strong>OBV</strong></td>
+            <td>Rising, falling, stable</td>
+            <td>Volume confirmation</td>
+          </tr>
+          <tr>
+            <td><strong>VWAP</strong></td>
+            <td>Bullish, bearish, strongly so</td>
+            <td>Intraday trend context</td>
+          </tr>
+          <tr>
+            <td><strong>ADX</strong></td>
+            <td>Strong / weak trend, directional</td>
+            <td>Trend strength filter</td>
+          </tr>
+          <tr>
+            <td><strong>Stochastic</strong></td>
+            <td>Oversold, overbought, momentum</td>
+            <td>Short-term reversal</td>
+          </tr>
+        </table>
+
+        <div class="prose">
+          <p>For indices, the vocabulary is smaller but the idea is the same — trend direction, RSI level, MACD cross. Indices don't have earnings or volume spikes, so volume-based conditions don't apply.</p>
+        </div>
+
+        <div class="callout-warn callout">
+          <p><strong>A note on building:</strong> adding more conditions usually makes a strategy look better in a backtest but perform worse in practice. Simple strategies (2 or 3 entry conditions) tend to survive walk-forward and Monte Carlo analysis better than complex ones. If your strategy has 6 conditions, try removing half and see if the results hold up.</p>
+        </div>
+
+        <div class="prose">
+          <p>Whatever you build, the two reports tell you whether it holds up:</p>
+
+          <ul class="rule-list" style="list-style: none; padding: 0; max-width: 780px;">
+            <li><strong>Walk-forward analysis</strong> — does the strategy keep working on data it was never trained on?</li>
+            <li><strong>Monte Carlo analysis</strong> — given the trades it does make, how bad could the outcomes get?</li>
+          </ul>
+
+          <p style="margin-top: 16px;">A strategy that passes both is worth taking seriously. A strategy that fails either is a hypothesis, not a system.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to build your own strategy?</h2>
+        <p>Download StockWise, pick a template, and run the analysis.</p>
+        <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+           class="btn btn-primary" target="_blank">Download StockWise</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
