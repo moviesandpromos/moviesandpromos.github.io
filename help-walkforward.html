@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Walk-Forward Analysis — StockWise Help Center</title>
+    <meta name="description"
+          content="A plain-English guide to walk-forward analysis: what it is, why it matters, how a cycle works, and how to read in-sample vs out-of-sample results.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-walkforward.html">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+
+        /* ── Header (identical to index) ── */
+        header {
+            border-bottom: 1px solid #e9edf3;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links {
+            display: flex; align-items: center; gap: 26px;
+            font-size: 14px; color: #536071;
+        }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small {
+            background: #2563eb; color: white !important;
+            padding: 9px 17px; border-radius: 7px; font-weight: 600;
+        }
+
+        /* ── Help hero ── */
+        .help-hero {
+            padding: 70px 0 55px;
+            background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9edf3;
+        }
+        .help-hero .eyebrow {
+            display: inline-block;
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+        .help-hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            color: #111827;
+            max-width: 780px;
+        }
+        .help-hero p {
+            font-size: 18px;
+            color: #5b6676;
+            max-width: 720px;
+        }
+
+        /* ── Table of contents ── */
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 22px 26px;
+            margin-top: 40px;
+            max-width: 720px;
+        }
+        .toc h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #8a94a2;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .toc ol {
+            list-style: none;
+            counter-reset: toc;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 26px;
+        }
+        .toc li {
+            counter-increment: toc;
+            font-size: 15px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .toc li::before {
+            content: counter(toc) ". ";
+            color: #8a94a2;
+        }
+        .toc a:hover { text-decoration: underline; }
+
+        /* ── Section ── */
+        .section { padding: 60px 0; }
+        .section-light { background: #f8fafc; }
+
+        .section-heading { max-width: 780px; margin-bottom: 34px; }
+        .section-heading .num {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2563eb;
+            background: #eaf2ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+        .section-heading h2 {
+            font-size: 30px;
+            line-height: 1.25;
+            letter-spacing: -0.8px;
+            margin-bottom: 14px;
+            color: #111827;
+        }
+        .section-heading .lead {
+            color: #5b6676;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* ── Prose ── */
+        .prose { max-width: 780px; }
+        .prose p {
+            font-size: 16px;
+            color: #3d4757;
+            margin-bottom: 16px;
+            line-height: 1.75;
+        }
+        .prose p:last-child { margin-bottom: 0; }
+        .prose strong { color: #111827; font-weight: 700; }
+        .prose em { color: #2563eb; font-style: normal; font-weight: 600; }
+
+        /* ── Callout ── */
+        .callout {
+            background: #eaf2ff;
+            border-left: 3px solid #2563eb;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 20px 0;
+            max-width: 780px;
+        }
+        .callout p { font-size: 15px; color: #1e3a5f; margin: 0; }
+        .callout strong { color: #1e3a5f; }
+
+        /* ── Example box ── */
+        .example {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 22px 24px;
+            margin: 22px 0;
+            max-width: 780px;
+        }
+        .example .label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 10px;
+        }
+        .example p {
+            font-size: 15px;
+            color: #3d4757;
+            margin-bottom: 10px;
+        }
+        .example p:last-child { margin-bottom: 0; }
+        .example table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .example th, .example td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5e9ef;
+            color: #3d4757;
+        }
+        .example th {
+            font-weight: 700;
+            color: #1a1d21;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f1f5f9;
+        }
+        .example td.num { text-align: right; font-weight: 700; color: #1a1d21; }
+
+        /* ── Bullets ── */
+        .bullets { list-style: none; max-width: 780px; margin: 8px 0 0; }
+        .bullets li {
+            position: relative;
+            padding: 8px 0 8px 28px;
+            font-size: 16px;
+            color: #3d4757;
+            line-height: 1.6;
+        }
+        .bullets li::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2563eb;
+        }
+        .bullets li strong { color: #111827; }
+
+        /* ── Cycle diagram ── */
+        .cycle-diagram {
+            display: flex;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 24px 0;
+            max-width: 780px;
+        }
+        .cycle-block {
+            flex: 1 1 180px;
+            border-radius: 10px;
+            padding: 16px 18px;
+            border: 1px solid #e5e9ef;
+        }
+        .cycle-block.train { background: #f1f5f9; }
+        .cycle-block.test  { background: #eaf2ff; border-color: #c7dbff; }
+        .cycle-block .tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8a94a2;
+            margin-bottom: 6px;
+        }
+        .cycle-block.test .tag { color: #2563eb; }
+        .cycle-block .desc {
+            font-size: 14px;
+            color: #1a1d21;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* ── Term grid ── */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 900px;
+        }
+        .term {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 20px 22px;
+        }
+        .term h4 {
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .term p { font-size: 14px; color: #5b6676; line-height: 1.65; }
+
+        /* ── Verdict cards ── */
+        .verdict-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin-top: 22px;
+        }
+        .verdict {
+            border-radius: 10px;
+            padding: 22px;
+            border: 1px solid #e5e9ef;
+            background: white;
+        }
+        .verdict .pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+        .verdict.robust   .pill { background: #e7f7ec; color: #1fb66b; }
+        .verdict.moderate .pill { background: #fff6e0; color: #c98a00; }
+        .verdict.overfit  .pill { background: #fde7e8; color: #e5484d; }
+        .verdict h4 {
+            font-size: 17px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        .verdict p { font-size: 14px; color: #5b6676; line-height: 1.6; }
+
+        /* ── Comparison table ── */
+        .cmp-table {
+            width: 100%;
+            max-width: 780px;
+            border-collapse: collapse;
+            margin: 22px 0;
+            font-size: 15px;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .cmp-table th, .cmp-table td {
+            padding: 12px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9ef;
+            color: #3d4757;
+        }
+        .cmp-table th {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f8fafc;
+            color: #1a1d21;
+        }
+        .cmp-table tr:last-child td { border-bottom: none; }
+        .cmp-table td.num { text-align: right; font-weight: 700; color: #1a1d21; }
+        .cmp-table .pos { color: #1fb66b; }
+        .cmp-table .neg { color: #e5484d; }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 70px 20px;
+            background: #f5f8ff;
+        }
+        .cta h2 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .cta p { color: #657184; margin-bottom: 24px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 22px; border-radius: 8px;
+            font-size: 15px; font-weight: 650;
+            transition: 0.2s ease;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+        /* ── Footer (identical to index) ── */
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; }
+        .footer-top {
+            display: flex; justify-content: space-between;
+            gap: 40px; margin-bottom: 35px;
+        }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px 35px;
+            font-size: 14px;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid #293344;
+            padding-top: 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .help-hero { padding: 55px 0 40px; }
+            .section { padding: 45px 0; }
+            .section-heading h2 { font-size: 25px; }
+            .toc ol { grid-template-columns: 1fr; }
+            .term-grid, .verdict-grid { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data &amp; Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="help-hero">
+    <div class="container">
+        <div class="eyebrow">Help Center · Walk-Forward Analysis</div>
+        <h1>Walk-forward analysis, explained simply.</h1>
+        <p>A guide for anyone who has run a backtest and wants to know whether the strategy actually holds up — or whether it just looked good by accident.</p>
+
+        <div class="toc">
+            <h3>What's covered</h3>
+            <ol>
+                <li><a href="#what-is">What is walk-forward</a></li>
+                <li><a href="#why">Why use it</a></li>
+                <li><a href="#cycle">How a cycle works</a></li>
+                <li><a href="#terms">Key terms</a></li>
+                <li><a href="#is-vs-oos">In-sample vs out-of-sample</a></li>
+                <li><a href="#verdicts">Overfit, Robust, Moderate</a></li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- 1. WHAT IS WALK-FORWARD -->
+
+<section class="section" id="what-is">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 1</span>
+            <h2>What is walk-forward analysis?</h2>
+            <p class="lead">It's a way of testing a strategy the way it would actually be used in real life — one period at a time, always on data it hasn't seen before.</p>
+        </div>
+
+        <div class="prose">
+            <p>Imagine you're studying for an exam. If the teacher gives you the question paper in advance and you memorise the answers, getting 100% doesn't tell you whether you actually understand the subject. It just tells you that you memorised.</p>
+
+            <p>A normal backtest is a bit like that. You pick the strategy that made the most money over the last 5 years — but you picked it <em>after</em> seeing the whole 5 years. Of course it looks good. You chose it because it looked good.</p>
+
+            <p>Walk-forward analysis tests the strategy differently. It <strong>splits the history into a series of chunks</strong>. On the first chunk, it picks the best settings. Then it tests those settings on the next chunk — a chunk the strategy has never seen. Then it slides forward by a bit and does it again. And again.</p>
+
+            <p>Because the tests keep landing on data the strategy was never tuned on, the results are much closer to what you'd actually get in live trading.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 2. WHY USE IT -->
+
+<section class="section section-light" id="why">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 2</span>
+            <h2>Why use walk-forward — and where is it useful?</h2>
+            <p class="lead">Because a good result on the full history can be a lucky accident. Walk-forward tells you whether the strategy keeps working when the future arrives.</p>
+        </div>
+
+        <div class="prose">
+            <p>Every strategy has settings — how much loss to allow, when to exit, which indicator threshold to use. A regular backtest finds the settings that would have made the most money in the past. But that's a trap: some settings only worked <strong>because of one-off events</strong> in that exact period.</p>
+
+            <p>Walk-forward catches this. It asks a harder question: <em>"If I had kept re-picking the settings every 6 months, using only what I knew up to that point — would the strategy have kept making money?"</em></p>
+
+            <h3 style="font-size:18px; margin: 26px 0 12px; color:#111827;">It's useful whenever you're about to trust a strategy with real money</h3>
+            <ul class="bullets">
+                <li><strong>Before going live.</strong> A strategy that holds up under walk-forward is much more likely to work in real trading than one that only looks good on a single backtest.</li>
+                <li><strong>When comparing strategies.</strong> Two strategies may look identical on a single backtest. Walk-forward usually separates them, because one generalises and the other doesn't.</li>
+                <li><strong>After changing settings.</strong> If you tweak a stop loss and the result improves, walk-forward tells you whether that improvement is real or just noise.</li>
+                <li><strong>To set realistic expectations.</strong> The out-of-sample numbers are a much better guide to what future returns might look like — not a guarantee, but far more honest than the in-sample numbers.</li>
+            </ul>
+        </div>
+
+        <div class="callout">
+            <p><strong>The one-line version:</strong> a regular backtest tells you what <em>would have</em> worked. Walk-forward tells you what was <em>actually knowable at the time</em>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 3. HOW A CYCLE WORKS -->
+
+<section class="section" id="cycle">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 3</span>
+            <h2>How a walk-forward cycle works</h2>
+            <p class="lead">Each cycle has two halves: a training window where the strategy is tuned, and a test window where those settings are checked — without any changes.</p>
+        </div>
+
+        <div class="prose">
+            <p>Here's the standard setup StockWise uses:</p>
+        </div>
+
+        <div class="cycle-diagram">
+            <div class="cycle-block train">
+                <div class="tag">Train window · 24 months</div>
+                <div class="desc">The strategy tries many settings and picks the one that worked best on this stretch of history.</div>
+            </div>
+            <div class="cycle-block test">
+                <div class="tag">Test window · 6 months</div>
+                <div class="desc">The chosen settings are frozen and applied to the next 6 months — which the strategy has never seen.</div>
+            </div>
+        </div>
+
+        <div class="prose">
+            <p>Then the whole thing <strong>slides forward by 6 months</strong> and repeats. The new train window overlaps the old one by 18 months, but the new test window is fresh. This keeps happening until we run out of history.</p>
+        </div>
+
+        <div class="example">
+            <span class="label">A concrete example</span>
+            <table>
+                <tr>
+                    <th>Cycle</th>
+                    <th>Training window</th>
+                    <th>Test window</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Jan 2020 – Dec 2021</td>
+                    <td>Jan 2022 – Jun 2022</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jul 2020 – Jun 2022</td>
+                    <td>Jul 2022 – Dec 2022</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Jan 2021 – Dec 2022</td>
+                    <td>Jan 2023 – Jun 2023</td>
+                </tr>
+                <tr>
+                    <td>…</td>
+                    <td>…</td>
+                    <td>…</td>
+                </tr>
+            </table>
+            <p style="margin-top:14px;">With 6 years of history you get around 10 cycles. Each test window is one small "fresh look" at the strategy — and you get to see whether it worked 10 times in a row, not just once.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>Why 24 / 6?</strong> A 24-month training window gives the strategy enough history to learn from. A 6-month test window is long enough to be meaningful but short enough to give you many independent checks.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 4. KEY TERMS -->
+
+<section class="section section-light" id="terms">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 4</span>
+            <h2>Key terms you'll see</h2>
+            <p class="lead">Six terms cover 90% of what you'll read on a walk-forward report. Each is explained in one or two sentences.</p>
+        </div>
+
+        <div class="term-grid">
+            <div class="term">
+                <h4>Cycle</h4>
+                <p>One complete train-then-test pass. If history spans 6 years with 6-month test windows, you get about 10 cycles.</p>
+            </div>
+            <div class="term">
+                <h4>Training window</h4>
+                <p>The historical period used to pick the best settings. Usually 24 months in StockWise.</p>
+            </div>
+            <div class="term">
+                <h4>Test window</h4>
+                <p>The historical period immediately after the training window, where the frozen settings are checked on fresh data. Usually 6 months.</p>
+            </div>
+            <div class="term">
+                <h4>Chosen parameters</h4>
+                <p>The specific settings — stop loss, profit target, threshold values — that the training window picked for a given cycle.</p>
+            </div>
+            <div class="term">
+                <h4>Frozen settings</h4>
+                <p>Once the training window picks its best settings, they are locked for the test window. No tweaking allowed. This is what makes the test honest.</p>
+            </div>
+            <div class="term">
+                <h4>Consistency</h4>
+                <p>How often the strategy was profitable across all test windows. 8 of 10 profitable is much stronger than 2 of 10, even if the total return is the same.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. IN-SAMPLE VS OUT-OF-SAMPLE -->
+
+<section class="section" id="is-vs-oos">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 5</span>
+            <h2>In-sample vs out-of-sample</h2>
+            <p class="lead">These two numbers are the heart of walk-forward. One tells you how the strategy performed when it was being tuned. The other tells you how it performed on data it had never seen.</p>
+        </div>
+
+        <div class="prose">
+            <p><strong>In-sample (IS)</strong> results come from the training windows. Every cycle, the strategy tries many settings and reports the result of the best one. Because it was allowed to pick the winner <em>after</em> seeing the data, in-sample results are always better than they deserve to be. They are useful as an upper bound, not as an expectation.</p>
+
+            <p><strong>Out-of-sample (OOS)</strong> results come from the test windows. The settings were frozen before those windows were seen. This is the closest thing you can get to a live result without actually trading. <em>This is the number that matters.</em></p>
+
+            <p>The gap between the two tells you something important:</p>
+        </div>
+
+        <table class="cmp-table">
+            <tr>
+                <th>Metric</th>
+                <th>In-sample</th>
+                <th>Out-of-sample</th>
+            </tr>
+            <tr>
+                <td>Total return</td>
+                <td class="num pos">+186%</td>
+                <td class="num neg">−4%</td>
+            </tr>
+            <tr>
+                <td>Sharpe ratio</td>
+                <td class="num">0.56</td>
+                <td class="num">0.04</td>
+            </tr>
+            <tr>
+                <td>Win rate</td>
+                <td class="num">55%</td>
+                <td class="num">42%</td>
+            </tr>
+        </table>
+
+        <div class="prose">
+            <p>In this example the strategy looked decent in-sample but essentially did nothing once it saw new data. That collapse is the clearest sign of <strong>overfitting</strong> — the settings were tuned to the noise of the past rather than to a real pattern.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>Healthy vs warning signs:</strong> If OOS results are <em>close</em> to IS results, the strategy is probably genuine. If OOS results are a small fraction of IS results — or worse, negative — the strategy was likely overfit.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 6. VERDICTS -->
+
+<section class="section section-light" id="verdicts">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 6</span>
+            <h2>Overfit, Robust, Moderate — what each verdict means</h2>
+            <p class="lead">StockWise labels every walk-forward run with one of three verdicts, based on how the out-of-sample results compared to in-sample.</p>
+        </div>
+
+        <div class="verdict-grid">
+            <div class="verdict robust">
+                <span class="pill">Robust</span>
+                <h4>The strategy held up</h4>
+                <p>Out-of-sample performance stayed close to in-sample, and most test windows were profitable. This is the best case — it doesn't guarantee future returns, but it's a strong signal.</p>
+            </div>
+            <div class="verdict moderate">
+                <span class="pill">Moderate</span>
+                <h4>Some slippage, still usable</h4>
+                <p>Out-of-sample performance was weaker than in-sample, but enough test windows were profitable that the strategy may still have some value. Worth investigating further before trusting it.</p>
+            </div>
+            <div class="verdict overfit">
+                <span class="pill">Overfit</span>
+                <h4>Looks good in hindsight only</h4>
+                <p>In-sample results were strong but out-of-sample collapsed. The strategy was tuned to the past rather than to a real pattern. Don't trust it with real money.</p>
+            </div>
+        </div>
+
+        <div class="prose" style="margin-top:34px;">
+            <p><strong>A simple example.</strong> Suppose you test two strategies:</p>
+            <ul class="bullets">
+                <li><strong>Strategy A</strong> made +60% in-sample and +12% out-of-sample across 8 of 10 test windows. <em>Verdict: Robust.</em> The small gap and high profitable count are both healthy signs.</li>
+                <li><strong>Strategy B</strong> made +180% in-sample and −15% out-of-sample across 3 of 10 test windows. <em>Verdict: Overfit.</em> The strategy only worked because of the exact period it was tuned on.</li>
+            </ul>
+            <p>Both strategies show a "positive total return" if you look at the whole history. Only walk-forward separates them.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>Remember:</strong> even a Robust verdict is not a promise. It means the strategy survived a much harder test than a plain backtest. That's a good starting point for careful decisions, not a guarantee of profit.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to run your own walk-forward analysis?</h2>
+        <p>Open StockWise, pick a strategy, and see the out-of-sample numbers for yourself.</p>
+        <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+           class="btn btn-primary" target="_blank">Download StockWise</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
