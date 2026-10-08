@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monte Carlo Analysis — StockWise Help Center</title>
+    <meta name="description"
+          content="A plain-English guide to Monte Carlo analysis: what it is, why it matters, how trades are resampled, and how to read the probability-of-loss and drawdown numbers.">
+    <link rel="canonical" href="https://www.stocksnmore.com/help-monte-carlo.html">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { width: min(1120px, 92%); margin: 0 auto; }
+
+        /* ── Header (identical to index) ── */
+        header {
+            border-bottom: 1px solid #e9edf3;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { font-size: 25px; font-weight: 750; letter-spacing: -0.6px; }
+        .logo span { color: #2563eb; }
+        .nav-links {
+            display: flex; align-items: center; gap: 26px;
+            font-size: 14px; color: #536071;
+        }
+        .nav-links a:hover { color: #2563eb; }
+        .download-small {
+            background: #2563eb; color: white !important;
+            padding: 9px 17px; border-radius: 7px; font-weight: 600;
+        }
+
+        /* ── Help hero ── */
+        .help-hero {
+            padding: 70px 0 55px;
+            background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9edf3;
+        }
+        .help-hero .eyebrow {
+            display: inline-block;
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+        .help-hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            color: #111827;
+            max-width: 780px;
+        }
+        .help-hero p {
+            font-size: 18px;
+            color: #5b6676;
+            max-width: 720px;
+        }
+
+        /* ── Table of contents ── */
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 22px 26px;
+            margin-top: 40px;
+            max-width: 720px;
+        }
+        .toc h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #8a94a2;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .toc ol {
+            list-style: none;
+            counter-reset: toc;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 26px;
+        }
+        .toc li {
+            counter-increment: toc;
+            font-size: 15px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .toc li::before {
+            content: counter(toc) ". ";
+            color: #8a94a2;
+        }
+        .toc a:hover { text-decoration: underline; }
+
+        /* ── Section ── */
+        .section { padding: 60px 0; }
+        .section-light { background: #f8fafc; }
+
+        .section-heading { max-width: 780px; margin-bottom: 34px; }
+        .section-heading .num {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2563eb;
+            background: #eaf2ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+        .section-heading h2 {
+            font-size: 30px;
+            line-height: 1.25;
+            letter-spacing: -0.8px;
+            margin-bottom: 14px;
+            color: #111827;
+        }
+        .section-heading .lead {
+            color: #5b6676;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* ── Prose ── */
+        .prose { max-width: 780px; }
+        .prose p {
+            font-size: 16px;
+            color: #3d4757;
+            margin-bottom: 16px;
+            line-height: 1.75;
+        }
+        .prose p:last-child { margin-bottom: 0; }
+        .prose strong { color: #111827; font-weight: 700; }
+        .prose em { color: #2563eb; font-style: normal; font-weight: 600; }
+
+        /* ── Callout ── */
+        .callout {
+            background: #eaf2ff;
+            border-left: 3px solid #2563eb;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 20px 0;
+            max-width: 780px;
+        }
+        .callout p { font-size: 15px; color: #1e3a5f; margin: 0; }
+        .callout strong { color: #1e3a5f; }
+
+        /* ── Example box ── */
+        .example {
+            background: #f8fafc;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 22px 24px;
+            margin: 22px 0;
+            max-width: 780px;
+        }
+        .example .label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 10px;
+        }
+        .example p {
+            font-size: 15px;
+            color: #3d4757;
+            margin-bottom: 10px;
+        }
+        .example p:last-child { margin-bottom: 0; }
+        .example table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .example th, .example td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5e9ef;
+            color: #3d4757;
+        }
+        .example th {
+            font-weight: 700;
+            color: #1a1d21;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f1f5f9;
+        }
+        .example td.num { text-align: right; font-weight: 700; color: #1a1d21; }
+        .example td.pos { color: #1fb66b; }
+        .example td.neg { color: #e5484d; }
+
+        /* ── Bullets ── */
+        .bullets { list-style: none; max-width: 780px; margin: 8px 0 0; }
+        .bullets li {
+            position: relative;
+            padding: 8px 0 8px 28px;
+            font-size: 16px;
+            color: #3d4757;
+            line-height: 1.6;
+        }
+        .bullets li::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2563eb;
+        }
+        .bullets li strong { color: #111827; }
+
+        /* ── Resample diagram ── */
+        .resample-diagram {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            max-width: 780px;
+            margin: 24px 0;
+        }
+        .resample-panel {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .resample-panel h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8a94a2;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .trade-chip {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin: 3px;
+        }
+        .trade-win  { background: #e7f7ec; color: #1fb66b; }
+        .trade-loss { background: #fde7e8; color: #e5484d; }
+        .resample-arrow {
+            font-size: 32px;
+            color: #2563eb;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        /* ── Term grid ── */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 900px;
+        }
+        .term {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            padding: 20px 22px;
+        }
+        .term h4 {
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .term p { font-size: 14px; color: #5b6676; line-height: 1.65; }
+
+        /* ── Verdict cards ── */
+        .verdict-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin-top: 22px;
+        }
+        .verdict {
+            border-radius: 10px;
+            padding: 22px;
+            border: 1px solid #e5e9ef;
+            background: white;
+        }
+        .verdict .pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+        .verdict.good    .pill { background: #e7f7ec; color: #1fb66b; }
+        .verdict.mixed   .pill { background: #fff6e0; color: #c98a00; }
+        .verdict.warning .pill { background: #fde7e8; color: #e5484d; }
+        .verdict h4 {
+            font-size: 17px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        .verdict p { font-size: 14px; color: #5b6676; line-height: 1.6; }
+
+        /* ── Comparison table ── */
+        .cmp-table {
+            width: 100%;
+            max-width: 780px;
+            border-collapse: collapse;
+            margin: 22px 0;
+            font-size: 15px;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .cmp-table th, .cmp-table td {
+            padding: 12px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9ef;
+            color: #3d4757;
+        }
+        .cmp-table th {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f8fafc;
+            color: #1a1d21;
+        }
+        .cmp-table tr:last-child td { border-bottom: none; }
+        .cmp-table td.num { text-align: right; font-weight: 700; color: #1a1d21; }
+        .cmp-table .pos { color: #1fb66b; }
+        .cmp-table .neg { color: #e5484d; }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 70px 20px;
+            background: #f5f8ff;
+        }
+        .cta h2 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .cta p { color: #657184; margin-bottom: 24px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 22px; border-radius: 8px;
+            font-size: 15px; font-weight: 650;
+            transition: 0.2s ease;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+        /* ── Footer (identical to index) ── */
+        footer { background: #111827; color: #aeb8c7; padding: 45px 0 25px; }
+        .footer-top {
+            display: flex; justify-content: space-between;
+            gap: 40px; margin-bottom: 35px;
+        }
+        .footer-brand { max-width: 350px; }
+        .footer-brand .logo { color: white; margin-bottom: 10px; }
+        .footer-brand p { font-size: 14px; }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 10px 35px;
+            font-size: 14px;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid #293344;
+            padding-top: 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 800px) {
+            .nav-links { display: none; }
+            .help-hero { padding: 55px 0 40px; }
+            .section { padding: 45px 0; }
+            .section-heading h2 { font-size: 25px; }
+            .toc ol { grid-template-columns: 1fr; }
+            .term-grid, .verdict-grid { grid-template-columns: 1fr; }
+            .resample-diagram { grid-template-columns: 1fr; }
+            .resample-arrow { transform: rotate(90deg); }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="logo">Stock<span>Wise</span></a>
+        <nav class="nav-links">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#data">Data &amp; Indicators</a>
+            <a href="help.html">Help</a>
+            <a href="contact.html">Support</a>
+            <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+               class="download-small" target="_blank">Download</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="help-hero">
+    <div class="container">
+        <div class="eyebrow">Help Center · Monte Carlo Analysis</div>
+        <h1>Monte Carlo analysis, explained simply.</h1>
+        <p>A guide for anyone who has run a backtest and wants to know: <em>"How bad could this strategy get, even if the historical numbers look good?"</em></p>
+
+        <div class="toc">
+            <h3>What's covered</h3>
+            <ol>
+                <li><a href="#what-is">What is Monte Carlo</a></li>
+                <li><a href="#why">Why use it</a></li>
+                <li><a href="#how">How it works — with an example</a></li>
+                <li><a href="#terms">Key terms</a></li>
+                <li><a href="#reading">Reading the results</a></li>
+                <li><a href="#limits">What it does not do</a></li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- 1. WHAT IS -->
+
+<section class="section" id="what-is">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 1</span>
+            <h2>What is Monte Carlo analysis?</h2>
+            <p class="lead">It takes the trades a strategy actually made in the past, and simulates thousands of alternate orders in which those same trades could have occurred.</p>
+        </div>
+
+        <div class="prose">
+            <p>Imagine you flipped a coin 50 times and got 30 heads and 20 tails. If you flipped 50 different coins tomorrow, would you get the same 30–20 split? Probably not. You might get 25–25, or 33–17. Monte Carlo analysis answers the question: <strong>how much can the result vary if the same underlying odds played out in a different order?</strong></p>
+
+            <p>For a trading strategy, it does the same thing with trades. It knows the strategy took, say, 47 trades over the last 5 years. Some were winners, some were losers, with specific rupee amounts. Monte Carlo takes those 47 trades and re-shuffles them — or resamples them — into thousands of alternative sequences. Each sequence produces a different equity curve, a different final capital, and a different maximum drawdown.</p>
+
+            <p>After 5,000 such simulations, you get a distribution: not just one outcome, but a spread of plausible outcomes that could have happened from the same underlying trades.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 2. WHY -->
+
+<section class="section section-light" id="why">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 2</span>
+            <h2>Why use Monte Carlo</h2>
+            <p class="lead">Because a single historical backtest shows you one path the strategy took — not the range of paths it could have taken.</p>
+        </div>
+
+        <div class="prose">
+            <p>A backtest produces one number: "this strategy made +40% over the last 5 years." But the trades didn't have to happen in that order. If the market had moved slightly differently, the same trades might have been made in a different sequence — and the sequence has a huge effect on the final result. Early losses hurt more than late ones (because they kill compounding), and a cluster of losses in the middle is more painful than a few isolated ones.</p>
+
+            <p>Monte Carlo quantifies this:</p>
+
+            <ul class="bullets">
+                <li><strong>Probability of loss</strong> — what fraction of simulated paths ended below the starting capital? This is often the single most useful number in the entire report.</li>
+                <li><strong>Worst-case outcomes</strong> — where did the worst 5% of paths end up? Knowing that 5% of simulations fell below ₹1.3 lakh is very different from assuming the strategy always ends around ₹2 lakh.</li>
+                <li><strong>Drawdown risk</strong> — how deep was the worst drawdown in the simulations? A strategy making +40% with 60% drawdowns is very different from one making +40% with 12% drawdowns.</li>
+                <li><strong>Ruin probability</strong> — what fraction of paths fell below a critical threshold (say, half the starting capital)? That's the answer to "can this strategy actually blow up?"</li>
+                <li><strong>Losing streaks</strong> — how many losses in a row did simulations experience? This matters psychologically as much as financially.</li>
+            </ul>
+        </div>
+
+        <div class="callout">
+            <p><strong>Bottom line:</strong> a backtest tells you what happened. Monte Carlo tells you what <em>could have happened</em> — and how bad the bad cases can be.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 3. HOW IT WORKS -->
+
+<section class="section" id="how">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 3</span>
+            <h2>How it works — with a simple example</h2>
+            <p class="lead">Take the trades the strategy actually made. Reshuffle them thousands of times. Count what happened.</p>
+        </div>
+
+        <div class="prose">
+            <p>Say a strategy produced these 8 trades over two years (as percentages of starting capital):</p>
+        </div>
+
+        <div class="example">
+            <span class="label">The historical trades</span>
+            <div style="margin-top: 6px;">
+                <span class="trade-chip trade-win">+5%</span>
+                <span class="trade-chip trade-loss">-3%</span>
+                <span class="trade-chip trade-win">+8%</span>
+                <span class="trade-chip trade-loss">-5%</span>
+                <span class="trade-chip trade-win">+2%</span>
+                <span class="trade-chip trade-loss">-4%</span>
+                <span class="trade-chip trade-win">+6%</span>
+                <span class="trade-chip trade-loss">-2%</span>
+            </div>
+            <p style="margin-top: 14px;">In this specific order, the strategy ended slightly up. But is that guaranteed to happen again?</p>
+        </div>
+
+        <div class="prose">
+            <p>Monte Carlo takes those same 8 trades and reorders them. Sometimes it puts the winning streaks first, sometimes the losing streaks first, and sometimes it mixes them up. Over 5,000 simulations, you see the full range.</p>
+        </div>
+
+        <div class="resample-diagram">
+            <div class="resample-panel">
+                <h4>Original</h4>
+                <span class="trade-chip trade-win">+5%</span>
+                <span class="trade-chip trade-loss">-3%</span>
+                <span class="trade-chip trade-win">+8%</span>
+                <span class="trade-chip trade-loss">-5%</span>
+                <span class="trade-chip trade-win">+2%</span>
+                <span class="trade-chip trade-loss">-4%</span>
+                <span class="trade-chip trade-win">+6%</span>
+                <span class="trade-chip trade-loss">-2%</span>
+            </div>
+            <div class="resample-arrow">→</div>
+            <div class="resample-panel">
+                <h4>One resampled path</h4>
+                <span class="trade-chip trade-loss">-5%</span>
+                <span class="trade-chip trade-loss">-4%</span>
+                <span class="trade-chip trade-loss">-3%</span>
+                <span class="trade-chip trade-loss">-2%</span>
+                <span class="trade-chip trade-win">+2%</span>
+                <span class="trade-chip trade-win">+5%</span>
+                <span class="trade-chip trade-win">+6%</span>
+                <span class="trade-chip trade-win">+8%</span>
+                <span style="display:block; margin-top: 8px; font-size: 12px; color: #8a94a2;">
+                    Four losses first — a much worse journey, even though the same trades appear.
+                </span>
+            </div>
+        </div>
+
+        <div class="prose">
+            <p>By running this reshuffling thousands of times, we can compute percentiles. From a real StockWise run on a Nifty 50 index strategy:</p>
+        </div>
+
+        <table class="cmp-table">
+            <tr>
+                <th>Metric</th>
+                <th>Result</th>
+            </tr>
+            <tr>
+                <td>Simulations run</td>
+                <td class="num">5,000</td>
+            </tr>
+            <tr>
+                <td>Median final capital</td>
+                <td class="num">₹1,80,957</td>
+            </tr>
+            <tr>
+                <td>Worst 5% of paths ended below</td>
+                <td class="num neg">₹1,31,461</td>
+            </tr>
+            <tr>
+                <td>Best 5% of paths ended above</td>
+                <td class="num pos">₹2,54,423</td>
+            </tr>
+            <tr>
+                <td>Probability of ending below start</td>
+                <td class="num neg">68.3%</td>
+            </tr>
+            <tr>
+                <td>Median maximum drawdown</td>
+                <td class="num neg">-22.29%</td>
+            </tr>
+            <tr>
+                <td>Chance of > 30% drawdown</td>
+                <td class="num neg">22.2%</td>
+            </tr>
+            <tr>
+                <td>Risk of ruin (dropping below 50%)</td>
+                <td class="num">0.12%</td>
+            </tr>
+        </table>
+
+        <div class="prose">
+            <p>Each of these numbers is a fact about the distribution, not a prediction. They tell you how much variety exists within the strategy's own trades.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 4. KEY TERMS -->
+
+<section class="section section-light" id="terms">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 4</span>
+            <h2>Key terms you'll see</h2>
+            <p class="lead">Six terms cover 90% of a Monte Carlo report. Each is one or two sentences.</p>
+        </div>
+
+        <div class="term-grid">
+            <div class="term">
+                <h4>Simulation</h4>
+                <p>One resampled path. A run with 5,000 simulations means 5,000 different sequences of the same trades.</p>
+            </div>
+            <div class="term">
+                <h4>Median (p50)</h4>
+                <p>Half of simulations ended above this value, half below. It's the "middle" outcome, and usually a better guide than the average (which can be skewed by extreme cases).</p>
+            </div>
+            <div class="term">
+                <h4>5th percentile (p5)</h4>
+                <p>The value below which only 5% of simulations ended. The bottom edge of the plausible range.</p>
+            </div>
+            <div class="term">
+                <h4>95th percentile (p95)</h4>
+                <p>The value below which 95% of simulations ended — i.e., only 5% did better. The upper edge of the plausible range.</p>
+            </div>
+            <div class="term">
+                <h4>Probability of loss</h4>
+                <p>The fraction of simulations whose final capital was below the starting capital. The single most important number for risk assessment.</p>
+            </div>
+            <div class="term">
+                <h4>Risk of ruin</h4>
+                <p>The fraction of simulations where the strategy fell below a critical threshold (often 50% of starting capital). Even a small probability here is worth taking seriously.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. READING -->
+
+<section class="section" id="reading">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 5</span>
+            <h2>Reading the results</h2>
+            <p class="lead">A Monte Carlo report says something about the strategy's risk profile, not about the strategy's expected return.</p>
+        </div>
+
+        <div class="prose">
+            <p>The report gives you two kinds of information: <strong>what outcomes are possible</strong>, and <strong>how likely the bad ones are</strong>. The first two cards on the Outcome tab show the range; the next three tell you where the risks sit.</p>
+
+            <p>The critical number to look at first is <em>probability of loss</em>. A strategy with a positive median return but a 60% probability of loss is very different from one with the same median and a 15% probability of loss. Both might have the same final "backtest" number, but they feel completely different to hold.</p>
+
+            <p>Second most important: <em>the 5th percentile outcome</em>. This is the "bottom edge of plausible." If that number is far below your starting capital, the strategy has a real chance of losing money — even if the median is positive.</p>
+
+            <p>Third: <em>drawdown risk</em>. A strategy with a 30% or 40% drawdown will make you question whether it works. If the simulations frequently show drawdowns of that size, you need to be prepared for them in real trading.</p>
+        </div>
+
+        <div class="verdict-grid">
+            <div class="verdict good">
+                <span class="pill">Low risk</span>
+                <h4>Robust across the spread</h4>
+                <p>Median positive, probability of loss under 20%, drawdowns moderate, ruin probability negligible. This is what you want to see.</p>
+            </div>
+            <div class="verdict mixed">
+                <span class="pill">Mixed</span>
+                <h4>Positive but with real risk</h4>
+                <p>Median positive but probability of loss between 20% and 50%. The strategy can work, but you need to endure losing stretches.</p>
+            </div>
+            <div class="verdict warning">
+                <span class="pill">High risk</span>
+                <h4>Downside dominates</h4>
+                <p>Median negative, or probability of loss above 50%. The simulation results themselves say the strategy is more likely to lose than win.</p>
+            </div>
+        </div>
+
+        <div class="callout">
+            <p><strong>A useful mental model:</strong> if you ran this strategy 100 times on 100 different market histories that all had the same trades, what would the distribution of outcomes look like? That distribution is what Monte Carlo shows.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 6. LIMITS -->
+
+<section class="section section-light" id="limits">
+    <div class="container">
+        <div class="section-heading">
+            <span class="num">Topic 6</span>
+            <h2>What Monte Carlo does not do</h2>
+            <p class="lead">It does not predict the future. It shows how the strategy's own past behaviour could have played out in different orders.</p>
+        </div>
+
+        <div class="prose">
+            <p>The single biggest misunderstanding about Monte Carlo is that it <em>forecasts</em> what will happen. It does not. It makes one assumption — that the past trades are representative of the kind of trades the strategy produces — and then explores what could have happened within that assumption.</p>
+
+            <p>Two specific caveats:</p>
+
+            <ul class="bullets">
+                <li><strong>If the past trades are unrepresentative of the future, Monte Carlo inherits that flaw.</strong> A strategy that worked in one specific market regime might not work in another, and Monte Carlo over its historical trades won't reveal that.</li>
+                <li><strong>Monte Carlo cannot see correlations.</strong> It treats every trade as independent. If trades in the real world are correlated (e.g., the whole market drops on the same day), the true drawdown could be worse than the simulation shows.</li>
+            </ul>
+
+            <p>Because of these limits, the correct way to read a Monte Carlo report is:</p>
+
+            <div class="callout">
+                <p><strong>"In the simulations based on this strategy's historical trade characteristics, X% of paths produced this outcome."</strong> Not <em>"the strategy has an X% chance of producing this outcome."</em> That distinction matters.</p>
+            </div>
+
+            <p>Monte Carlo is a tool for understanding the <em>shape</em> of the risk. It works best in combination with walk-forward analysis, which tells you whether the trades being simulated are themselves robust. A strategy that fails walk-forward analysis should not be trusted, no matter how good its Monte Carlo numbers look.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to see your strategy's risk profile?</h2>
+        <p>Open StockWise, run a walk-forward analysis, then feed its trades into Monte Carlo.</p>
+        <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise"
+           class="btn btn-primary" target="_blank">Download StockWise</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">Stock<span>Wise</span></div>
+                <p>Historical stock analysis and data preparation tools designed to make market information easier to work with.</p>
+            </div>
+            <div class="footer-links">
+                <a href="help.html">Help Center</a>
+                <a href="disclaimer.html">Terms &amp; Conditions</a>
+                <a href="privacypolicy.html">Privacy</a>
+                <a href="refunds.html">Refunds &amp; Cancellations</a>
+                <a href="contact.html">Support</a>
+                <a href="stockwise_ai_demo.html">How StockWise Works</a>
+                <a href="https://play.google.com/store/apps/details?id=in.fairgrow.stockwise" target="_blank">Android Download</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Fairgrow Holdings. All rights reserved.</div>
+            <div>StockWise is a historical data and analysis tool.</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
