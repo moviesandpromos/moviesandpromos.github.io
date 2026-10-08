@@ -6,7 +6,7 @@
 
     <title>StockWise Help Center — Beginner Guides to Backtesting</title>
     <meta name="description"
-          content="Plain-English guides to backtesting on StockWise: entry and exit conditions, risk parameters, understanding your results, and buy-and-hold comparison.">
+          content="Plain-English guides to backtesting on StockWise: entry and exit conditions, risk parameters, understanding your results, walk-forward analysis, Monte Carlo, and strategy templates.">
     <link rel="canonical" href="https://www.stocksnmore.com/help.html">
 
     <style>
@@ -134,6 +134,17 @@
         }
         .section-heading p { color: #657184; font-size: 16px; }
 
+        /* ── Category heading inside the grid section ── */
+        .category-heading {
+            font-size: 13px;
+            font-weight: 800;
+            color: #8a94a2;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin: 34px 0 14px;
+        }
+        .category-heading:first-of-type { margin-top: 0; }
+
         /* ── Info cards ── */
         .info-grid {
             display: grid;
@@ -245,9 +256,11 @@
     <div class="container">
         <div class="section-heading">
             <h2>Choose a topic</h2>
-            <p>Four guides cover everything you need to run a backtest and understand the results.</p>
+            <p>Seven guides cover everything you need to run a backtest, analyse it with walk-forward and Monte Carlo, and understand the results.</p>
         </div>
 
+        <!-- ── Foundations ── -->
+        <div class="category-heading">Foundations</div>
         <div class="topic-grid">
 
             <a href="help-entry-exit-conditions.html" class="topic-card">
@@ -275,6 +288,33 @@
                 <span class="topic-icon">⚖️</span>
                 <h3>Buy &amp; Hold Comparison</h3>
                 <p>Why comparing your strategy against simply holding the stock matters — and how to read the difference.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+        </div>
+
+        <!-- ── Advanced analysis ── -->
+        <div class="category-heading">Advanced analysis</div>
+        <div class="topic-grid">
+
+            <a href="help-walkforward.html" class="topic-card">
+                <span class="topic-icon">🔬</span>
+                <h3>Walk-Forward Analysis</h3>
+                <p>How to test a strategy on data it was never trained on — and why that's the only honest way to judge whether it works.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+            <a href="help-monte-carlo.html" class="topic-card">
+                <span class="topic-icon">🎲</span>
+                <h3>Monte Carlo Analysis</h3>
+                <p>See how bad a strategy could get by resampling its trades thousands of times — and what "probability of loss" really means.</p>
+                <span class="topic-arrow">Read the guide →</span>
+            </a>
+
+            <a href="help-strategies.html" class="topic-card">
+                <span class="topic-icon">🧭</span>
+                <h3>Strategy Guide</h3>
+                <p>The specific strategies StockWise tests — Trend Following, Oversold Reversal, Momentum Recovery, and more — explained with worked examples.</p>
                 <span class="topic-arrow">Read the guide →</span>
             </a>
 
