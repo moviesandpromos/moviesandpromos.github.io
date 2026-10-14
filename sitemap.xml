@@ -1,7 +1,5 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
     <url>
         <loc>https://stocksnmore.com/</loc>
     </url>
@@ -38,4 +36,32 @@
         <loc>https://stocksnmore.com/disclaimer.html</loc>
     </url>
 
+    <url>
+        <loc>https://stocksnmore.com/help.html</loc>
+    </url>
+
+    <url>
+        <loc>https://stocksnmore.com/help-walkforward.html</loc>
+    </url>
+
+    <url>
+        <loc>https://stocksnmore.com/help-understanding-results.html</loc>
+    </url>
+
+    <url>
+        <loc>https://stocksnmore.com/help-strategies.html</loc>
+    </url>
+
+    <url>
+        <loc>https://stocksnmore.com/help-risk-parameters.html</loc>
+    </url>
+    <url>
+        <loc>https://stocksnmore.com/help-monte-carlo.html</loc>
+    </url>
+    <url>
+        <loc>https://stocksnmore.com/help-entry-exit-conditions.html</loc>
+    </url>
+    <url>
+        <loc>https://stocksnmore.com/help-buy-and-hold.html</loc>
+    </url>
 </urlset>
