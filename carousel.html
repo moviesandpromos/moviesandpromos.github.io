@@ -1,11 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>StockWise — Slide Show</title>
+
 <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
 
     :root {
         --bg: #f7f8fa;
@@ -34,23 +42,30 @@
         }
     }
 
-    html, body {
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
         background: var(--bg);
         color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", Roboto, sans-serif;
         -webkit-font-smoothing: antialiased;
         overscroll-behavior-y: contain;
     }
 
     .page {
+        width: 100%;
         max-width: 720px;
         margin: 0 auto;
         padding: 16px;
     }
 
-    /* ── Carousel container ── */
+    /* Carousel container */
+
     .carousel {
         position: relative;
+        width: 100%;
         border-radius: var(--radius);
         overflow: hidden;
         background: var(--surface);
@@ -58,30 +73,59 @@
         border: 1px solid var(--border);
     }
 
-    /* ── Slide track ── */
+    /* Slide track */
+
     .track {
         display: flex;
+        width: 100%;
         transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
         will-change: transform;
+        touch-action: pan-y;
     }
+
+    /* Individual slide */
 
     .slide {
         flex: 0 0 100%;
-        min-width: 100%;
+        width: 100%;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         background: var(--surface);
     }
 
-   .slide img {
-    width: 100%;
-    height: 420px;              /* taller container so contain doesn't letterbox much */
-    object-fit: contain;        /* show the whole image, no cropping */
-    display: block;
-    background: var(--bg);      /* the "letterbox" bar matches the page, not a hard black/white */
-}
-   
-    /* Reserve space for description — consistent across slides */
+    /*
+       IMAGE DISPLAY AREA
+
+       The area adjusts to screen height.
+       The complete image is always displayed.
+       No fixed image width/height combination that crops content.
+    */
+
+    .slide-media {
+        width: 100%;
+        height: clamp(220px, 65vh, 620px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: var(--bg);
+    }
+
+    .slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        max-width: 100%;
+        max-height: 100%;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    /* Caption */
+
     .caption {
         padding: 16px 18px 20px;
         min-height: 120px;
@@ -102,42 +146,68 @@
         color: var(--text-secondary);
     }
 
-    /* ── Arrows (hidden on small phones where swipe is primary) ── */
+    /* Navigation arrows */
+
     .arrow {
         position: absolute;
-        top: 160px;          /* vertically centered on the image */
+
+        /* Centre arrows vertically within the image area */
+        top: clamp(110px, 32.5vh, 310px);
+
         transform: translateY(-50%);
         width: 40px;
         height: 40px;
         border-radius: 50%;
+
         background: rgba(255, 255, 255, 0.9);
         color: #1a1d21;
+
         border: none;
         font-size: 20px;
         font-weight: 700;
+
         cursor: pointer;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         transition: opacity 0.2s ease;
+
         z-index: 10;
     }
 
     @media (prefers-color-scheme: dark) {
-        .arrow { background: rgba(30, 41, 59, 0.9); color: #f1f5f9; }
+        .arrow {
+            background: rgba(30, 41, 59, 0.9);
+            color: #f1f5f9;
+        }
     }
 
-    .arrow:disabled { opacity: 0; pointer-events: none; }
-    .arrow-prev { left: 12px; }
-    .arrow-next { right: 12px; }
+    .arrow:disabled {
+        opacity: 0;
+        pointer-events: none;
+    }
 
-    /* Hide arrows on narrow screens (phone primary = swipe) */
- @media (min-width: 600px) {
-    .slide img { height: 520px; }
-    .arrow { top: 260px; }
-}
-    /* ── Dots + counter ── */
+    .arrow-prev {
+        left: 12px;
+    }
+
+    .arrow-next {
+        right: 12px;
+    }
+
+    /* Hide arrows on narrow screens; swipe is primary */
+
+    @media (max-width: 599px) {
+        .arrow {
+            display: none;
+        }
+    }
+
+    /* Footer */
+
     .footer {
         display: flex;
         align-items: center;
@@ -146,6 +216,8 @@
         background: var(--surface);
         border-top: 1px solid var(--border);
     }
+
+    /* Navigation dots */
 
     .dots {
         display: flex;
@@ -175,170 +247,379 @@
         color: var(--muted);
     }
 
-    /* Larger screens: increase image height */
-    @media (min-width: 600px) {
-        .slide img { height: 400px; }
-        .arrow { top: 200px; }
+    /* Small-screen adjustments */
+
+    @media (max-width: 599px) {
+        .page {
+            padding: 10px;
+        }
+
+        .slide-media {
+            height: clamp(220px, 60vh, 520px);
+        }
+
+        .caption {
+            padding: 14px 16px 18px;
+        }
     }
+
 </style>
 </head>
+
 <body>
 
 <div class="page">
-    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Slide show">
 
-        <button class="arrow arrow-prev" aria-label="Previous slide" disabled>&#10094;</button>
-        <button class="arrow arrow-next" aria-label="Next slide">&#10095;</button>
+    <div class="carousel"
+         role="region"
+         aria-roledescription="carousel"
+         aria-label="Slide show">
+
+        <button class="arrow arrow-prev"
+                aria-label="Previous slide"
+                disabled>
+            &#10094;
+        </button>
+
+        <button class="arrow arrow-next"
+                aria-label="Next slide">
+            &#10095;
+        </button>
 
         <div class="track" id="track">
-            <!-- Slides injected by JS -->
+            <!-- Slides injected by JavaScript -->
         </div>
 
         <div class="footer">
-            <div class="dots" id="dots" role="tablist"></div>
-            <div class="counter" id="counter">1 / 8</div>
+
+            <div class="dots"
+                 id="dots"
+                 role="tablist">
+            </div>
+
+            <div class="counter" id="counter">
+                1 / 8
+            </div>
+
         </div>
+
     </div>
+
 </div>
 
 <script>
+
 (function () {
-    // ── Slide data — edit this array, or replace it with a fetch() ──
+
+    // ── Slide data ──
+
     const slides = [
-        { image: 'https://stocksnmore.com/slide1.jpeg', title: 'Slide 1', description: 'Description for slide one goes here.' },
-        { image: 'https://stocksnmore.com/slide2.jpeg', title: 'Slide 2', description: 'Description for slide two goes here.' },
-        { image: 'https://stocksnmore.com/slide3.jpeg', title: 'Slide 3', description: 'Description for slide three goes here.' },
-        { image: 'https://stocksnmore.com/slide4.jpeg', title: 'Slide 4', description: 'Description for slide four goes here.' },
-        { image: 'https://stocksnmore.com/slide5.jpeg', title: 'Slide 5', description: 'Description for slide five goes here.' },
-        { image: 'https://stocksnmore.com/slide6.jpeg', title: 'Slide 6', description: 'Description for slide six goes here.' },
-        { image: 'https://stocksnmore.com/slide7.jpeg', title: 'Slide 7', description: 'Description for slide seven goes here.' },
-        { image: 'https://stocksnmore.com/slide8.jpeg', title: 'Slide 8', description: 'Description for slide eight goes here.' }
+        {
+            image: 'https://stocksnmore.com/slide1.jpeg',
+            title: 'Slide 1',
+            description: 'Description for slide one goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide2.jpeg',
+            title: 'Slide 2',
+            description: 'Description for slide two goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide3.jpeg',
+            title: 'Slide 3',
+            description: 'Description for slide three goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide4.jpeg',
+            title: 'Slide 4',
+            description: 'Description for slide four goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide5.jpeg',
+            title: 'Slide 5',
+            description: 'Description for slide five goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide6.jpeg',
+            title: 'Slide 6',
+            description: 'Description for slide six goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide7.jpeg',
+            title: 'Slide 7',
+            description: 'Description for slide seven goes here.'
+        },
+        {
+            image: 'https://stocksnmore.com/slide8.jpeg',
+            title: 'Slide 8',
+            description: 'Description for slide eight goes here.'
+        }
     ];
 
-    const track   = document.getElementById('track');
+
+    const track = document.getElementById('track');
     const dotsBox = document.getElementById('dots');
     const counter = document.getElementById('counter');
+
     const btnPrev = document.querySelector('.arrow-prev');
     const btnNext = document.querySelector('.arrow-next');
 
     let index = 0;
+
     let startX = 0;
     let startY = 0;
-    let dragging = false;
-    let pointerMoved = false;
 
-    // ── Build slides + dots ──
+    let dragging = false;
+
+
+    // ── Build slides and dots ──
+
     slides.forEach((s, i) => {
+
         const slide = document.createElement('div');
+
         slide.className = 'slide';
+
         slide.setAttribute('role', 'group');
         slide.setAttribute('aria-roledescription', 'slide');
-        slide.setAttribute('aria-label', `${i + 1} of ${slides.length}`);
+        slide.setAttribute('aria-label',
+            `${i + 1} of ${slides.length}`);
+
+
+        // Image area
+
+        const media = document.createElement('div');
+
+        media.className = 'slide-media';
+
 
         const img = document.createElement('img');
+
         img.src = s.image;
         img.alt = s.title || `Slide ${i + 1}`;
+
         img.loading = i === 0 ? 'eager' : 'lazy';
+
         img.draggable = false;
 
+
+        media.appendChild(img);
+
+
+        // Caption
+
         const caption = document.createElement('div');
+
         caption.className = 'caption';
+
+
         if (s.title) {
+
             const t = document.createElement('div');
+
             t.className = 'caption-title';
             t.textContent = s.title;
+
             caption.appendChild(t);
         }
+
+
         const d = document.createElement('div');
+
         d.className = 'caption-text';
         d.textContent = s.description || ' ';
+
         caption.appendChild(d);
 
-        slide.appendChild(img);
+
+        slide.appendChild(media);
         slide.appendChild(caption);
+
         track.appendChild(slide);
 
+
+        // Navigation dot
+
         const dot = document.createElement('button');
+
         dot.className = 'dot' + (i === 0 ? ' active' : '');
+
         dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+
+        dot.setAttribute('aria-label',
+            `Go to slide ${i + 1}`);
+
         dot.addEventListener('click', () => goTo(i));
+
         dotsBox.appendChild(dot);
+
     });
 
-    // ── Core go-to ──
-    function goTo(i) {
-        index = Math.max(0, Math.min(i, slides.length - 1));
-        track.style.transform = `translateX(${-index * 100}%)`;
 
-        document.querySelectorAll('.dot').forEach((d, k) =>
-            d.classList.toggle('active', k === index)
-        );
-        counter.textContent = `${index + 1} / ${slides.length}`;
+    // ── Go to slide ──
+
+    function goTo(i) {
+
+        index = Math.max(0, Math.min(i, slides.length - 1));
+
+        track.style.transform =
+            `translateX(-${index * 100}%)`;
+
+
+        document.querySelectorAll('.dot').forEach((d, k) => {
+
+            d.classList.toggle('active', k === index);
+
+        });
+
+
+        counter.textContent =
+            `${index + 1} / ${slides.length}`;
+
 
         btnPrev.disabled = index === 0;
+
         btnNext.disabled = index === slides.length - 1;
+
     }
 
-    btnPrev.addEventListener('click', () => goTo(index - 1));
-    btnNext.addEventListener('click', () => goTo(index + 1));
 
-    // ── Swipe (Pointer Events — works for touch, pen, mouse) ──
-    track.addEventListener('pointerdown', (e) => {
-        dragging = true;
-        pointerMoved = false;
-        startX = e.clientX;
-        startY = e.clientY;
-        track.style.transition = 'none';
+    // ── Arrow navigation ──
+
+    btnPrev.addEventListener('click', () => {
+
+        goTo(index - 1);
+
     });
 
+
+    btnNext.addEventListener('click', () => {
+
+        goTo(index + 1);
+
+    });
+
+
+    // ── Swipe handling ──
+
+    track.addEventListener('pointerdown', (e) => {
+
+        // Only respond to primary mouse button or touch/pen
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+        dragging = true;
+
+        startX = e.clientX;
+        startY = e.clientY;
+
+        track.style.transition = 'none';
+
+        if (track.setPointerCapture) {
+            track.setPointerCapture(e.pointerId);
+        }
+
+    });
+
+
     track.addEventListener('pointermove', (e) => {
+
         if (!dragging) return;
+
         const dx = e.clientX - startX;
+
         const dy = e.clientY - startY;
 
-        // If vertical motion dominates, cancel — let page scroll
+
+        // Allow normal vertical page scrolling
+
         if (Math.abs(dy) > Math.abs(dx) + 10) {
+
             dragging = false;
+
             track.style.transition = '';
-            goTo(index);           // snap back
+
+            goTo(index);
+
             return;
         }
 
-        pointerMoved = true;
+
         const pct = (dx / track.offsetWidth) * 100;
-        track.style.transform = `translateX(${-index * 100 + pct}%)`;
+
+        track.style.transform =
+            `translateX(${-index * 100 + pct}%)`;
+
     });
+
 
     function endDrag(e) {
+
         if (!dragging) return;
+
         dragging = false;
+
         track.style.transition = '';
 
-        const dx = (e.clientX ?? startX) - startX;
-        const threshold = track.offsetWidth * 0.15;  // 15% swipe to advance
 
-        if (dx < -threshold) goTo(index + 1);
-        else if (dx > threshold) goTo(index - 1);
-        else goTo(index);
+        const dx = e.clientX - startX;
+
+        const threshold = track.offsetWidth * 0.15;
+
+
+        if (dx < -threshold) {
+
+            goTo(index + 1);
+
+        } else if (dx > threshold) {
+
+            goTo(index - 1);
+
+        } else {
+
+            goTo(index);
+
+        }
+
     }
 
-    track.addEventListener('pointerup', endDrag);
-    track.addEventListener('pointercancel', endDrag);
-    track.addEventListener('pointerleave', endDrag);
 
-    // ── Keyboard ──
+    track.addEventListener('pointerup', endDrag);
+
+    track.addEventListener('pointercancel', endDrag);
+
+
+    // ── Keyboard navigation ──
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') goTo(index - 1);
-        else if (e.key === 'ArrowRight') goTo(index + 1);
+
+        if (e.key === 'ArrowLeft') {
+
+            goTo(index - 1);
+
+        } else if (e.key === 'ArrowRight') {
+
+            goTo(index + 1);
+
+        }
+
     });
 
-    // ── Prevent accidental image drag/native swipe on iOS ──
-    track.addEventListener('dragstart', (e) => e.preventDefault());
 
-    // ── Init ──
+    // ── Prevent accidental image dragging ──
+
+    track.addEventListener('dragstart', (e) => {
+
+        e.preventDefault();
+
+    });
+
+
+    // ── Initialisation ──
+
     goTo(0);
+
 })();
+
 </script>
 
 </body>
