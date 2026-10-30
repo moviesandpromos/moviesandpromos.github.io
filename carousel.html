@@ -55,35 +55,39 @@
     }
 
     .page {
-        width: 100%;
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 16px;
-    }
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+}
 
     /* Carousel container */
 
-    .carousel {
-        position: relative;
-        width: 100%;
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: var(--surface);
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border);
-    }
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 688px;
+    margin-left: auto;
+    margin-right: auto;
 
-    /* Slide track */
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+   
+   /* Slide track */
 
-    .track {
-        display: flex;
-        width: 100%;
-        transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-        will-change: transform;
-        touch-action: pan-y;
-    }
-
-    /* Individual slide */
+.track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform;
+}
+   
+   /* Individual slide */
 
     .slide {
         flex: 0 0 100%;
